@@ -63,11 +63,23 @@
   .todo-list li{padding:11px 14px;border-bottom:1px solid var(--rule);font-size:13.5px;color:var(--ink);line-height:1.45}
   .todo-list li:last-child{border-bottom:none}
   .todo-list li::before{content:"☐ ";margin-right:6px;color:var(--ink-muted);font-weight:600}
-  .dayplan li{padding:11px 14px;border-bottom:1px solid var(--rule);display:flex;gap:14px;font-size:13.5px;align-items:baseline;line-height:1.45}
+  .dayplan li{padding:11px 14px;border-bottom:1px solid var(--rule);display:flex;gap:14px;font-size:13px;align-items:flex-start;line-height:1.45}
   .dayplan li:last-child{border-bottom:none}
   .dayplan .day{font-weight:700;color:var(--blue-deep);width:48px;flex-shrink:0;font-size:12px;letter-spacing:0.04em}
   .dayplan .day.warn{color:var(--red)}
-  .dayplan .desc{color:var(--ink);flex:1}
+  .dayplan .body{flex:1}
+  .dayplan .flow{font-weight:700;font-size:12.5px;margin-bottom:2px}
+  .dayplan .flow.out{color:var(--red)}
+  .dayplan .flow.in{color:var(--green)}
+  .dayplan .flow.mixed{color:var(--ink)}
+  .dayplan .desc{color:var(--ink-soft);font-size:12.5px}
+  .week-summary{background:#1e293b;color:#f8fafc;border-radius:12px;padding:14px 16px;margin-top:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center}
+  .week-summary .lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8;font-weight:700;margin-bottom:4px}
+  .week-summary .val{font-size:18px;font-weight:700;letter-spacing:-0.02em}
+  .week-summary .val.out{color:#fca5a5}
+  .week-summary .val.in{color:#86efac}
+  .week-summary .val.net{color:#fcd34d}
+  .week-summary .sub{font-size:10.5px;color:#94a3b8;margin-top:2px}
   .footer{text-align:center;margin-top:30px;font-size:11px;color:var(--ink-muted);padding:12px}
   @media(min-width:560px){
     body{padding:28px 14px;font-size:15px}
@@ -87,7 +99,7 @@
   </div>
 
   <div class="narrative">
-    Strong week — <strong>$55K landed</strong>, but heavy committed out (<strong>$63K incl. payroll</strong>). Tuesday cash floor is <strong>$3.4K</strong>. Pastor Mo $22,698 decision Tue is critical — without it Friday goes <strong>underwater</strong>.
+    Strong week — <strong>$55K landed</strong>, but heavy commitments out (<strong>$63K</strong> incl. payroll). Tuesday cash floor is <strong>$3.4K</strong>. Pastor Mo $22,698 decision Tue is critical — without it Friday goes <strong>underwater</strong>.
   </div>
 
   <div class="cards">
@@ -189,14 +201,50 @@
     <li>FieldWire $8,200 — hold until wk 5/18</li>
   </ul>
 
-  <div class="section-title"><span class="icon">📅</span>Day-by-day next week</div>
+  <div class="section-title"><span class="icon">📅</span>Next week — daily flow (everything)</div>
   <ul class="dayplan">
-    <li><span class="day">MON</span><span class="desc">Payroll bulk · Charles BT initiation · LA Tiles likely cashes</span></li>
-    <li><span class="day warn">TUE</span><span class="desc"><strong>Pastor Mo deadline</strong> · cash floor <strong>$3.4K</strong></span></li>
-    <li><span class="day">WED</span><span class="desc">Charles BT $17K lands (best case)</span></li>
-    <li><span class="day">THU</span><span class="desc">BILO bi-weekly + early payroll cashing</span></li>
-    <li><span class="day">FRI</span><span class="desc">Yankeepine $18,936 + Mo final · floor <strong>$18.4K</strong> with Mo / <strong>−$4.3K</strong> without</span></li>
+    <li>
+      <span class="day">MON</span>
+      <span class="body">
+        <span class="flow out">−$19K out</span>
+        <span class="desc">Payroll bulk (wk-5/3 remainder ~$10.5K) + LA Tiles $6.5K cashing + small autopays</span>
+      </span>
+    </li>
+    <li>
+      <span class="day warn">TUE</span>
+      <span class="body">
+        <span class="flow out">−$11K out · floor $3.4K</span>
+        <span class="desc">Payroll Tue ~$9K + Northeast $1,080 + autopays + Pastor Mo deadline</span>
+      </span>
+    </li>
+    <li>
+      <span class="day">WED</span>
+      <span class="body">
+        <span class="flow in">+$17K in</span>
+        <span class="desc">Charles BT $17K lands (best case — may slip Thu)</span>
+      </span>
+    </li>
+    <li>
+      <span class="day">THU</span>
+      <span class="body">
+        <span class="flow out">−$5K out</span>
+        <span class="desc">BILO bi-weekly $1.9K + early payroll cashing $2.2K + Citizens auto $0.9K</span>
+      </span>
+    </li>
+    <li>
+      <span class="day">FRI</span>
+      <span class="body">
+        <span class="flow mixed">−$31K out · +$34K in (with Mo)</span>
+        <span class="desc">Yankeepine $18.9K + Alex Dias $5.8K + savings $1.5K + autopays + payroll · Mo $22.7K + RBA $10.9K</span>
+      </span>
+    </li>
   </ul>
+  <div class="week-summary">
+    <div><div class="lbl">Out next wk</div><div class="val out">−$66K</div></div>
+    <div><div class="lbl">In (with Mo)</div><div class="val in">+$51K</div></div>
+    <div><div class="lbl">Net</div><div class="val net">−$15K</div></div>
+  </div>
+  <div class="info-note" style="margin-top:6px">Without Mo: in drops to $28K → net <strong>−$38K</strong> (would burn most of cushion). Defensive plays needed if Mo silent: defer Yankeepine + hold Alex Dias.</div>
 
   <div class="footer">Sent Fri May 8, 2026 EOD · RFS Dashboard</div>
 
