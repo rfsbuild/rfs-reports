@@ -128,7 +128,25 @@
   details.catg.dayrow .catg-amt{display:none}
   details.catg.dayrow .catg-body{padding:6px 14px 12px 62px}
   details.catg.dayrow .catg-body .desc{font-size:12.5px;color:var(--ink-soft);line-height:1.5}
+
+  /* mobile fixes — long status lines + pending materials table overflow */
+  @media(max-width:559px){
+    .proj-list li{flex-wrap:wrap;align-items:flex-start}
+    .proj-status{white-space:normal !important;text-align:left;flex-basis:100%;margin-left:19px;margin-top:4px}
+    /* pending materials table: stack rows as card blocks on mobile */
+    .subs-table{padding:0}
+    .subs-table table,.subs-table thead,.subs-table tbody,.subs-table tr,.subs-table td,.subs-table th{display:block;width:100%}
+    .subs-table thead{display:none}
+    .subs-table tr{border-bottom:1px solid var(--rule);padding:10px 14px}
+    .subs-table tr:last-child{border-bottom:none}
+    .subs-table td{padding:3px 0;border:none;font-size:13px}
+    .subs-table td.amt{text-align:left;font-weight:700;font-size:14px;padding-top:4px}
+    .subs-table td:first-child{font-weight:700;color:var(--ink);font-size:14px}
+    .subs-table td:nth-child(2){color:var(--ink-soft);font-size:12px}
+    .subs-table td:nth-child(4){color:var(--ink-soft);font-size:11.5px;padding-top:4px}
+  }
 </style>
+
 
 
 </head>
