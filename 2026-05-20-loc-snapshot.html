@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RFS — Working Capital Snapshot</title>
+<style>
+  :root{
+    --blue:#3b6ea5;--blue-deep:#2c5683;--blue-soft:#e8eef6;
+    --paper:#f0f4f8;--card:#fff;
+    --ink:#1e293b;--ink-soft:#475569;--ink-muted:#94a3b8;
+    --rule:#e2e8f0;
+    --green:#3b8268;--green-soft:#e3efe9;
+    --amber:#c8841d;--amber-soft:#fbf2e2;
+    --red:#b8443c;--red-soft:#f7e3e2;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;padding:20px 12px 48px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:var(--paper);color:var(--ink);
+    font-size:15px;line-height:1.5;
+    font-feature-settings:"tnum";font-variant-numeric:tabular-nums;
+    -webkit-text-size-adjust:100%;
+  }
+  .container{max-width:720px;margin:0 auto}
+  .brand{font-size:11px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.18em;font-weight:700}
+  h1{font-size:24px;font-weight:700;margin:4px 0 2px;color:var(--blue-deep);letter-spacing:-0.02em}
+  .stamp{font-size:13px;color:var(--ink-soft);margin-bottom:24px}
+
+  .section-title{
+    font-size:13px;font-weight:700;color:var(--ink);
+    margin:28px 0 8px;padding:0 2px;
+    text-transform:uppercase;letter-spacing:0.08em;
+  }
+  .section-title.in{color:var(--green)}
+  .section-title.out{color:var(--amber)}
+  .section-title.cycle{color:var(--blue-deep)}
+  .section-title.ref{color:var(--ink-muted)}
+
+  .sub-title{font-size:12px;color:var(--ink-soft);font-weight:600;margin:18px 2px 6px}
+
+  table{
+    width:100%;border-collapse:collapse;
+    background:var(--card);border-radius:12px;overflow:hidden;
+    box-shadow:0 1px 3px rgba(30,41,59,.06);
+    margin:0 0 4px;
+  }
+  th,td{
+    text-align:left;padding:10px 12px;
+    border-bottom:1px solid var(--rule);
+    font-size:14px;
+  }
+  th{
+    background:var(--paper);font-weight:600;color:var(--ink-muted);
+    font-size:10.5px;text-transform:uppercase;letter-spacing:0.06em;
+  }
+  td.num,th.num{text-align:right;white-space:nowrap;font-weight:600}
+  td.desc{color:var(--ink-soft);font-size:12px}
+  tr:last-child td{border-bottom:none}
+  tr.subtotal td{background:var(--paper);font-weight:700;color:var(--ink)}
+
+  .pill{
+    border-radius:12px;padding:14px 18px;
+    display:flex;justify-content:space-between;align-items:center;
+    margin:10px 0 0;font-weight:600;
+  }
+  .pill.in{background:var(--green-soft);color:var(--green)}
+  .pill.out{background:var(--amber-soft);color:var(--amber)}
+  .pill .label{font-size:12px;text-transform:uppercase;letter-spacing:0.06em;font-weight:700}
+  .pill .amount{font-size:20px;font-weight:700;letter-spacing:-0.01em}
+
+  .ref-note{
+    background:var(--blue-soft);
+    color:var(--blue-deep);
+    border-left:4px solid var(--blue);
+    padding:10px 14px;border-radius:10px;
+    font-size:12.5px;line-height:1.45;
+    margin:8px 0 4px;
+  }
+  .ref-note strong{color:var(--blue-deep);font-weight:700}
+
+  .net{
+    margin-top:32px;
+    background:var(--card);
+    border:2px solid var(--red);
+    border-radius:14px;padding:18px 20px;
+    box-shadow:0 2px 6px rgba(184,68,60,.12);
+  }
+  .net-title{
+    font-size:12px;font-weight:700;color:var(--red);
+    text-transform:uppercase;letter-spacing:0.08em;
+    margin-bottom:10px;
+  }
+  .net-row{
+    display:flex;justify-content:space-between;
+    padding:7px 0;font-size:14.5px;
+    border-bottom:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .net-row .amt{font-weight:600;color:var(--ink);white-space:nowrap}
+  .net-row:last-child{border-bottom:none}
+  .net-row.final{
+    margin-top:8px;padding-top:12px;
+    border-top:2px solid var(--ink);border-bottom:none;
+    font-size:17px;font-weight:700;color:var(--ink);
+  }
+  .net-row.final .amt{color:var(--red);font-size:20px}
+
+  @media (max-width:480px){
+    body{padding:14px 10px 40px;font-size:14px}
+    h1{font-size:20px}
+    th,td{padding:8px 10px;font-size:13px}
+    th{font-size:10px}
+    td.desc{font-size:11.5px}
+    .pill{padding:12px 14px}
+    .pill .amount{font-size:17px}
+    .net{padding:14px 16px}
+    .net-row{font-size:13.5px}
+    .net-row.final{font-size:15px}
+    .net-row.final .amt{font-size:17px}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="brand">RFS Builders</div>
+  <h1>Working Capital Snapshot</h1>
+  <div class="stamp">As of 2026-05-20</div>
+
+  <!-- ─────────── INFLOWS ─────────── -->
+  <div class="section-title in">Money IN — if every customer pays this week</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th class="num">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Pastor Mo / All People Church<div class="desc">Target Fri 5/22 (mailed wk 5/18)</div></td>
+        <td class="num">$22,698.13</td>
+      </tr>
+      <tr>
+        <td>Charles Leveroni — BT invoice<div class="desc">Target Fri 5/22 (invoice sent 5/18)</div></td>
+        <td class="num">$27,688.21</td>
+      </tr>
+      <tr>
+        <td>RBA — Andersen weekly<div class="desc">Fri 5/22</div></td>
+        <td class="num">$15,000.00</td>
+      </tr>
+      <tr>
+        <td>Teresa Spillane — Inv 0018 partial<div class="desc">Overdue from 5/13</div></td>
+        <td class="num">$4,502.25</td>
+      </tr>
+      <tr>
+        <td>Ray Dunetz — 3 Arborview partial<div class="desc">Pending</div></td>
+        <td class="num">$2,000.00</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pill in">
+    <span class="label">Total IN</span>
+    <span class="amount">+$71,888.59</span>
+  </div>
+
+  <!-- ─────────── OVERHEAD ─────────── -->
+  <div class="section-title out">This week — recurring overhead</div>
+  <table>
+    <tbody>
+      <tr><td>wk-5/17 payroll (just printed, net)</td><td class="num">$17,049.82</td></tr>
+      <tr><td>AJ Thorne #3666 porta-potty<div class="desc">printed, not yet cashed</div></td><td class="num">$180.00</td></tr>
+      <tr><td>BILO — bi-weekly payroll tax<div class="desc">Thu</div></td><td class="num">$2,530.00</td></tr>
+      <tr><td>HD 8776 minimum payment<div class="desc">due 5/20, deferring to Fri 5/22</div></td><td class="num">$1,382.00</td></tr>
+      <tr><td>Friday savings transfer</td><td class="num">$1,500.00</td></tr>
+      <tr><td>Jaar Realty — May rent #3624<div class="desc">delivered, not yet cashed</div></td><td class="num">$745.00</td></tr>
+      <tr><td>Jaar Realty — April rent #3583<div class="desc">delivered, still uncashed</div></td><td class="num">$745.00</td></tr>
+      <tr><td>Average weekly Cap One burn<div class="desc">gas + small materials + admin/misc (4-wk avg)</div></td><td class="num">$7,961.00</td></tr>
+      <tr class="subtotal"><td>Overhead subtotal</td><td class="num">$32,092.82</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ─────────── SUBS / MATERIALS ─────────── -->
+  <div class="section-title out">Pending sub &amp; material invoices (by project)</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Project</th>
+        <th>Vendor</th>
+        <th class="num">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>104 Child</td><td>Alex Dias Painting</td><td class="num">$5,800.00</td></tr>
+      <tr><td>104 Child</td><td>Hybrid Air HVAC<div class="desc">overdue 7d</div></td><td class="num">$2,470.38</td></tr>
+      <tr><td>104 Child</td><td>P&amp;T Flooring</td><td class="num">$3,800.00</td></tr>
+      <tr><td>104 Child</td><td>LA Tiles</td><td class="num">$537.50</td></tr>
+      <tr><td>193 Smith</td><td>LA Tiles</td><td class="num">$3,060.00</td></tr>
+      <tr><td>299 Ocean</td><td>Yankeepine<div class="desc">Thu 5/21 direct debit</div></td><td class="num">$18,936.40</td></tr>
+      <tr><td>299 Ocean</td><td>Bay State Iron<div class="desc">due 6/1</div></td><td class="num">$12,300.00</td></tr>
+      <tr><td>299 Ocean</td><td>Martin's Masonry</td><td class="num">$2,900.00</td></tr>
+      <tr><td>Charles project (016)</td><td>HD direct — Chris Heaton<div class="desc">today</div></td><td class="num">$5,000.00</td></tr>
+      <tr><td>43 Haverford</td><td>Bravos Services #3545<div class="desc">plaster — check printed, not yet delivered</div></td><td class="num">$2,000.00</td></tr>
+      <tr><td>50 Maureen</td><td>Bravos Services #3546<div class="desc">tape — check printed, not yet delivered</div></td><td class="num">$1,200.00</td></tr>
+      <tr><td>43 Haverford</td><td>P&amp;T Flooring</td><td class="num">$1,900.00</td></tr>
+      <tr><td>43 Haverford</td><td>Skytech (electrical)</td><td class="num">$400.00</td></tr>
+      <tr><td>99 Concord</td><td>FieldWire Electric</td><td class="num">$8,200.00</td></tr>
+      <tr><td>14 Guernsey</td><td>Home Depot<div class="desc">quote H2614-480966</div></td><td class="num">$10,004.65</td></tr>
+      <tr class="subtotal"><td colspan="2">Subs/materials subtotal</td><td class="num">$78,508.93</td></tr>
+    </tbody>
+  </table>
+
+  <div class="pill out">
+    <span class="label">Total OUT (overhead + subs/materials)</span>
+    <span class="amount">−$110,601.75</span>
+  </div>
+
+  <!-- ─────────── CC DEBT REF ─────────── -->
+  <div class="section-title ref">Credit card debt — for reference (not in total above)</div>
+  <div class="ref-note">
+    Total balance we owe on the cards. Not summed into "Total OUT" — but real debt that limits our ability to keep buying materials/gas. Cap One is already at the limit.
+  </div>
+  <table>
+    <tbody>
+      <tr><td>Capital One</td><td class="num">$63,766.30</td></tr>
+      <tr><td>Home Depot 8776<div class="desc">over limit</div></td><td class="num">$16,783.76</td></tr>
+      <tr><td>Home Depot 8835</td><td class="num">$4,234.28</td></tr>
+      <tr class="subtotal"><td>CC debt subtotal (for reference)</td><td class="num">$84,784.34</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ─────────── NET ─────────── -->
+  <div class="net">
+    <div class="net-title">Net result — if everything settled today</div>
+    <div class="net-row">
+      <span>Citizens balance NOW</span>
+      <span class="amt">$6,261.65</span>
+    </div>
+    <div class="net-row">
+      <span>+ All customer AR landing</span>
+      <span class="amt">+$71,888.59</span>
+    </div>
+    <div class="net-row">
+      <span>− Overhead (incl. weekly Cap One burn)</span>
+      <span class="amt">−$32,092.82</span>
+    </div>
+    <div class="net-row">
+      <span>− Subs &amp; materials</span>
+      <span class="amt">−$78,508.93</span>
+    </div>
+    <div class="net-row final">
+      <span>= Citizens ending balance</span>
+      <span class="amt">−$32,451.51</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
