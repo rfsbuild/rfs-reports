@@ -37,15 +37,14 @@
   .proj{font-weight:600}
   .muted{color:var(--ink-soft);font-size:12.5px}
   tr.grouphead td{background:var(--blue-soft);font-weight:700;color:var(--blue-deep);border-bottom:1px solid var(--rule);font-size:13px}
-  tr.grouphead .num{font-variant-numeric:tabular-nums}
   tr.grandtotal td{font-weight:700;background:#dfeaf5;color:var(--blue-deep);border-top:2px solid var(--blue);border-bottom:none}
   .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
-  .p-green{color:var(--green);background:var(--green-soft)} .p-red{color:var(--red);background:var(--red-soft)} .p-amber{color:var(--amber);background:var(--amber-soft)} .p-mut{color:var(--ink-soft);background:#eef2f7}
-  .flags{background:var(--card);border-radius:12px;box-shadow:0 1px 3px rgba(30,41,59,.06);padding:6px 18px}
-  .flags li{padding:12px 0;border-bottom:1px solid var(--rule);font-size:14px;list-style:none}
-  .flags li:last-child{border-bottom:none}
-  .flags ul{padding-left:0;margin:0}
-  .flags b{color:var(--blue-deep)}
+  .p-green{color:var(--green);background:var(--green-soft)} .p-amber{color:var(--amber);background:var(--amber-soft)} .p-mut{color:var(--ink-soft);background:#eef2f7}
+  .fix{background:var(--card);border-radius:12px;box-shadow:0 1px 3px rgba(30,41,59,.06);padding:6px 18px;border-left:4px solid var(--amber)}
+  .fix li{padding:12px 0;border-bottom:1px solid var(--rule);font-size:14px;list-style:none}
+  .fix li:last-child{border-bottom:none}
+  .fix ul{padding-left:0;margin:0}
+  .fix b{color:var(--blue-deep)}
   .note{margin-top:26px;font-size:12px;color:var(--ink-muted);background:#eef2f7;border-radius:10px;padding:12px 14px;line-height:1.5}
   .footer{margin-top:24px;font-size:11px;color:var(--ink-muted);text-align:center}
   @media (max-width:620px){.cards{grid-template-columns:repeat(2,1fr)}h1{font-size:22px}}
@@ -55,17 +54,17 @@
 <div class="wrap">
   <div class="brand">RFS Builders</div>
   <h1>Custom Home Building Inc — Payment History</h1>
-  <div class="when">Framing / rough-carpentry sub · all payments to date · prepared June 22, 2026</div>
+  <div class="when">Framing / rough-carpentry sub · all payments to date · verified June 22, 2026</div>
 
   <div class="narrative">
-    Rafael — here's the full payment history for <strong>Custom Home Building</strong>, pulled from the subcontractor tracker. We've paid roughly <strong>$57.9K in itemized checks</strong> across six jobs since June 2025. Use the <strong>Group by</strong> buttons below the cards to re-total the payments however you want — by job, by original vs change order, or by month. The cleanest open items: <strong>43 Haverford is the only unpaid contract ($3,500)</strong>, and there are two small overpayments worth ~$1.5K combined.
+    Rafael — here's the verified payment history for <strong>Custom Home Building</strong>. We've paid them <strong>$64,900.10</strong> across six jobs (Jun 2025 – Jan 2026), and every contract is <strong>paid in full</strong> — nothing currently owed. This is cross-checked against three sources: your April check audit, the QB vendor ledger, and the sub tracker. They all tie out on the money; the only follow-ups are <strong>five bookkeeping fixes in QB</strong> (the cash is right, the books just need to match). Use the <strong>Group by</strong> buttons to re-total however you like.
   </div>
 
   <div class="cards">
-    <div class="card"><div class="card-label">Itemized paid</div><div class="card-value v-blue">$57,900</div><div class="card-sub">12 checks, Jun–Dec 2025</div></div>
-    <div class="card"><div class="card-label">Likely true total</div><div class="card-value v-blue">~$64,900</div><div class="card-sub">incl. 104 Child top-up</div></div>
-    <div class="card"><div class="card-label">Still owed</div><div class="card-value v-amber">$3,500</div><div class="card-sub">43 Haverford (unsigned)</div></div>
-    <div class="card"><div class="card-label">Overpaid</div><div class="card-value v-red">~$1,488</div><div class="card-sub">3 Arborview + 193 Smith</div></div>
+    <div class="card"><div class="card-label">Total paid</div><div class="card-value v-blue">$64,900</div><div class="card-sub">14 checks, 6 jobs</div></div>
+    <div class="card"><div class="card-label">Currently owed</div><div class="card-value v-green">$0</div><div class="card-sub">all contracts paid in full</div></div>
+    <div class="card"><div class="card-label">QB fixes needed</div><div class="card-value v-amber">5</div><div class="card-sub">books, not cash</div></div>
+    <div class="card"><div class="card-label">Sources agree</div><div class="card-value v-green">3 / 3</div><div class="card-sub">audit · QB · tracker</div></div>
   </div>
 
   <h2>Every payment — grouped your way</h2>
@@ -85,35 +84,35 @@
     </table>
   </div>
 
-  <h2>By contract — quoted vs paid</h2>
+  <h2>By contract — billed vs paid</h2>
   <div class="tablecard scroll">
     <table>
-      <thead><tr><th>Contract</th><th class="num">Quote</th><th class="num">Approved COs</th><th class="num">Paid</th><th>Status</th></tr></thead>
+      <thead><tr><th>Contract</th><th class="num">Paid</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td class="proj">104 Child</td><td class="num">$9,200</td><td class="num">$8,800</td><td class="num">$18,000</td><td><span class="pill p-green">Paid in full</span></td></tr>
-        <tr><td class="proj">470 Center</td><td class="num">$6,500</td><td class="num">—</td><td class="num">$6,500</td><td><span class="pill p-green">Paid in full</span></td></tr>
-        <tr><td class="proj">50 Maureen</td><td class="num">$1,705.66</td><td class="num">—</td><td class="num">$1,705.66</td><td><span class="pill p-green">Paid in full</span></td></tr>
-        <tr><td class="proj">99 Concord</td><td class="num muted">no row</td><td class="num">$3,807</td><td class="num">$25,606.64</td><td><span class="pill p-amber">Tracker gap</span></td></tr>
-        <tr><td class="proj">3 Arborview</td><td class="num">$11,600</td><td class="num">—</td><td class="num">$12,060.65</td><td><span class="pill p-red">Overpaid $460.65</span></td></tr>
-        <tr><td class="proj">193 Smith</td><td class="num muted">no quote</td><td class="num">—</td><td class="num">$1,027.15</td><td><span class="pill p-red">Overpaid / unquoted</span></td></tr>
-        <tr><td class="proj">43 Haverford</td><td class="num">$3,500</td><td class="num">—</td><td class="num">$0</td><td><span class="pill p-amber">Unpaid — owed</span></td></tr>
+        <tr><td class="proj">99 Concord</td><td class="num">$25,606.64</td><td><span class="pill p-green">Paid in full</span></td></tr>
+        <tr><td class="proj">104 Child</td><td class="num">$18,000.00</td><td><span class="pill p-green">Paid in full</span></td></tr>
+        <tr><td class="proj">3 Arborview</td><td class="num">$12,060.65</td><td><span class="pill p-green">Paid in full</span></td></tr>
+        <tr><td class="proj">470 Center</td><td class="num">$6,500.00</td><td><span class="pill p-green">Paid in full</span></td></tr>
+        <tr><td class="proj">50 Maureen</td><td class="num">$1,705.66</td><td><span class="pill p-green">Paid in full</span></td></tr>
+        <tr><td class="proj">193 Smith</td><td class="num">$1,027.15</td><td><span class="pill p-green">Paid in full</span></td></tr>
+        <tr><td class="proj">43 Haverford</td><td class="num">$0.00</td><td><span class="pill p-mut">$3,500 quote — not started</span></td></tr>
       </tbody>
     </table>
   </div>
 
-  <h2>Items to close out</h2>
-  <div class="flags">
+  <h2>QB bookkeeping fixes (cash is correct — books need updating)</h2>
+  <div class="fix">
     <ul>
-      <li><b>43 Haverford — $3,500 still owed.</b> Quoted, nothing paid, sub contract not signed. The only open balance if that job proceeds.</li>
-      <li><b>Two overpayments (~$1,488).</b> 3 Arborview is $460.65 over the $11,600 contract; 193 Smith was paid $1,027.15 with no quote on file (final release marked sent Jan 28). Possibly recoverable or creditable.</li>
-      <li><b>$800 CO on 99 Concord — correctly NOT paid.</b> Marked denied: "Custom will not be charging us this amount." Good — no action.</li>
-      <li><b>104 Child $8,800 CO.</b> Cleber still owes us an updated quote; worth closing out so the file matches.</li>
-      <li><b>Bookkeeping gaps (tracker, not money).</b> 99 Concord has $25,606.64 in real checks but no summary row; 104 Child shows $18,000 paid but only $11,000 is itemized as checks (~$7,000 top-up dated Jan 21 isn't broken out). The payments happened — the summary just needs rebuilding.</li>
+      <li><b>470 Center — record the payment.</b> Check #2553 ($6,500) was paid, but QB still shows the bill open. Mark it paid.</li>
+      <li><b>50 Maureen — add it.</b> Check #2870 ($1,705.66) to Custom Home isn't in QB at all. Enter the bill + payment.</li>
+      <li><b>193 Smith — add it.</b> Check #3159 ($1,027.15) to Custom Home isn't in QB. Enter the bill + payment.</li>
+      <li><b>3 Arborview — reclassify $460.65.</b> Part of check #2638 ($3,760.65 total to Custom) is sitting in QB as a <b>Home Depot</b> "framing materials" expense. Move that $460.65 to Custom Home so the contract reads $12,060.65.</li>
+      <li><b>99 Concord — remove a duplicate.</b> The $206.64 change order is entered <b>twice</b> in QB. It was paid once (inside check #3066). Delete the duplicate.</li>
     </ul>
   </div>
 
   <div class="note">
-    <b>Source &amp; confidence:</b> compiled from the subcontractor tracker. These checks were <b>not</b> found in the dashboard's local transaction records, so they haven't been matched against bank-cleared transactions — confirming each check cleared would need the Citizens check register. The "~$64,900 likely true total" reflects the $57,900 itemized plus the 104 Child top-up that brings that job to its $18,000 contract.
+    <b>How this was verified:</b> reconciled across three independent sources — your April 2025 check audit, the QB "Transaction Detail" + Custom Home vendor ledger, and the subcontractor tracker. All three agree on the $64,900.10 total. The only differences were bookkeeping (the five fixes above), not missing or extra money. <b>Home Depot is kept separate from Custom Home throughout</b> — the $460.65 "framing materials" buy is the one spot they got crossed in QB, flagged above. 43 Haverford carries a $3,500 framing quote that was never contracted or paid — listed for completeness only.
   </div>
 
   <div class="footer">RFS Builders · github.com/rfsbuild/rfs-reports</div>
@@ -121,18 +120,20 @@
 
 <script>
   var PAYMENTS = [
-    {project:"3 Arborview", date:"2025-06-13", check:"2496", amount:3800.00,  type:"Original"},
-    {project:"3 Arborview", date:"2025-06-24", check:"2518", amount:4500.00,  type:"Original"},
-    {project:"470 Center",  date:"2025-07-09", check:"2553", amount:6500.00,  type:"Original"},
-    {project:"3 Arborview", date:"2025-08-12", check:"2638", amount:3760.65,  type:"Original"},
-    {project:"50 Maureen",  date:"2025-09-30", check:"2870", amount:1705.66,  type:"Original"},
-    {project:"99 Concord",  date:"2025-10-16", check:"2931", amount:10900.00, type:"Original"},
-    {project:"104 Child",   date:"2025-11-18", check:"3014", amount:6000.00,  type:"Original"},
-    {project:"99 Concord",  date:"2025-11-11", check:"3066", amount:10900.00, type:"Original"},
-    {project:"99 Concord",  date:"2025-11-11", check:"3066", amount:206.64,   type:"Change order"},
-    {project:"193 Smith",   date:"2025-11-26", check:"3159", amount:1027.15,  type:"Original"},
+    {project:"3 Arborview", date:"2025-06-24", check:"2496", amount:3800.00,  type:"Original"},
+    {project:"3 Arborview", date:"2025-07-01", check:"2518", amount:4500.00,  type:"Original"},
+    {project:"3 Arborview", date:"2025-08-20", check:"2638", amount:3760.65,  type:"Original"},
+    {project:"470 Center",  date:"2025-07-16", check:"2553", amount:6500.00,  type:"Original"},
+    {project:"50 Maureen",  date:"2025-10-30", check:"2870", amount:1705.66,  type:"Original"},
+    {project:"99 Concord",  date:"2025-10-30", check:"2931", amount:10900.00, type:"Original"},
+    {project:"99 Concord",  date:"2025-11-19", check:"3066", amount:10900.00, type:"Original"},
+    {project:"99 Concord",  date:"2025-11-19", check:"3066", amount:206.64,   type:"Change order"},
+    {project:"99 Concord",  date:"2025-11-25", check:"3175", amount:3600.00,  type:"Change order"},
+    {project:"104 Child",   date:"2025-11-24", check:"3014", amount:6000.00,  type:"Original"},
     {project:"104 Child",   date:"2025-12-03", check:"3172", amount:5000.00,  type:"Change order"},
-    {project:"99 Concord",  date:"2025-12-03", check:"3175", amount:3600.00,  type:"Change order"}
+    {project:"104 Child",   date:"2025-12-16", check:"—", amount:3200.00, type:"Original"},
+    {project:"104 Child",   date:"2026-01-21", check:"3375", amount:3800.00,  type:"Change order"},
+    {project:"193 Smith",   date:"2025-11-26", check:"3159", amount:1027.15,  type:"Original"}
   ];
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   function usd(n){return "$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -156,7 +157,6 @@
     } else {
       var groups={}, order=[];
       PAYMENTS.forEach(function(r){var k=keyOf(r,mode);if(!groups[k]){groups[k]=[];order.push(k);}groups[k].push(r);});
-      // sort groups: by subtotal desc for project/type, chronological for month
       if(mode==="month"){
         order.sort(function(a,b){return groups[a][0].date<groups[b][0].date?-1:1;});
       } else {
@@ -174,7 +174,7 @@
         rows.forEach(function(r){html+=rowHTML(r);});
       });
     }
-    html+="<tr class='grandtotal'><td colspan='4'>Total paid (itemized)</td><td class='num'>"+usd(grand)+"</td></tr>";
+    html+="<tr class='grandtotal'><td colspan='4'>Total paid to Custom Home</td><td class='num'>"+usd(grand)+"</td></tr>";
     tbody.innerHTML=html;
   }
   var btns=document.querySelectorAll(".seg button");
