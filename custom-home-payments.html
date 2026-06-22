@@ -72,10 +72,10 @@
   <div class="when">Framing / rough-carpentry sub · all payments to date · verified June 22, 2026</div>
 
   <div class="cards">
-    <div class="card"><div class="card-label">Total paid</div><div class="card-value v-blue">$64,900</div><div class="card-sub">14 checks · 6 jobs</div></div>
+    <div class="card"><div class="card-label">Total paid</div><div class="card-value v-blue">$64,900</div><div class="card-sub">6 jobs · all paid in full</div></div>
+    <div class="card"><div class="card-label">Original contracts</div><div class="card-value v-blue">$51,833</div><div class="card-sub">base scope</div></div>
+    <div class="card"><div class="card-label">Change orders</div><div class="card-value v-amber">$13,067</div><div class="card-sub">added scope</div></div>
     <div class="card"><div class="card-label">Currently owed</div><div class="card-value v-green">$0</div><div class="card-sub">nothing outstanding</div></div>
-    <div class="card"><div class="card-label">Over estimate</div><div class="card-value v-amber">$460.65</div><div class="card-sub">3 Arborview — see below</div></div>
-    <div class="card"><div class="card-label">Cross-checked</div><div class="card-value v-green">3 sources</div><div class="card-sub">audit · QB · tracker</div></div>
   </div>
 
   <h2>Every payment — grouped your way</h2>
@@ -96,28 +96,23 @@
     </table>
   </div>
 
-  <h2>By contract — estimate vs paid</h2>
+  <h2>By contract — original vs change orders</h2>
   <div class="tablecard scroll">
     <table>
-      <thead><tr><th>Contract</th><th class="num">Estimate</th><th class="num">Paid</th><th>Status</th></tr></thead>
+      <thead><tr><th>Contract</th><th class="num">Original</th><th class="num">Change orders</th><th class="num">Total paid</th></tr></thead>
       <tbody>
-        <tr><td class="proj">99 Concord</td><td class="num">$25,606.64</td><td class="num">$25,606.64</td><td><span class="pill p-green">Matches</span></td></tr>
-        <tr><td class="proj">104 Child</td><td class="num">$18,000.00</td><td class="num">$18,000.00</td><td><span class="pill p-green">Matches</span></td></tr>
-        <tr><td class="proj">3 Arborview</td><td class="num">$11,600.00</td><td class="num">$12,060.65</td><td><span class="pill p-amber">+$460.65 over estimate</span></td></tr>
-        <tr><td class="proj">470 Center</td><td class="num">$6,500.00</td><td class="num">$6,500.00</td><td><span class="pill p-green">Matches</span></td></tr>
-        <tr><td class="proj">50 Maureen</td><td class="num">$1,705.66</td><td class="num">$1,705.66</td><td><span class="pill p-green">Matches</span></td></tr>
-        <tr><td class="proj">193 Smith</td><td class="num">$1,027.15</td><td class="num">$1,027.15</td><td><span class="pill p-green">Matches</span></td></tr>
-        <tr><td class="proj">43 Haverford</td><td class="num">$3,500.00</td><td class="num">$0.00</td><td><span class="pill p-mut">Quote — not started</span></td></tr>
+        <tr><td class="proj">99 Concord</td><td class="num">$21,800.00</td><td class="num">$3,806.64</td><td class="num">$25,606.64</td></tr>
+        <tr><td class="proj">104 Child</td><td class="num">$9,200.00</td><td class="num">$8,800.00</td><td class="num">$18,000.00</td></tr>
+        <tr><td class="proj">3 Arborview</td><td class="num">$11,600.00</td><td class="num">$460.65 †</td><td class="num">$12,060.65</td></tr>
+        <tr><td class="proj">470 Center</td><td class="num">$6,500.00</td><td class="num">—</td><td class="num">$6,500.00</td></tr>
+        <tr><td class="proj">50 Maureen</td><td class="num">$1,705.66</td><td class="num">—</td><td class="num">$1,705.66</td></tr>
+        <tr><td class="proj">193 Smith</td><td class="num">$1,027.15</td><td class="num">—</td><td class="num">$1,027.15</td></tr>
+        <tr><td class="proj">43 Haverford</td><td class="num muted">$3,500.00 quote</td><td class="num">—</td><td class="num">$0.00</td></tr>
       </tbody>
+      <tfoot><tr class="grandtotal"><td>TOTAL</td><td class="num">$51,832.81</td><td class="num">$13,067.29</td><td class="num">$64,900.10</td></tr></tfoot>
     </table>
   </div>
-
-  <h2>Note — 3 Arborview</h2>
-  <div class="note" style="color:var(--ink);background:var(--amber-soft);border-left:4px solid var(--amber);margin-top:10px;">
-    The estimate on file for 3 Arborview is <b>$11,600</b>, but we paid <b>$12,060.65</b> — <b>$460.65 over.</b>
-    <br>That $460.65 is framing material — the invoice for check #2638 ($3,760.65) covers it.
-    <br>It just wasn't in the original framing estimate, and there's no separate change order on file for it.
-  </div>
+  <p class="muted" style="margin:8px 2px 0;">† 3 Arborview's $460.65 was extra framing material on the invoice — added cost, but no formal change order was written. 43 Haverford is a $3,500 quote that was never started.</p>
 
   <div class="note">
     Verified across three sources — the April 2025 check audit, the QB ledger, and the sub tracker — which all agree on the $64,900.10 total.
@@ -131,7 +126,8 @@
   var PAYMENTS = [
     {project:"3 Arborview", date:"2025-06-24", check:"2496", amount:3800.00,  type:"Original"},
     {project:"3 Arborview", date:"2025-07-01", check:"2518", amount:4500.00,  type:"Original"},
-    {project:"3 Arborview", date:"2025-08-20", check:"2638", amount:3760.65,  type:"Original"},
+    {project:"3 Arborview", date:"2025-08-20", check:"2638", amount:3300.00,  type:"Original"},
+    {project:"3 Arborview", date:"2025-08-20", check:"2638", amount:460.65,   type:"Change order"},
     {project:"470 Center",  date:"2025-07-16", check:"2553", amount:6500.00,  type:"Original"},
     {project:"50 Maureen",  date:"2025-10-30", check:"2870", amount:1705.66,  type:"Original"},
     {project:"99 Concord",  date:"2025-10-30", check:"2931", amount:10900.00, type:"Original"},
