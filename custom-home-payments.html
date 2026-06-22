@@ -56,18 +56,15 @@
   <h1>Custom Home Building Inc — Payment History</h1>
   <div class="when">Framing / rough-carpentry sub · all payments to date · verified June 22, 2026</div>
 
-  <div class="narrative">
-    Rafael — here's the verified payment history for <strong>Custom Home Building</strong>. We've paid them <strong>$64,900.10</strong> across six jobs (Jun 2025 – Jan 2026), and every contract is <strong>paid in full</strong> — nothing currently owed. This is cross-checked against three sources: your April check audit, the QB vendor ledger, and the sub tracker. They all tie out on the money; the only follow-ups are <strong>five bookkeeping fixes in QB</strong> (the cash is right, the books just need to match). Use the <strong>Group by</strong> buttons to re-total however you like.
-  </div>
-
   <div class="cards">
-    <div class="card"><div class="card-label">Total paid</div><div class="card-value v-blue">$64,900</div><div class="card-sub">14 checks, 6 jobs</div></div>
-    <div class="card"><div class="card-label">Currently owed</div><div class="card-value v-green">$0</div><div class="card-sub">all contracts paid in full</div></div>
-    <div class="card"><div class="card-label">QB fixes needed</div><div class="card-value v-amber">5</div><div class="card-sub">books, not cash</div></div>
-    <div class="card"><div class="card-label">Sources agree</div><div class="card-value v-green">3 / 3</div><div class="card-sub">audit · QB · tracker</div></div>
+    <div class="card"><div class="card-label">Total paid</div><div class="card-value v-blue">$64,900</div><div class="card-sub">14 checks · 6 jobs</div></div>
+    <div class="card"><div class="card-label">Currently owed</div><div class="card-value v-green">$0</div><div class="card-sub">nothing outstanding</div></div>
+    <div class="card"><div class="card-label">Over estimate</div><div class="card-value v-amber">$460.65</div><div class="card-sub">3 Arborview — see below</div></div>
+    <div class="card"><div class="card-label">Cross-checked</div><div class="card-value v-green">3 sources</div><div class="card-sub">audit · QB · tracker</div></div>
   </div>
 
   <h2>Every payment — grouped your way</h2>
+  <p class="muted" style="margin:0 0 4px;">Tap a button to re-total the payments by job, original vs change order, or month.</p>
   <div class="controls">
     <span class="lbl">Group by:</span>
     <div class="seg" role="group" aria-label="Group payments by">
@@ -84,35 +81,32 @@
     </table>
   </div>
 
-  <h2>By contract — billed vs paid</h2>
+  <h2>By contract — estimate vs paid</h2>
   <div class="tablecard scroll">
     <table>
-      <thead><tr><th>Contract</th><th class="num">Paid</th><th>Status</th></tr></thead>
+      <thead><tr><th>Contract</th><th class="num">Estimate</th><th class="num">Paid</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td class="proj">99 Concord</td><td class="num">$25,606.64</td><td><span class="pill p-green">Paid in full</span></td></tr>
-        <tr><td class="proj">104 Child</td><td class="num">$18,000.00</td><td><span class="pill p-green">Paid in full</span></td></tr>
-        <tr><td class="proj">3 Arborview</td><td class="num">$12,060.65</td><td><span class="pill p-green">Paid in full</span></td></tr>
-        <tr><td class="proj">470 Center</td><td class="num">$6,500.00</td><td><span class="pill p-green">Paid in full</span></td></tr>
-        <tr><td class="proj">50 Maureen</td><td class="num">$1,705.66</td><td><span class="pill p-green">Paid in full</span></td></tr>
-        <tr><td class="proj">193 Smith</td><td class="num">$1,027.15</td><td><span class="pill p-green">Paid in full</span></td></tr>
-        <tr><td class="proj">43 Haverford</td><td class="num">$0.00</td><td><span class="pill p-mut">$3,500 quote — not started</span></td></tr>
+        <tr><td class="proj">99 Concord</td><td class="num">$25,606.64</td><td class="num">$25,606.64</td><td><span class="pill p-green">Matches</span></td></tr>
+        <tr><td class="proj">104 Child</td><td class="num">$18,000.00</td><td class="num">$18,000.00</td><td><span class="pill p-green">Matches</span></td></tr>
+        <tr><td class="proj">3 Arborview</td><td class="num">$11,600.00</td><td class="num">$12,060.65</td><td><span class="pill p-amber">+$460.65 over estimate</span></td></tr>
+        <tr><td class="proj">470 Center</td><td class="num">$6,500.00</td><td class="num">$6,500.00</td><td><span class="pill p-green">Matches</span></td></tr>
+        <tr><td class="proj">50 Maureen</td><td class="num">$1,705.66</td><td class="num">$1,705.66</td><td><span class="pill p-green">Matches</span></td></tr>
+        <tr><td class="proj">193 Smith</td><td class="num">$1,027.15</td><td class="num">$1,027.15</td><td><span class="pill p-green">Matches</span></td></tr>
+        <tr><td class="proj">43 Haverford</td><td class="num">$3,500.00</td><td class="num">$0.00</td><td><span class="pill p-mut">Quote — not started</span></td></tr>
       </tbody>
     </table>
   </div>
 
-  <h2>QB bookkeeping fixes (cash is correct — books need updating)</h2>
-  <div class="fix">
-    <ul>
-      <li><b>470 Center — record the payment.</b> Check #2553 ($6,500) was paid, but QB still shows the bill open. Mark it paid.</li>
-      <li><b>50 Maureen — add it.</b> Check #2870 ($1,705.66) to Custom Home isn't in QB at all. Enter the bill + payment.</li>
-      <li><b>193 Smith — add it.</b> Check #3159 ($1,027.15) to Custom Home isn't in QB. Enter the bill + payment.</li>
-      <li><b>3 Arborview — reclassify $460.65.</b> Part of check #2638 ($3,760.65 total to Custom) is sitting in QB as a <b>Home Depot</b> "framing materials" expense. Move that $460.65 to Custom Home so the contract reads $12,060.65.</li>
-      <li><b>99 Concord — remove a duplicate.</b> The $206.64 change order is entered <b>twice</b> in QB. It was paid once (inside check #3066). Delete the duplicate.</li>
-    </ul>
+  <h2>Note — 3 Arborview</h2>
+  <div class="note" style="color:var(--ink);background:var(--amber-soft);border-left:4px solid var(--amber);margin-top:10px;">
+    The estimate on file for 3 Arborview is <b>$11,600</b>, but we paid <b>$12,060.65</b> — <b>$460.65 over.</b>
+    <br>That $460.65 is framing material — the invoice for check #2638 ($3,760.65) covers it.
+    <br>It just wasn't in the original framing estimate, and there's no separate change order on file for it.
   </div>
 
   <div class="note">
-    <b>How this was verified:</b> reconciled across three independent sources — your April 2025 check audit, the QB "Transaction Detail" + Custom Home vendor ledger, and the subcontractor tracker. All three agree on the $64,900.10 total. The only differences were bookkeeping (the five fixes above), not missing or extra money. <b>Home Depot is kept separate from Custom Home throughout</b> — the $460.65 "framing materials" buy is the one spot they got crossed in QB, flagged above. 43 Haverford carries a $3,500 framing quote that was never contracted or paid — listed for completeness only.
+    Verified across three sources — the April 2025 check audit, the QB ledger, and the sub tracker — which all agree on the $64,900.10 total.
+    <br>Home Depot is kept separate from Custom Home throughout.
   </div>
 
   <div class="footer">RFS Builders · github.com/rfsbuild/rfs-reports</div>
