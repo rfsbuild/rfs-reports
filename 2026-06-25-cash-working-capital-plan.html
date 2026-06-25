@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RFS Builders — H2 2026 Cash &amp; Working-Capital Plan</title>
+<style>
+  :root{
+    --ink:#1a2230; --muted:#5b6675; --line:#e4e8ee; --bg:#f6f8fb; --card:#fff;
+    --blue:#1f5fa6; --blue-soft:#eaf1f9; --green:#1f7a4d; --green-soft:#e6f4ec;
+    --amber:#9a6a12; --amber-soft:#fbf1da; --red:#b3331f; --red-soft:#fbe9e6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 18px 64px}
+  .langbar{display:flex;gap:8px;justify-content:flex-end;margin-bottom:10px}
+  .langbar button{border:1px solid var(--blue);background:#fff;color:var(--blue);
+    padding:7px 16px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer}
+  .langbar button.on{background:var(--blue);color:#fff}
+  header{border-bottom:3px solid var(--blue);padding-bottom:16px;margin-bottom:6px}
+  .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:700}
+  h1{font-size:25px;line-height:1.25;margin:8px 0 6px}
+  h2{font-size:20px;margin:36px 0 4px;padding-top:6px;border-top:1px solid var(--line);padding-top:22px}
+  h2:first-of-type{border-top:0;padding-top:6px}
+  h3{font-size:14px;margin:18px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .meta{color:var(--muted);font-size:14px}
+  p{margin:12px 0}
+  .lead{font-size:18px;line-height:1.6}
+  .callout{background:var(--blue-soft);border:1px solid #d4e2f1;border-radius:12px;padding:14px 16px;margin:16px 0}
+  .callout.green{background:var(--green-soft);border-color:#cfe7d9}
+  .callout.amber{background:var(--amber-soft);border-color:#f0e0bf}
+  .callout p{margin:8px 0}
+  .callout h3{margin:0 0 6px;color:var(--ink)}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:15px;min-width:440px}
+  th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{background:#f0f3f8;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  td.num,th.num{text-align:right}
+  tr:last-child td{border-bottom:0}
+  .tot td{font-weight:700;background:#fafbfd}
+  .pos{color:var(--green);font-weight:700}.neg{color:var(--red);font-weight:700}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600}
+  .pill.g{background:var(--green-soft);color:var(--green)}
+  .pill.a{background:var(--amber-soft);color:var(--amber)}
+  .pill.r{background:var(--red-soft);color:var(--red)}
+  ul{margin:10px 0;padding-left:22px}li{margin:9px 0}
+  a{color:var(--blue);font-weight:600}
+  .btn{display:inline-block;background:var(--blue);color:#fff;padding:7px 14px;border-radius:8px;font-size:13px;text-decoration:none;white-space:nowrap}
+  .small{font-size:13px;color:var(--muted)}
+  .tight{margin:6px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}h1{font-size:22px}body{font-size:17px}}
+  .foot{margin-top:40px;border-top:1px solid var(--line);padding-top:14px;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="langbar">
+  <button id="btn-en" class="on">English</button>
+  <button id="btn-pt">Português</button>
+</div>
+
+<!-- ============================= ENGLISH ============================= -->
+<div id="en">
+<header>
+  <div class="eyebrow">RFS Builders Inc · CFO Briefing</div>
+  <h1>Cash Flow &amp; Working-Capital Plan — Second Half 2026</h1>
+  <div class="meta">For Rafael &amp; Natalia · June 25, 2026 · Conservative base case</div>
+</header>
+
+<p class="lead">The short version:</p>
+<p class="lead tight">We're well-covered through <strong>September</strong>.</p>
+<p class="lead tight">Then a cluster of projects finishing at once creates a <strong>Q4 cash gap</strong>.</p>
+<p class="lead tight">We manage it three ways: hold the Q3 surplus, put a line of credit in place as the bridge (at about half our current rate), and close 26 Lee plus the next job.</p>
+<p class="lead tight">It's not a crisis — it's planning ahead of a dip we can already see.</p>
+
+<h2>1. The pipeline is strong — the issue is timing</h2>
+<p>We have about <strong>$309K still to collect</strong> on signed work.</p>
+<p class="tight">Plus a probable <strong>$55K</strong> (26 Lee St) once it's under contract.</p>
+<p class="tight">That's healthy. But most of it lands in Q3, and several jobs finish within weeks of each other.</p>
+<div class="scroll"><table>
+  <tr><th>Project</th><th class="num">Still to collect</th><th>Est. finish</th></tr>
+  <tr><td>70 Robin St — Bob Rochford</td><td class="num">$160,614</td><td>mid-December</td></tr>
+  <tr><td>51 Cedar St — Paula Smith</td><td class="num">$96,169</td><td>mid-September</td></tr>
+  <tr><td>14 Guernsey St — Chris Heaton</td><td class="num">$42,334</td><td>early September</td></tr>
+  <tr><td>43 Haverford — Marga Raffucci</td><td class="num">$4,211</td><td>mid-July</td></tr>
+  <tr><td>104 Child St — Teresa Spillane <span class="small">(+ COs)</span></td><td class="num">$4,053</td><td>mid-July</td></tr>
+  <tr><td>3 Arborview — Ray Dunetz</td><td class="num">$2,000</td><td>mid-July</td></tr>
+  <tr class="tot"><td>Signed total</td><td class="num">~$309,381</td><td></td></tr>
+  <tr><td>26 Lee St — Gillian Haney <span class="pill a">verbal yes · not signed</span></td><td class="num">$55,000</td><td>30% deposit ~$16,500 on signing</td></tr>
+</table></div>
+<p class="small">Two facts tighten cash on every job:</p>
+<ul class="small">
+  <li>We work on a <strong>15% markup</strong> — so only ~$40K of that $309K is true margin; the rest funds crew, materials &amp; subs.</li>
+  <li>Clients hold <strong>10% retainage</strong> from us, but we pay our subs in full — so we're always floating ~$31K of retainage until projects close.</li>
+</ul>
+
+<h2>2. Conservative cash curve, July–December</h2>
+<p>Floor assumptions: RBA at its reliable $15K/week, draws spread to each project's finish, burn held at ~$130K/month (we keep the crew at steady hours).</p>
+<div class="scroll"><table>
+  <tr><th>Month</th><th class="num">In</th><th class="num">Burn</th><th class="num">Net</th><th class="num">End cash</th></tr>
+  <tr><td>Start</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$40K</td></tr>
+  <tr><td>July <span class="small">(+26 Lee dep.)</span></td><td class="num">$167K</td><td class="num">$130K</td><td class="num pos">+$37K</td><td class="num">$78K</td></tr>
+  <tr><td>August</td><td class="num">$141K</td><td class="num">$130K</td><td class="num pos">+$11K</td><td class="num">$89K</td></tr>
+  <tr><td>September</td><td class="num">$130K</td><td class="num">$130K</td><td class="num">~$0</td><td class="num">$89K</td></tr>
+  <tr><td>October</td><td class="num">$91K</td><td class="num">$130K</td><td class="num neg">−$39K</td><td class="num">$50K</td></tr>
+  <tr><td>November</td><td class="num">$91K</td><td class="num">$130K</td><td class="num neg">−$39K</td><td class="num">$12K</td></tr>
+  <tr><td>December</td><td class="num">$94K</td><td class="num">$130K</td><td class="num neg">−$36K</td><td class="num neg">−$24K</td></tr>
+</table></div>
+<div class="callout amber"><h3>Why Q4 gets tight</h3>
+  <p>By October, the July and September jobs have all closed.</p>
+  <p class="tight">Only 70 Robin is still paying (~$26K/mo) — while burn holds at ~$130K.</p>
+  <p class="tight">Cash builds to ~$89K by September, then drains toward zero by December if no new work fills the gap.</p></div>
+<p class="small"><strong>Upside not in the base case:</strong> 26 Lee's ongoing draws in Q4, the next project we're bidding, and RBA running above its floor in slow GC weeks.</p>
+
+<h2>3. The plan</h2>
+<div class="grid">
+  <div class="callout green" style="margin:0"><h3 style="color:var(--ink)">① Hold the Q3 surplus</h3><p>The ~$89K by September isn't spendable — it's pre-funding the Q4 dip.</p></div>
+  <div class="callout green" style="margin:0"><h3 style="color:var(--ink)">② LOC = the bridge</h3><p>A ~$75K line at ~10% replaces Cap One's ~24%. Bridges Q4, and lets us re-draw cheaply.</p></div>
+  <div class="callout green" style="margin:0"><h3 style="color:var(--ink)">③ New 0% card for a slice</h3><p>Carries a slice of Cap One at 0%, and becomes our go-forward purchasing card.</p></div>
+  <div class="callout green" style="margin:0"><h3 style="color:var(--ink)">④ Revenue closes the gap</h3><p>Financing buys time — landing 26 Lee and the next job actually fills the hole.</p></div>
+</div>
+
+<h2>4. Staying put vs. making the move</h2>
+<div class="scroll"><table>
+  <tr><th>On ~$64K of debt</th><th>Stay on Capital One</th><th>LOC + 0% card</th></tr>
+  <tr><td>Interest rate</td><td>24.49% <span class="small">(confirmed)</span></td><td>~10% (+ 0% on a slice)</td></tr>
+  <tr><td>Interest / year</td><td class="num">~$15,500</td><td class="num">~$6,400</td></tr>
+  <tr><td>Cost last month</td><td class="num neg">$1,291</td><td class="num">—</td></tr>
+  <tr><td>Working-capital room</td><td><span class="pill r">~$1K — at the wall</span></td><td><span class="pill g">new, reusable</span></td></tr>
+  <tr><td>Risk in a thin month</td><td>can't buy materials</td><td>bridge at half the cost</td></tr>
+</table></div>
+<p><strong>Bottom line: ~$9,000/year in interest saved.</strong></p>
+<p class="tight">Capital One is costing us <strong>$1,291 in a single month</strong> at 24.49%.</p>
+<p class="tight">And just as important — the LOC keeps payroll and materials flowing through Q4, because Capital One is at its limit and can't be the bridge anymore.</p>
+
+<h2>5. Line of credit — let's move now</h2>
+<div class="callout">
+  <p>Justine (our accountant) has already gathered the information the bank required and sent it to Rafael.</p>
+  <p class="tight">So we believe we have everything we need to proceed.</p>
+  <p class="tight"><strong>Rafael &amp; Natalia — please confirm nothing else is outstanding, and let's submit ASAP.</strong></p>
+  <p class="tight">This is the highest-value, most time-sensitive piece, given the Q4 timing above.</p>
+</div>
+<p class="small">Target: ~$75K line at ~Prime + 1.5% (~10%).</p>
+<p class="small tight">Natalia is the applicant — owner, personal guarantee, strong credit (812). Rafael completes it with her.</p>
+<p class="small tight">Start with Citizens (our operating bank); compare one MA community bank / credit union.</p>
+
+<h2>6. New card — under the business</h2>
+<p>We're putting this under <strong>RFS Builders</strong>, not a personal card.</p>
+<p class="tight">That keeps the balance off Natalia's personal credit, builds the company's own credit, and keeps the books clean.</p>
+<p>One key distinction:</p>
+<ul>
+  <li>Most business cards (Chase, Amex, BofA) give 0% on <strong>purchases only</strong>.</li>
+  <li>The <strong>U.S. Bank Triple Cash is the exception</strong> — 0% on balance transfers too (12 cycles, 5% fee).</li>
+</ul>
+<p>That lets us run the plan as intended: move the biggest slice of Capital One the card's limit allows onto the card at 0%, and let the LOC absorb the rest.</p>
+<p class="small">All four below have no annual fee. Natalia applies as owner.</p>
+<div class="scroll"><table>
+  <tr><th>Business card</th><th>0% intro</th><th>Cash back</th><th>Apply</th></tr>
+  <tr><td>U.S. Bank Triple Cash Business <span class="pill g">pick</span></td><td>12 cycles <span class="small">(purchases + transfers)</span></td><td>3% gas/office/phone/dining · $100 software credit</td><td><a class="btn" href="https://www.usbank.com/business-banking/business-credit-cards/business-triple-cash-back-credit-card.html">Apply</a></td></tr>
+  <tr><td>Chase Ink Business Unlimited®</td><td>12 mo (purchases only)</td><td>1.5% flat</td><td><a class="btn" href="https://creditcards.chase.com/business-credit-cards/ink/unlimited">Apply</a></td></tr>
+  <tr><td>Amex Blue Business Cash™</td><td>12 mo (purchases only)</td><td>2% up to $50K/yr</td><td><a class="btn" href="https://www.americanexpress.com/en-us/business/credit-cards/blue-business-cash/">Apply</a></td></tr>
+  <tr><td>BofA Business Advantage Unlimited Cash</td><td>~7–9 cyc (purchases only)</td><td>1.5%</td><td><a class="btn" href="https://www.bankofamerica.com/smallbusiness/credit-cards/products/unlimited-cash-rewards-business-credit-card/">Apply</a></td></tr>
+</table></div>
+<h3>Why each one</h3>
+<div class="grid">
+  <div class="callout" style="margin:0"><h3 style="color:var(--ink);margin-top:0">U.S. Bank Triple Cash <span class="pill g">pick</span></h3><p class="small">✓ The only one that also allows a 0% balance transfer<br>✓ Rewards match our spend + $100/yr software credit (we use QuickBooks)<br>✓ No annual fee; doesn't report to personal credit<br>✗ 12-month window; 5% fee on what we transfer</p></div>
+  <div class="callout" style="margin:0"><h3 style="color:var(--ink);margin-top:0">Chase Ink Business Unlimited</h3><p class="small">✓ Simple 1.5% on everything; usually a big welcome bonus<br>✓ Strong expense tools<br>✗ 0% on purchases only — can't take the Cap One transfer</p></div>
+  <div class="callout" style="margin:0"><h3 style="color:var(--ink);margin-top:0">Amex Blue Business Cash</h3><p class="small">✓ Highest flat rate — 2% up to $50K/yr<br>✗ Not accepted by every supplier/sub<br>✗ No balance transfer</p></div>
+  <div class="callout" style="margin:0"><h3 style="color:var(--ink);margin-top:0">Bank of America Business</h3><p class="small">✓ Major national issuer with cash back<br>✗ Shortest 0% window; no 0% transfer<br>✗ Weakest fit here</p></div>
+</div>
+<p><strong>Recommendation: U.S. Bank Triple Cash Business.</strong></p>
+<p class="tight">Rewards tuned to how RFS spends, the QuickBooks credit, and the only one that can take a 0% balance transfer — so it runs our plan.</p>
+<p class="small"><strong>Sizing the slice:</strong> the card takes only up to its approved limit (likely ~$15–30K, not the full ~$64K), and its 0% lasts 12 months. We move what we can realistically pay within a year; the LOC carries the rest. (We considered personal cards like Citi Diamond Preferred — 0% for 21 months — but are keeping this under the business.)</p>
+
+<h2>7. Paying it down — the honest version</h2>
+<p>A fixed "paid off by month X" date isn't something we can promise yet.</p>
+<p class="tight">Payoff speed depends on surplus cash — and surplus is seasonal (strong in Q3, tight in Q4) and depends on landing new work.</p>
+<p>What we <em>can</em> commit to:</p>
+<ul>
+  <li><strong>One hard rule:</strong> the slice on the 0% card must be cleared within its 12-month window, or it reverts to ~25%+. So we move only what we can pay in a year — roughly <strong>$15–25K</strong> — funded by the <strong>~$6,500/mo freed up</strong> when FD ended.</li>
+  <li><strong>The LOC has no deadline.</strong> At ~10% it's cheap, revolving capital — paid down opportunistically: when a big draw lands, about half to the balance, half to buffer.</li>
+  <li><strong>Revenue is the accelerator</strong> — 26 Lee and the next project clear the debt.</li>
+</ul>
+<p><strong>Bottom line:</strong> clear the card slice in 12 months, pay the LOC down with surpluses as they come, and never force aggressive payoff in a thin quarter at payroll's expense.</p>
+
+<h2>8. What we need to do</h2>
+<ul>
+  <li><strong>Rafael &amp; Natalia:</strong> Justine already sent the bank's required info to Rafael — confirm nothing's outstanding and submit the LOC this week.</li>
+  <li><strong>Natalia (with Rafael):</strong> Natalia is the applicant on both the LOC and the card — Rafael to complete the applications with her.</li>
+  <li><strong>Rafael:</strong> get 26 Lee's contract signed — its deposit and Q4 draws soften the gap.</li>
+  <li><strong>Rafael:</strong> send the 104 Child change-order invoices — we can't collect until it's billed.</li>
+  <li><strong>Confirmed:</strong> Capital One's APR is 24.49% (balance ~$64K, ~$15,500/yr). Savings above are final.</li>
+</ul>
+
+<div class="foot">Conservative base case prepared by the RFS finance function. Floor assumptions (RBA $15K/wk, even draw spread, fixed burn); excludes unsigned work. Card terms current June 2026 — verify at the issuer before applying.</div>
+</div>
+
+<!-- ============================= PORTUGUÊS ============================= -->
+<div id="pt" hidden>
+<header>
+  <div class="eyebrow">RFS Builders Inc · Resumo do CFO</div>
+  <h1>Plano de Cash Flow e Working Capital — 2º Semestre de 2026</h1>
+  <div class="meta">Para Rafael e Natalia · 25 de junho de 2026 · Cenário conservador</div>
+</header>
+
+<p class="lead">Em resumo:</p>
+<p class="lead tight">Estamos bem cobertos até <strong>setembro</strong>.</p>
+<p class="lead tight">Depois, vários projetos terminando ao mesmo tempo criam um <strong>aperto de caixa no 4º trimestre</strong>.</p>
+<p class="lead tight">Lidamos com isso de três formas: guardar o excedente do 3º tri, abrir uma linha de crédito (LOC) como ponte (a cerca de metade da nossa taxa atual) e fechar o 26 Lee mais o próximo projeto.</p>
+<p class="lead tight">Não é uma crise — é planejamento antes de uma queda que já enxergamos.</p>
+
+<h2>1. O pipeline é forte — a questão é o tempo</h2>
+<p>Temos cerca de <strong>US$ 309 mil ainda a receber</strong> de trabalhos já contratados.</p>
+<p class="tight">Mais um provável <strong>US$ 55 mil</strong> (26 Lee St) assim que for assinado.</p>
+<p class="tight">Isso é saudável. Mas a maior parte entra no 3º tri, e vários projetos terminam com poucas semanas de diferença.</p>
+<div class="scroll"><table>
+  <tr><th>Projeto</th><th class="num">A receber</th><th>Término est.</th></tr>
+  <tr><td>70 Robin St — Bob Rochford</td><td class="num">US$ 160.614</td><td>meados de dezembro</td></tr>
+  <tr><td>51 Cedar St — Paula Smith</td><td class="num">US$ 96.169</td><td>meados de setembro</td></tr>
+  <tr><td>14 Guernsey St — Chris Heaton</td><td class="num">US$ 42.334</td><td>início de setembro</td></tr>
+  <tr><td>43 Haverford — Marga Raffucci</td><td class="num">US$ 4.211</td><td>meados de julho</td></tr>
+  <tr><td>104 Child St — Teresa Spillane <span class="small">(+ COs)</span></td><td class="num">US$ 4.053</td><td>meados de julho</td></tr>
+  <tr><td>3 Arborview — Ray Dunetz</td><td class="num">US$ 2.000</td><td>meados de julho</td></tr>
+  <tr class="tot"><td>Total contratado</td><td class="num">~US$ 309.381</td><td></td></tr>
+  <tr><td>26 Lee St — Gillian Haney <span class="pill a">sim verbal · não assinado</span></td><td class="num">US$ 55.000</td><td>entrada 30% ~US$ 16.500 na assinatura</td></tr>
+</table></div>
+<p class="small">Dois fatos apertam o caixa em cada obra:</p>
+<ul class="small">
+  <li>Trabalhamos com <strong>15% de markup</strong> — então só ~US$ 40 mil dos US$ 309 mil são margem real; o resto cobre equipe, materiais e subs.</li>
+  <li>Os clientes retêm <strong>10% de retainage</strong> de nós, mas pagamos os subs integralmente — então estamos sempre financiando ~US$ 31 mil de retenção até as obras fecharem.</li>
+</ul>
+
+<h2>2. Curva de cash flow conservadora, julho–dezembro</h2>
+<p>Premissas de piso: RBA no mínimo confiável de US$ 15 mil/semana, recebimentos distribuídos até o término de cada obra, gastos em ~US$ 130 mil/mês (mantemos a equipe com horas estáveis).</p>
+<div class="scroll"><table>
+  <tr><th>Mês</th><th class="num">Entradas</th><th class="num">Gastos</th><th class="num">Líquido</th><th class="num">Caixa final</th></tr>
+  <tr><td>Início</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">US$ 40 mil</td></tr>
+  <tr><td>Julho <span class="small">(+entrada 26 Lee)</span></td><td class="num">US$ 167 mil</td><td class="num">US$ 130 mil</td><td class="num pos">+US$ 37 mil</td><td class="num">US$ 78 mil</td></tr>
+  <tr><td>Agosto</td><td class="num">US$ 141 mil</td><td class="num">US$ 130 mil</td><td class="num pos">+US$ 11 mil</td><td class="num">US$ 89 mil</td></tr>
+  <tr><td>Setembro</td><td class="num">US$ 130 mil</td><td class="num">US$ 130 mil</td><td class="num">~US$ 0</td><td class="num">US$ 89 mil</td></tr>
+  <tr><td>Outubro</td><td class="num">US$ 91 mil</td><td class="num">US$ 130 mil</td><td class="num neg">−US$ 39 mil</td><td class="num">US$ 50 mil</td></tr>
+  <tr><td>Novembro</td><td class="num">US$ 91 mil</td><td class="num">US$ 130 mil</td><td class="num neg">−US$ 39 mil</td><td class="num">US$ 12 mil</td></tr>
+  <tr><td>Dezembro</td><td class="num">US$ 94 mil</td><td class="num">US$ 130 mil</td><td class="num neg">−US$ 36 mil</td><td class="num neg">−US$ 24 mil</td></tr>
+</table></div>
+<div class="callout amber"><h3>Por que o 4º tri aperta</h3>
+  <p>Em outubro, as obras de julho e setembro já fecharam.</p>
+  <p class="tight">Só o 70 Robin ainda paga (~US$ 26 mil/mês) — enquanto os gastos seguem em ~US$ 130 mil.</p>
+  <p class="tight">O caixa sobe para ~US$ 89 mil até setembro e depois cai em direção a zero até dezembro, se nenhum trabalho novo preencher a lacuna.</p></div>
+<p class="small"><strong>Potencial de alta (fora do cenário-base):</strong> os recebimentos do 26 Lee no 4º tri, o próximo projeto em cotação, e o RBA acima do piso nas semanas fracas de obra.</p>
+
+<h2>3. O plano</h2>
+<div class="grid">
+  <div class="callout green" style="margin:0"><h3 style="color:var(--ink)">① Guardar o excedente do 3º tri</h3><p>Os ~US$ 89 mil de setembro não são para gastar — pré-financiam a queda do 4º tri.</p></div>
+  <div class="callout green" style="margin:0"><h3 style="color:var(--ink)">② LOC = a ponte</h3><p>Uma linha de ~US$ 75 mil a ~10% substitui os ~24% do Cap One. Faz a ponte do 4º tri e permite re-sacar barato.</p></div>
+  <div class="callout green" style="margin:0"><h3 style="color:var(--ink)">③ Novo cartão 0% para uma parte</h3><p>Carrega uma parte do Cap One a 0% e vira nosso cartão de compras do dia a dia.</p></div>
+  <div class="callout green" style="margin:0"><h3 style="color:var(--ink)">④ Receita fecha a lacuna</h3><p>O financiamento dá tempo — fechar o 26 Lee e o próximo projeto preenche o buraco.</p></div>
+</div>
+
+<h2>4. Ficar parado vs. fazer a mudança</h2>
+<div class="scroll"><table>
+  <tr><th>Sobre ~US$ 64 mil de dívida</th><th>Ficar no Capital One</th><th>LOC + cartão 0%</th></tr>
+  <tr><td>Taxa de juros</td><td>24,49% <span class="small">(confirmada)</span></td><td>~10% (+ 0% numa parte)</td></tr>
+  <tr><td>Juros / ano</td><td class="num">~US$ 15.500</td><td class="num">~US$ 6.400</td></tr>
+  <tr><td>Custo no último mês</td><td class="num neg">US$ 1.291</td><td class="num">—</td></tr>
+  <tr><td>Espaço de working capital</td><td><span class="pill r">~US$ 1 mil — no teto</span></td><td><span class="pill g">novo, reutilizável</span></td></tr>
+  <tr><td>Risco num mês fraco</td><td>não compra material</td><td>ponte pela metade do custo</td></tr>
+</table></div>
+<p><strong>Resumo: ~US$ 9.000/ano de juros economizados.</strong></p>
+<p class="tight">O Capital One está nos custando <strong>US$ 1.291 em um único mês</strong> a 24,49%.</p>
+<p class="tight">E tão importante quanto — a LOC mantém folha e materiais fluindo no 4º tri, porque o Capital One está no teto e não pode mais ser a ponte.</p>
+
+<h2>5. Linha de crédito — vamos avançar já</h2>
+<div class="callout">
+  <p>A Justine (nossa contadora) já reuniu as informações exigidas pelo banco e enviou ao Rafael.</p>
+  <p class="tight">Então acreditamos ter tudo o que precisamos para dar andamento.</p>
+  <p class="tight"><strong>Rafael e Natalia — por favor confirmem que não falta mais nada, e vamos enviar o quanto antes.</strong></p>
+  <p class="tight">Esta é a peça de maior valor e mais urgente, dado o timing do 4º tri acima.</p>
+</div>
+<p class="small">Meta: linha de ~US$ 75 mil a cerca de Prime + 1,5% (~10%).</p>
+<p class="small tight">A Natalia é a solicitante — titular, garantia pessoal, crédito forte (812). Rafael conclui junto com ela.</p>
+<p class="small tight">Começar pelo Citizens (nosso banco operacional); comparar com um banco comunitário / cooperativa de MA.</p>
+
+<h2>6. Novo cartão — no nome da empresa</h2>
+<p>Vamos colocar isso sob a <strong>RFS Builders</strong>, não num cartão pessoal.</p>
+<p class="tight">Isso mantém o saldo fora do crédito pessoal da Natalia, constrói o crédito da empresa e mantém a contabilidade limpa.</p>
+<p>Uma distinção importante:</p>
+<ul>
+  <li>A maioria dos business cards (Chase, Amex, BofA) dá 0% só em <strong>compras</strong>.</li>
+  <li>O <strong>U.S. Bank Triple Cash é a exceção</strong> — 0% também em transferência de saldo (12 ciclos, taxa de 5%).</li>
+</ul>
+<p>Isso nos permite executar o plano: transferir para o cartão a maior parte possível do Capital One a 0%, e a LOC absorve o resto.</p>
+<p class="small">Os quatro abaixo são sem anuidade. A Natalia solicita como titular.</p>
+<div class="scroll"><table>
+  <tr><th>Business card</th><th>0% introdutório</th><th>Cashback</th><th>Solicitar</th></tr>
+  <tr><td>U.S. Bank Triple Cash Business <span class="pill g">escolha</span></td><td>12 ciclos <span class="small">(compras + transf.)</span></td><td>3% combustível/escritório/telefone/restaurante · crédito de US$ 100 em software</td><td><a class="btn" href="https://www.usbank.com/business-banking/business-credit-cards/business-triple-cash-back-credit-card.html">Solicitar</a></td></tr>
+  <tr><td>Chase Ink Business Unlimited®</td><td>12 meses (só compras)</td><td>1,5% fixo</td><td><a class="btn" href="https://creditcards.chase.com/business-credit-cards/ink/unlimited">Solicitar</a></td></tr>
+  <tr><td>Amex Blue Business Cash™</td><td>12 meses (só compras)</td><td>2% até US$ 50 mil/ano</td><td><a class="btn" href="https://www.americanexpress.com/en-us/business/credit-cards/blue-business-cash/">Solicitar</a></td></tr>
+  <tr><td>BofA Business Advantage Unlimited Cash</td><td>~7–9 ciclos (só compras)</td><td>1,5%</td><td><a class="btn" href="https://www.bankofamerica.com/smallbusiness/credit-cards/products/unlimited-cash-rewards-business-credit-card/">Solicitar</a></td></tr>
+</table></div>
+<h3>Por que cada um</h3>
+<div class="grid">
+  <div class="callout" style="margin:0"><h3 style="color:var(--ink);margin-top:0">U.S. Bank Triple Cash <span class="pill g">escolha</span></h3><p class="small">✓ O único que também permite transferência de saldo a 0%<br>✓ Recompensas casam com nossos gastos + crédito de US$ 100/ano em software (usamos QuickBooks)<br>✓ Sem anuidade; não reporta ao crédito pessoal<br>✗ Janela de 12 meses; taxa de 5% sobre o que transferirmos</p></div>
+  <div class="callout" style="margin:0"><h3 style="color:var(--ink);margin-top:0">Chase Ink Business Unlimited</h3><p class="small">✓ 1,5% simples em tudo; geralmente um bom bônus<br>✓ Boas ferramentas de despesas<br>✗ 0% só em compras — não aceita a transferência do Cap One</p></div>
+  <div class="callout" style="margin:0"><h3 style="color:var(--ink);margin-top:0">Amex Blue Business Cash</h3><p class="small">✓ Maior taxa fixa — 2% até US$ 50 mil/ano<br>✗ Não é aceito por todo fornecedor/sub<br>✗ Sem transferência de saldo</p></div>
+  <div class="callout" style="margin:0"><h3 style="color:var(--ink);margin-top:0">Bank of America Business</h3><p class="small">✓ Grande emissor nacional com cashback<br>✗ Menor janela 0%; sem transferência a 0%<br>✗ O menos adequado aqui</p></div>
+</div>
+<p><strong>Recomendação: U.S. Bank Triple Cash Business.</strong></p>
+<p class="tight">Recompensas alinhadas a como a RFS gasta, o crédito do QuickBooks, e o único que aceita transferência de saldo a 0% — então executa nosso plano.</p>
+<p class="small"><strong>Dimensionando a parte:</strong> o cartão aceita só até o limite aprovado (provavelmente ~US$ 15–30 mil, não os ~US$ 64 mil completos), e seu 0% dura 12 meses. Transferimos o que dá para pagar em um ano; a LOC carrega o resto. (Consideramos cartões pessoais como o Citi Diamond Preferred — 0% por 21 meses — mas vamos manter sob a empresa.)</p>
+
+<h2>7. Pagando a dívida — a versão honesta</h2>
+<p>Uma data fixa de "quitado no mês X" ainda não é algo que possamos prometer.</p>
+<p class="tight">A velocidade de pagamento depende do excedente de caixa — que é sazonal (forte no 3º tri, apertado no 4º) e depende de fechar trabalho novo.</p>
+<p>O que <em>podemos</em> assumir:</p>
+<ul>
+  <li><strong>Uma regra firme:</strong> a parte no cartão 0% precisa ser quitada dentro dos 12 meses, ou volta para ~25%+. Então só colocamos o que dá para pagar em um ano — cerca de <strong>US$ 15–25 mil</strong> — financiado pelos <strong>~US$ 6.500/mês que sobraram</strong> com o fim do FD.</li>
+  <li><strong>A LOC não tem prazo fatal.</strong> A ~10% é capital barato e rotativo — pago de forma oportunista: quando um grande recebimento entra, metade ao saldo, metade à reserva.</li>
+  <li><strong>Receita é o acelerador</strong> — o 26 Lee e o próximo projeto quitam a dívida.</li>
+</ul>
+<p><strong>Resumo:</strong> quitar a parte do cartão em 12 meses, abater a LOC com os excedentes conforme entram, e nunca forçar pagamento agressivo num trimestre fraco em detrimento da folha.</p>
+
+<h2>8. O que precisamos fazer</h2>
+<ul>
+  <li><strong>Rafael e Natalia:</strong> a Justine já enviou ao Rafael as informações exigidas pelo banco — confirmar que não falta nada e enviar a LOC esta semana.</li>
+  <li><strong>Natalia (com Rafael):</strong> a Natalia é a solicitante da LOC e do cartão — Rafael preenche as solicitações junto com ela.</li>
+  <li><strong>Rafael:</strong> assinar o contrato do 26 Lee — a entrada e os recebimentos do 4º tri amenizam a lacuna.</li>
+  <li><strong>Rafael:</strong> enviar as faturas de change orders do 104 Child — só podemos cobrar depois de faturado.</li>
+  <li><strong>Confirmado:</strong> a taxa do Capital One é 24,49% (saldo ~US$ 64 mil, ~US$ 15.500/ano). A economia acima é final.</li>
+</ul>
+
+<div class="foot">Cenário-base conservador preparado pela função financeira da RFS. Premissas de piso (RBA US$ 15 mil/sem, distribuição uniforme, gasto fixo); exclui trabalho não assinado. Termos dos cartões vigentes em junho de 2026 — confirme no emissor antes de solicitar.</div>
+</div>
+
+</div>
+
+<script>
+  (function(){
+    function setLang(l){
+      document.getElementById('en').hidden = (l!=='en');
+      document.getElementById('pt').hidden = (l!=='pt');
+      document.getElementById('btn-en').classList.toggle('on', l==='en');
+      document.getElementById('btn-pt').classList.toggle('on', l==='pt');
+      window.scrollTo(0,0);
+    }
+    document.getElementById('btn-en').addEventListener('click', function(){ setLang('en'); });
+    document.getElementById('btn-pt').addEventListener('click', function(){ setLang('pt'); });
+  })();
+</script>
+</body>
+</html>
