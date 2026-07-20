@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overhead 2026 — Análise e Nova Taxa · RFS Builders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#c9720a; --brand-deep:#9a5606; --brand-bright:#e8871e; --brand-soft:#fdf1e0; --brand-softer:#fef8ec;
+  --paper:#faf7f1; --card:#ffffff; --rule:#ece7dc; --rule-soft:#f3efe6;
+  --ink:#221d12; --body:#4c4636; --muted:#736b57; --faint:#a29a84;
+  --ok:#2fa36b; --ok-soft:#e6f5ee; --bad:#dc4638; --bad-soft:#fbe7e5; --warn:#c07d10; --warn-soft:#fbf1dc;
+  --teal:#0fa3a3; --violet:#7b68ee;
+  --shadow:0 1px 2px rgba(60,42,5,.05),0 8px 28px -12px rgba(60,42,5,.14);
+  --r:16px;
+}
+@media (prefers-color-scheme: dark){:root{
+  --brand:#f0a34a; --brand-deep:#e8871e; --brand-bright:#f6b76a; --brand-soft:#3a2a12; --brand-softer:#2c2210;
+  --paper:#171410; --card:#211d16; --rule:#332d22; --rule-soft:#2a251b;
+  --ink:#f4efe4; --body:#cfc7b4; --muted:#a49a82; --faint:#6f6752;
+  --ok:#4ec08a; --ok-soft:#123626; --bad:#f07064; --bad-soft:#3d1815; --warn:#e8a63c; --warn-soft:#3a2c10;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 32px -12px rgba(0,0,0,.5);
+}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--body);font-size:15px;line-height:1.62;
+  background-image:radial-gradient(1100px 460px at 88% -8%, color-mix(in oklab, var(--brand) 7%, transparent), transparent 60%);}
+.wrap{max-width:980px;margin:0 auto;padding:0 26px 90px}
+.mono{font-family:'JetBrains Mono',monospace}
+.money{font-variant-numeric:tabular-nums;font-feature-settings:"tnum";white-space:nowrap}
+h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;color:var(--ink)}
+.mast{display:flex;align-items:center;gap:14px;padding:26px 0 8px}
+.logo{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,var(--brand-bright),var(--brand-deep));
+  display:grid;place-items:center;color:#fff;font-family:'Bricolage Grotesque';font-weight:800;font-size:17px;box-shadow:var(--shadow)}
+.mast .t{font-size:19px;font-weight:800;letter-spacing:-.3px;color:var(--ink);font-family:'Bricolage Grotesque'}
+.mast .s{font-size:12.5px;color:var(--muted);margin-top:-2px}
+.chip{font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:999px;border:1px solid var(--rule);background:var(--card);color:var(--muted)}
+.hero{margin:16px 0 26px;padding:30px 34px;border-radius:24px;position:relative;overflow:hidden;color:#fff;
+  background:linear-gradient(118deg,#b3650a 0%,#d97c12 42%,#eda23c 100%);box-shadow:var(--shadow)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 240px at 90% -20%,rgba(255,255,255,.28),transparent 60%)}
+.hero *{position:relative;z-index:1}
+.hero .kick{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.hero h1{font-size:31px;font-weight:800;letter-spacing:-.8px;line-height:1.12;margin:6px 0 10px;color:#fff}
+.hero p{max-width:760px;font-size:14.5px;opacity:.94}
+.hero .meta{display:flex;gap:26px;margin-top:18px;flex-wrap:wrap}
+.hero .meta div{font-size:12px;opacity:.88}.hero .meta b{display:block;font-size:22px;font-family:'Bricolage Grotesque';letter-spacing:-.3px}
+.sec{display:flex;align-items:baseline;gap:10px;margin:34px 0 12px}
+.sec::before{content:"";width:5px;height:22px;border-radius:3px;background:var(--brand);align-self:center}
+.sec h2{font-size:20px;font-weight:800;letter-spacing:-.4px}
+.sec .n{font-size:12px;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:20px 22px;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule)}
+td{padding:9px 10px;border-bottom:1px solid var(--rule-soft);color:var(--body);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--brand-softer)}
+td.r,th.r{text-align:right}
+.pos{color:var(--bad);font-weight:700}   /* aumenta o pool */
+.neg{color:var(--ok);font-weight:700}    /* reduz o pool */
+.zero{color:var(--muted)}
+.big{font-family:'Bricolage Grotesque';font-weight:800;letter-spacing:-.5px}
+.fx{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0}
+.fxb{background:var(--brand-softer);border:1px solid var(--rule);border-radius:12px;padding:13px 15px;text-align:center}
+.fxb .a{font-family:'JetBrains Mono';font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.fxb .b{font-family:'Bricolage Grotesque';font-weight:800;font-size:17px;color:var(--ink);margin-top:3px}
+.callout{border-radius:var(--r);padding:16px 20px;margin:14px 0;font-size:13.5px;border:1px solid}
+.callout.warn{background:var(--warn-soft);border-color:color-mix(in oklab,var(--warn) 30%,var(--rule));color:var(--body)}
+.callout.ok{background:var(--ok-soft);border-color:color-mix(in oklab,var(--ok) 30%,var(--rule))}
+.callout.key{background:linear-gradient(135deg,var(--brand-soft),transparent 70%),var(--card);border-color:color-mix(in oklab,var(--brand) 35%,var(--rule))}
+.callout b.h{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}
+.note{font-size:12px;color:var(--muted);margin-top:10px}
+.src{font-size:11px;color:var(--faint)}
+.bars{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.brow{display:grid;grid-template-columns:150px 1fr 74px;gap:12px;align-items:center;font-size:12.5px}
+.brow .lab{color:var(--muted);text-align:right;font-weight:600}
+.btrack{height:22px;border-radius:7px;background:var(--rule-soft);overflow:hidden;position:relative}
+.bfill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--brand-bright),var(--brand-deep));opacity:.85}
+.brow .val{font-weight:800;color:var(--ink);font-family:'Bricolage Grotesque'}
+.brow.hl .bfill{background:linear-gradient(90deg,#f07064,var(--bad));opacity:1}
+.brow.old .bfill{background:var(--faint);opacity:.55}
+.toc{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+.toc a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;border:1px solid var(--rule);background:var(--card);color:var(--muted);text-decoration:none;transition:.15s}
+.toc a:hover{color:var(--brand-deep);border-color:var(--brand)}
+.footer{margin-top:56px;text-align:center;font-size:11.5px;color:var(--faint)}
+ol.qs{margin:8px 0 0 20px}
+ol.qs li{margin-bottom:9px}
+@media(max-width:700px){.brow{grid-template-columns:92px 1fr 64px}.hero h1{font-size:24px}.wrap{padding:0 16px 70px}}
+@media print{
+  body{background:#fff;font-size:12px}
+  .hero{background:#c9720a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .card,.callout{break-inside:avoid;box-shadow:none}
+  .toc{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="mast">
+  <div class="logo">RFS</div>
+  <div><div class="t">Overhead 2026 — Análise e Nova Taxa</div><div class="s">RFS Builders · Controle Financeiro · preparado por Hadassa Lima com o sistema interno</div></div>
+  <div style="margin-left:auto" class="chip">17 de julho de 2026</div>
+</div>
+
+<div class="hero">
+  <div class="kick">Documento de trabalho · para discussão com a assessoria na terça-feira</div>
+  <h1>De 18.13% para ≈ 28.8%: o que mudou, linha por linha.</h1>
+  <p>Partimos exatamente do método usado na planilha "RbA 2025" — pool de overhead ÷ vendas — e atualizamos os dois lados
+  da divisão com os valores reais de 2026, extraídos dos extratos bancários, das apólices e dos sistemas (BuilderTrend,
+  QuickBooks Time, planilha RBA). Este documento mostra todas as diferenças que localizamos, a fonte de cada número,
+  e a conta completa da nova taxa. <b>Valores em dólares americanos (USD), formato $1,234.56.</b></p>
+  <div class="meta">
+    <div><b class="money">$663,665</b>pool 2026 reconstruído (≈ igual aos $660,406 da planilha)</div>
+    <div><b class="money">$2.30M</b>vendas 2026 anualizadas (vs $3.64M projetados em 2025)</div>
+    <div><b>≈ 28.8%</b>nova taxa de overhead (faixa 27–30%)</div>
+    <div><b class="money">$132.9K</b>overhead não recuperado no ano até 16/07 a 18.13%</div>
+  </div>
+</div>
+
+<div class="toc">
+  <a href="#metodo">1 · O método original</a>
+  <a href="#pool">2 · O pool, linha por linha</a>
+  <a href="#denominador">3 · O denominador (a verdadeira mudança)</a>
+  <a href="#taxa">4 · A nova taxa</a>
+  <a href="#impacto">5 · Impacto</a>
+  <a href="#metodologia">6 · Metodologia daqui pra frente</a>
+  <a href="#celulas">7 · Células para revisão</a>
+  <a href="#perguntas">8 · Perguntas para a reunião</a>
+</div>
+
+<!-- ══════════ 1 · MÉTODO ══════════ -->
+<div class="sec" id="metodo"><h2>1 · O método original (planilha "RbA 2025")</h2><span class="n">reproduzimos a conta exata — mesma estrutura, mesmas letras</span></div>
+<div class="card">
+  <p style="font-size:14px">A taxa de 18.13% usada em todos os jobs de 2025/2026 foi construída assim na aba <span class="mono" style="font-size:12px">OVERHEAD 2025</span>:</p>
+  <div class="fx">
+    <div class="fxb"><div class="a">Overhead fixo</div><div class="b money">$467,221.16</div></div>
+    <div class="fxb"><div class="a">+ Seção do proprietário</div><div class="b money">$193,184.52</div></div>
+    <div class="fxb"><div class="a">= Pool total</div><div class="b money">$660,405.68</div></div>
+    <div class="fxb"><div class="a">÷ Vendas 2025 PROJETADAS</div><div class="b money">$3,642,111.67</div></div>
+    <div class="fxb" style="border-color:var(--brand);background:var(--brand-soft)"><div class="a">= Taxa</div><div class="b">18.1325% → <b>18.13%</b></div></div>
+  </div>
+  <p style="font-size:13.5px">O método é bom e nós o mantivemos: <b>todo job deve carregar sua fração do overhead total da empresa.</b>
+  O que fizemos foi atualizar os dois insumos — o pool (numerador) e as vendas (denominador) — com os valores
+  observados de 2026. A conclusão antecipada: <b>o pool quase não mudou; o denominador mudou muito.</b></p>
+  <div class="note">Observação de consistência: a taxa de 2024 (33.6%) foi calculada só com o pool fixo ÷ vendas 2024 ($1,391,318),
+  enquanto a de 2025 somou também a seção do proprietário — definições de pool diferentes entre os anos. A metodologia
+  proposta na seção 6 padroniza isso de uma vez.</div>
+</div>
+
+<!-- ══════════ 2 · POOL ══════════ -->
+<div class="sec" id="pool"><h2>2 · O pool 2026, linha por linha</h2><span class="n">o que os extratos e apólices mostram vs a planilha · Δ vermelho = aumenta o pool · verde = reduz</span></div>
+<div class="card">
+  <table>
+    <thead><tr><th style="width:23%">Linha</th><th class="r">Planilha (anual)</th><th class="r">Real 2026 (anual)</th><th class="r">Δ</th><th style="width:34%">Fonte / observação</th></tr></thead>
+    <tbody>
+      <tr><td><b>Seguros empresariais</b></td><td class="r money">17,960</td><td class="r money"><b>29,025</b></td><td class="r money pos">+11,065</td>
+        <td>Apólices confirmadas 17/07: Auto Comercial Travelers <span class="money">$17,702</span> (dez→dez) · Workers Comp Travelers <span class="money">$9,313</span> (pago integral, jan→jan) · GL Providence Mutual <span class="money">$2,010</span> (12×$167.50). A planilha tinha WC/GL $6,560 + auto $11,400.</td></tr>
+      <tr><td><b>Telefone / internet</b></td><td class="r money">840</td><td class="r money"><b>7,270</b></td><td class="r money pos">+6,430</td>
+        <td>AT&amp;T real: $605.82/mês nos extratos (2 cobranças mensais, $545.29 + $60.53).</td></tr>
+      <tr><td><b>Software / assinaturas</b></td><td class="r money">6,120</td><td class="r money"><b>≈ 10,000</b></td><td class="r money pos">+3,880</td>
+        <td>Fornecedores nomeados (Google, Intuit, Otter, Anthropic, OpenAI…) ≈ $8K anualizado + itens que o cartão categoriza como "Merchandise". Cresceu com a automação de 2026.</td></tr>
+      <tr><td><b>Combustível &amp; veículos</b> (exceto financiamentos)</td><td class="r money">48,000</td><td class="r money"><b>55,000–68,000</b></td><td class="r money pos">+7K a +20K</td>
+        <td>Cap One "Gas/Automotive" $33,781 YTD → ~$62.6K/ano (inclui manutenção) + cartão-frota Wright Express ~$5.2K/ano. Separação combustível × oficina ainda pendente — por isso a faixa.</td></tr>
+      <tr><td>Financiamentos de veículos</td><td class="r money">34,000</td><td class="r money">33,700</td><td class="r money zero">≈ 0 ✓</td>
+        <td>Autopays reais: Associated $885.59 + Citizens auto $914.38 + Citizens installment $673.39 + Ally ~$467/mês. <b>A planilha estava certa aqui</b> — validamos, não só divergimos.</td></tr>
+      <tr><td>Seguro de vida NYL (proprietário)</td><td class="r money">48,000</td><td class="r money">48,000</td><td class="r money zero">0 ✓</td>
+        <td>Confirmado nos extratos: 4 × $1,000/mês (2 apólices × 2 datas). Bate exatamente com a linha da planilha.</td></tr>
+      <tr><td>"Payroll pessoal" (proprietário)</td><td class="r money">61,558</td><td class="r money">61,417</td><td class="r money zero">≈ 0 ✓</td>
+        <td>A linha $5,129.83/mês da planilha corresponde ao pagamento BILO (folha W2 da Natalia, 3 parcelas quinzenais): média real $5,118.05/mês em 2026. Mesma coisa, nome diferente.</td></tr>
+      <tr><td><b>Hipotecas (proprietário)</b></td><td class="r money">50,965</td><td class="r money"><b>117,500</b></td><td class="r money pos">+66,535</td>
+        <td>A planilha tem UMA linha ($4,247.08/mês). Do Citizens PJ saem DUAS hipotecas CrossCountry: $4,288.68 (50 Maureen Dr) + $5,503.04 (residência; reajustada em jul/26 de $5,271.55) = $9,791.72/mês. Ambas na seção do proprietário.</td></tr>
+      <tr><td><b>Assessoria financeira</b></td><td class="r money">72,000</td><td class="r money"><b>26,000</b> <span class="src">(daqui pra frente)</span></td><td class="r money neg">−46,000</td>
+        <td>Decisão de 17/07: $500/semana daqui pra frente. Jan–jul foram $1,500/sem (26 pagamentos = $39,000 YTD) → 2026 misto ≈ $54,000. O pool operativo usa o misto de 2026; a partir de 2027, $26,000.</td></tr>
+      <tr><td>Alice (escritório)</td><td class="r money">65,000</td><td class="r money">≈ 55,000</td><td class="r money neg">−10,000</td>
+        <td>Folha real: ~$31/h × ~34.4h/sem.</td></tr>
+      <tr><td>Bookkeeping</td><td class="r money">18,000</td><td class="r money">6,604</td><td class="r money neg">−11,396</td>
+        <td>Proposta da Justine por e-mail (03/06/26): $6,604/ano, pago quando o trabalho for feito (~início de 2027). A planilha provisionava $1,500/mês.</td></tr>
+      <tr><td>Maureen</td><td class="r money">24,000</td><td class="r money">0</td><td class="r money neg">−24,000</td>
+        <td>Decisão de 17/07 (Hadassa): fora do pool de overhead da empresa.</td></tr>
+      <tr><td>Aluguel / utilities do escritório</td><td class="r money">8,520</td><td class="r money">0 <span class="src">(não observável)</span></td><td class="r money neg">−8,520</td>
+        <td>Não existe débito correspondente em NENHUM extrato que temos (Citizens, Cap One, HD). <b>Pergunta para a reunião: essa despesa existe? por onde é paga?</b> Em troca, entram no nosso pool ATT (acima) e Sunrun solar $2,702/ano.</td></tr>
+      <tr><td>Impostos da empresa (provisão)</td><td class="r money">12,000</td><td class="r money">12,000</td><td class="r money zero">0 (mantido)</td>
+        <td>Só um débito MA DOR de $456 visível em 12 meses; mantivemos a provisão de vocês por decisão — a confirmar com o CPA.</td></tr>
+      <tr><td>Refeições e outros</td><td class="r money">—</td><td class="r money">+1,400</td><td class="r money pos">+1,400</td>
+        <td>Média real dos cartões.</td></tr>
+      <tr><td>Guilherme / Hadassa (salários fixos)</td><td class="r money">169,000</td><td class="r money">169,000</td><td class="r money zero">0 ✓</td>
+        <td>$104,000 + $65,000 — batem com a planilha.</td></tr>
+    </tbody>
+  </table>
+  <div class="callout key" style="margin-top:16px">
+    <b class="h">Resultado do pool: $660,406 (planilha) → ≈ $663,665 (real 2026). Praticamente igual.</b>
+    Os aumentos (seguros +11K, telefone +6.4K, software +3.9K, combustível +7–20K, 2ª hipoteca +66.5K) são compensados
+    pelas reduções (assessoria, Alice, bookkeeping, Maureen). Testamos três cenários de pool — $636K (assessoria já a $500/sem
+    + 1 hipoteca), <b>$664K (operativo: assessoria mista 2026 + hipotecas reais)</b> e $730K (tudo no teto) — e a taxa muda pouco
+    entre eles. <b>Conclusão: o pool NÃO é a história. O denominador é.</b>
+  </div>
+</div>
+
+<!-- ══════════ 3 · DENOMINADOR ══════════ -->
+<div class="sec" id="denominador"><h2>3 · O denominador — a verdadeira mudança</h2><span class="n">vendas projetadas $3.64M vs vendas reais anualizadas $2.30M</span></div>
+<div class="card">
+  <p style="font-size:14px">A taxa de 18.13% dividia o pool por <b>$3,642,111.67 de vendas projetadas para 2025</b>.
+  As vendas reais de 2026, medidas nos sistemas até 16/07 (197 dias):</p>
+  <div class="fx">
+    <div class="fxb"><div class="a">RBA 2026 YTD</div><div class="b money">$523,145.60</div><div class="src">planilha de controle RBA: contratos originais + extras aprovados (depósitos bancários YTD: $475,346.42)</div></div>
+    <div class="fxb"><div class="a">GC 2026 YTD (faturado emitido)</div><div class="b money">$719,508.38</div><div class="src">BuilderTrend: 65 faturas / 12 obras, conferido ao centavo; exclui $61,274.73 em rascunhos não emitidos</div></div>
+    <div class="fxb"><div class="a">= Vendas YTD (197 dias)</div><div class="b money">$1,242,653.98</div></div>
+    <div class="fxb" style="border-color:var(--brand);background:var(--brand-soft)"><div class="a">× 365/197 = Anualizado</div><div class="b money">≈ $2,302,000</div></div>
+  </div>
+  <div class="callout warn">
+    <b class="h">⚠ A linha "Andersen 2026" da planilha está desatualizada: $269,598.55.</b>
+    O volume RBA real de 2026 já passa de $523K até julho — quase o dobro da linha da planilha. Vale atualizar na próxima revisão.
+  </div>
+  <p style="font-size:13.5px">Pipeline que sustenta a anualização: contratos GC assinados somam $1.69M (faturado $1.32M) →
+  ~$370K ainda por faturar, + novo projeto aprovado esta semana (26 Lee St, entra quando faturar), + RBA rodando
+  ~$20,444/semana na média das últimas 9 semanas. Se o Rafael tiver uma projeção própria de vendas para 2026,
+  ela entra no lugar da anualização — a conta aceita qualquer denominador (ver sensibilidade abaixo).</p>
+</div>
+
+<!-- ══════════ 4 · TAXA ══════════ -->
+<div class="sec" id="taxa"><h2>4 · A nova taxa</h2><span class="n">mesma fórmula, insumos 2026</span></div>
+<div class="card">
+  <div class="fx">
+    <div class="fxb"><div class="a">Pool 2026</div><div class="b money">$663,665</div></div>
+    <div class="fxb"><div class="a">÷ Vendas anualizadas</div><div class="b money">$2,302,000</div></div>
+    <div class="fxb" style="border-color:var(--bad);background:var(--bad-soft)"><div class="a">= Taxa 2026</div><div class="b">≈ 28.8%</div></div>
+  </div>
+  <p style="font-size:13.5px">Com rascunhos do BT incluídos no denominador a taxa seria 27.5%; a faixa de trabalho é <b>27–30%</b>.
+  A sensibilidade abaixo mostra a taxa para cada hipótese de vendas 2026 — repare que <b>para 18% "voltar a existir",
+  a empresa precisa vender ~$3.6M no ano</b>, que é justamente a projeção que 2025/2026 não vêm entregando:</p>
+  <div class="bars">
+    <div class="brow"><span class="lab money">$1.9M</span><div class="btrack"><div class="bfill" style="width:100%"></div></div><span class="val">34.9%</span></div>
+    <div class="brow"><span class="lab money">$2.1M</span><div class="btrack"><div class="bfill" style="width:91%"></div></div><span class="val">31.6%</span></div>
+    <div class="brow hl"><span class="lab money">$2.3M ← ritmo atual</span><div class="btrack"><div class="bfill" style="width:83%"></div></div><span class="val">28.8%</span></div>
+    <div class="brow"><span class="lab money">$2.6M</span><div class="btrack"><div class="bfill" style="width:73%"></div></div><span class="val">25.5%</span></div>
+    <div class="brow"><span class="lab money">$3.0M</span><div class="btrack"><div class="bfill" style="width:63%"></div></div><span class="val">22.1%</span></div>
+    <div class="brow old"><span class="lab money">$3.64M (proj. 2025)</span><div class="btrack"><div class="bfill" style="width:52%"></div></div><span class="val">18.2%</span></div>
+  </div>
+  <div class="note">Barras = tamanho da taxa. A linha cinza é o mundo em que 18.13% fecha a conta; a laranja escura é o ritmo real medido.</div>
+</div>
+
+<!-- ══════════ 5 · IMPACTO ══════════ -->
+<div class="sec" id="impacto"><h2>5 · O que isso significa em dólares</h2><span class="n">o custo de precificar 2026 a 18.13%</span></div>
+<div class="card">
+  <table>
+    <tbody>
+      <tr><td>Overhead incorrido no ano até 16/07 (197/365 do pool)</td><td class="r money big">$358,187</td></tr>
+      <tr><td>Overhead recuperado nos preços a 18.13% × $1,242,654 de vendas</td><td class="r money big">$225,293</td></tr>
+      <tr><td style="color:var(--ink);font-weight:800">Overhead NÃO recuperado (subsidiado pelo caixa) no YTD</td><td class="r money big" style="color:var(--bad)">≈ $132,894</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn" style="margin-top:14px">
+    <b class="h">Efeito nas margens RBA que a planilha mostra hoje</b>
+    A média 2026 da planilha (23.09% de margem) usa overhead de 18.13%. Na taxa real (~28.8%), a margem verdadeira
+    média fica ~10.7 pontos menor — na casa de 12.4%. Os jobs não pioraram; a taxa é que estava subestimada
+    para o volume de vendas atual. E jobs pequenos com margem apertada podem estar operando no negativo real.
+  </div>
+  <div class="callout warn">
+    <b class="h">Pergunta retroativa importante: e 2025?</b>
+    Se as vendas REAIS de 2025 também ficaram abaixo dos $3.64M projetados, então 2025 inteiro foi precificado
+    com overhead subestimado — sub-recuperação silenciosa o ano todo. Precisamos do número real de vendas 2025
+    para fechar essa conta (pergunta 1 da seção 8).
+  </div>
+</div>
+
+<!-- ══════════ 6 · METODOLOGIA ══════════ -->
+<div class="sec" id="metodologia"><h2>6 · Metodologia daqui pra frente</h2><span class="n">como a taxa se mantém correta sozinha — sem depender de projeção anual</span></div>
+<div class="card">
+  <table>
+    <tbody>
+      <tr><td style="width:30%"><b>Fórmula</b></td><td>taxa = pool de overhead ÷ vendas YTD anualizadas (365/dias corridos). Sem projeções manuais: o denominador é medido, não estimado.</td></tr>
+      <tr><td><b>Atualização</b></td><td>o sistema recalcula a taxa continuamente (cada sexta-feira de RBA e cada fatura GC mudam o denominador; cada despesa nova de overhead muda o numerador). A taxa <b>oficial</b> muda no true-up trimestral (1/out, 1/jan, 1/abr, 1/jul) — ou antes, se o recálculo divergir mais de 1.5 ponto da oficial (alerta automático).</td></tr>
+      <tr><td><b>Histórico protegido</b></td><td>cada job fechado guarda a taxa com que foi pontuado ("snapshot"). Mudar a taxa nunca reescreve lucro passado — compara-se sempre taxa da época × taxa atual.</td></tr>
+      <tr><td><b>Transparência</b></td><td>a taxa vigente, a fórmula e os dois insumos ficam visíveis no sistema (aba Profit) — qualquer um clica e vê de onde o número veio, incluindo esta análise.</td></tr>
+      <tr><td><b>Rótulo</b></td><td>taxas versionadas: <span class="mono" style="font-size:12px">2025 → 18.13% · 2026-Q3 → 28.8%</span> (próxima revisão 01/10/2026).</td></tr>
+    </tbody>
+  </table>
+  <div class="callout ok" style="margin-top:12px">
+    <b class="h">Por que anualizar em vez de projetar?</b>
+    Porque a projeção foi exatamente o que quebrou 18.13%: bastou as vendas reais ficarem abaixo do projetado para a
+    empresa passar o ano subsidiando overhead sem ninguém ver. Anualizar o realizado erra menos e se corrige sozinho
+    a cada trimestre. A projeção do Rafael continua útil — como <b>cenário de comparação</b>, não como denominador.
+  </div>
+</div>
+
+<!-- ══════════ 7 · CÉLULAS ══════════ -->
+<div class="sec" id="celulas"><h2>7 · Células da planilha 2025 para revisão</h2><span class="n">achados da conferência célula a célula — pequenos, mas valem o ajuste</span></div>
+<div class="card">
+  <table>
+    <thead><tr><th>Onde</th><th>O que a célula mostra</th><th>O que a conta dá</th><th class="r">Diferença</th></tr></thead>
+    <tbody>
+      <tr><td><b>RA058 Katie Edgerton</b> · TOTAL COST</td><td class="money">3,408.09</td><td class="money">3,598.10 + 395.79 = 3,993.89</td><td class="r money pos">lucro de março (e do ano) superavaliado em $585.80</td></tr>
+      <tr><td><b>59 Montclair</b> · FINAL</td><td class="money">531,050.09</td><td class="money">403,095.63 + 107,614.46 = 510,710.09</td><td class="r money pos">+$20,340.00 sem origem</td></tr>
+      <tr><td><b>Resumo · linha Andersen NET</b></td><td class="money">259,437.37</td><td class="money">detalhe soma 259,846.71</td><td class="r money pos">$409.34 não derivável; e a coluna TOTAL COST do resumo omite os 11% de encargos</td></tr>
+      <tr><td>Datas nov–dez 2025</td><td colspan="2">várias linhas gravadas como 2026</td><td class="r">typos de ano</td></tr>
+      <tr><td>Projetos pessoais no P&amp;L</td><td colspan="2">50 Maureen (−$44,997) e 193 Smith (−$80,387.80) — $125,384.80 de mão de obra com contrato $0 dentro do P&amp;L de jobs</td><td class="r">distorce médias</td></tr>
+    </tbody>
+  </table>
+  <div class="note">Nada disso muda a conclusão da taxa — são ajustes de qualidade da planilha que encontramos ao reproduzir as contas. Trazemos por transparência (e porque a média simples de margem também é puxada por jobs de contrato $0).</div>
+</div>
+
+<!-- ══════════ 8 · PERGUNTAS ══════════ -->
+<div class="sec" id="perguntas"><h2>8 · O que precisamos de vocês na terça</h2><span class="n">cinco itens fecham a conta de vez</span></div>
+<div class="card">
+  <ol class="qs" style="font-size:14px">
+    <li><b>Vendas REAIS de 2025</b> (não projetadas) — para saber se 2025 também sub-recuperou overhead.</li>
+    <li><b>Encargos de 11% sobre mão de obra</b> — confirmar a alíquota (ou nos passar um trimestre de 941/UI para derivarmos).</li>
+    <li><b>Denominador 2026:</b> aprovar a anualização do realizado com true-up trimestral — ou nos passar a projeção de vendas do Rafael para usarmos como cenário.</li>
+    <li><b>As 3 células da seção 7</b> — confirmar e corrigir na planilha 2025.</li>
+    <li><b>Aluguel/utilities do escritório ($710/mês na planilha)</b> — existe? por onde é pago? (não aparece em nenhum extrato da empresa que temos).</li>
+  </ol>
+</div>
+
+<div class="footer">
+  RFS Builders · Análise de Overhead 2026 · 17/07/2026 · fontes: extratos Citizens / Capital One / Home Depot (ledger interno conciliado diariamente),
+  apólices Travelers &amp; Providence Mutual (confirmadas 17/07), BuilderTrend (65 faturas 2026 conferidas ao centavo), planilha de controle RBA (169 RAs),
+  QuickBooks Time, e-mails de fornecedores · preparado com o sistema financeiro interno · valores em USD
+</div>
+</div>
+</body>
+</html>
