@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>99 Concord — Walkthrough Tracker · RFS Builders</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --ink:#1a1a18; --muted:#6b6b66;
+    --line:#e3e3df; --accent:#1f5c4a; --warn:#8a5a00; --bad:#9b2c2c;
+    --ok-bg:#e8f2ee; --warn-bg:#fdf4e3; --bad-bg:#fdecec; --idle-bg:#f0f0ed;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#161614; --card:#201f1d; --ink:#eceae6; --muted:#a3a09a;
+      --line:#33322f; --accent:#6fbfa3; --warn:#d9a441; --bad:#e88b8b;
+      --ok-bg:#1d2e27; --warn-bg:#2e2718; --bad-bg:#301d1d; --idle-bg:#282725;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 20px 60px;background:var(--bg);color:var(--ink);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:21px;font-weight:650;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 22px}
+  .sub b{color:var(--ink);font-weight:600}
+
+  .counts{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 24px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:8px;
+    padding:11px 16px;min-width:104px;flex:1 1 104px}
+  .stat .n{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+  .stat .l{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:3px}
+
+  .slot{margin:0 0 26px}
+  .slot h2{font-size:14px;font-weight:650;margin:0 0 2px;letter-spacing:-.005em}
+  .slot .when{color:var(--muted);font-size:12.5px;margin:0 0 10px}
+  .tblwrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:8px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:680px}
+  th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--muted);font-weight:600;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  .co{font-weight:600}
+  .who{color:var(--muted);font-size:12.5px}
+  .nt{color:var(--muted);font-size:12px}
+  .badge{display:inline-block;padding:2.5px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+  .b-ok{background:var(--ok-bg);color:var(--accent)}
+  .b-bad{background:var(--bad-bg);color:var(--bad)}
+  .b-warn{background:var(--warn-bg);color:var(--warn)}
+
+  .st{display:inline-block;font-size:12px;font-weight:600;padding:5px 12px;
+    border-radius:6px;background:var(--idle-bg);color:var(--muted);min-width:96px;text-align:center}
+  .st[data-s="Invited"]{background:var(--warn-bg);color:var(--warn)}
+  .st[data-s="Confirmed"]{background:var(--ok-bg);color:var(--accent)}
+  .st[data-s="Declined"]{background:var(--bad-bg);color:var(--bad)}
+  .yes{color:var(--accent);font-weight:650}
+  .no{color:var(--muted)}
+
+  .note{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--warn);
+    border-radius:8px;padding:13px 16px;margin:0 0 24px;font-size:13.5px}
+  .note b{font-weight:650}
+  .note ul{margin:7px 0 0;padding-left:19px}
+  .note li{margin:3px 0}
+
+  .bar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;
+    margin:0 0 20px;padding:11px 16px;background:var(--card);border:1px solid var(--line);border-radius:8px;
+    font-size:12.5px;color:var(--muted)}
+  .bar a{color:var(--accent);font-weight:600;text-decoration:none}
+  .bar a:hover{text-decoration:underline}
+  .rf{cursor:pointer;font:inherit;font-size:11.5px;font-weight:600;color:var(--muted);background:var(--idle-bg);
+    border:1px solid var(--line);border-radius:5px;padding:5px 12px}
+  .rf:hover{border-color:var(--muted)}
+  .err{background:var(--bad-bg);border:1px solid var(--bad);border-left:3px solid var(--bad);
+    border-radius:8px;padding:14px 17px;margin:0 0 22px;font-size:13.5px;color:var(--bad)}
+  .err a{color:var(--bad);font-weight:650}
+  .foot{margin-top:26px;color:var(--muted);font-size:12px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>99 Concord — Walkthrough Tracker</h1>
+  <p class="sub">International Family Church · 99 Concord Street, North Reading, MA · with Rafael Da Silva<br>
+     <b>Wednesday, August 5, 2026</b> — live view, updates automatically</p>
+
+  <div class="bar">
+    <span id="stamp">Loading…</span>
+    <span>
+      <a href="https://docs.google.com/spreadsheets/d/1mQTi3aFCENEYPwCI40mkW7GDR22KiNkU0ihP8h8J-N8/edit" target="_blank" rel="noopener">✎ Edit in the sheet</a>
+      &nbsp;&nbsp;<button class="rf" id="rf">Refresh</button>
+    </span>
+  </div>
+
+  <div id="errbox"></div>
+  <div class="counts" id="counts"></div>
+
+  <div class="note">
+    <b>⚠️ Watch these.</b>
+    <ul>
+      <li><b>Subs with lapsed certificates cannot legally be on site.</b> Red badges below. Eagle Pro needs a full first-time pack (W-9 + both certificates), not a renewal.</li>
+      <li><b>Eliezer is not on the subs sheet at all</b> — W-9 + COI before any award.</li>
+      <li><b>BCC, never To.</b> Every sub in a slot is a competing bidder against the others.</li>
+    </ul>
+  </div>
+
+  <div id="slots"></div>
+
+  <div class="foot">
+    This page is a live <b>view</b> of the tracker sheet — it re-reads the sheet every time it is opened, so it can never
+    disagree with it. To change anything (statuses, who showed up, adding or removing subs), edit the sheet;
+    this page follows within seconds.
+  </div>
+</div>
+
+<script>
+const SHEET_ID = "1mQTi3aFCENEYPwCI40mkW7GDR22KiNkU0ihP8h8J-N8";
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/edit";
+const CSV_URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:csv";
+
+/* RFC4180-ish CSV parser: handles quoted fields, embedded commas, escaped quotes, CRLF. */
+function parseCSV(text){
+  const rows = []; let row = [], field = "", q = false;
+  for (let i = 0; i < text.length; i++){
+    const c = text[i];
+    if (q){
+      if (c === '"'){
+        if (text[i+1] === '"'){ field += '"'; i++; }
+        else q = false;
+      } else field += c;
+    } else {
+      if (c === '"') q = true;
+      else if (c === ','){ row.push(field); field = ""; }
+      else if (c === '\n'){ row.push(field); rows.push(row); row = []; field = ""; }
+      else if (c === '\r'){ /* skip */ }
+      else field += c;
+    }
+  }
+  if (field.length || row.length){ row.push(field); rows.push(row); }
+  return rows.filter(r => r.some(c => c.trim() !== ""));
+}
+
+function esc(s){
+  return String(s == null ? "" : s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+function insClass(v){
+  const t = String(v || "").trim().toUpperCase();
+  if (t === "OK") return "b-ok";
+  if (t === "UNKNOWN" || t === "WARN") return "b-warn";
+  return "b-bad";
+}
+
+function showedUp(v){
+  const t = String(v || "").trim().toLowerCase();
+  return ["yes","y","x","true","1","✓","✔","showed","showed up"].includes(t);
+}
+
+function render(rows){
+  const head = rows[0].map(h => h.trim().toLowerCase());
+  const col = name => head.findIndex(h => h === name.toLowerCase());
+  const iWhen = col("When"), iCo = col("Company"), iTr = col("Trade"),
+        iWho = col("Contact"), iIns = col("Insurance on file"),
+        iFlag = col("Ins."), iSt = col("Status"),
+        iUp = col("Showed up?"), iNote = col("Notes");
+
+  if (iCo < 0) throw new Error("The sheet no longer has a 'Company' column — the header row may have been edited.");
+
+  const data = rows.slice(1).map(r => ({
+    when: (r[iWhen]||"").trim(), co: (r[iCo]||"").trim(), tr: (r[iTr]||"").trim(),
+    who: (r[iWho]||"").trim(), ins: (r[iIns]||"").trim(), flag: (r[iFlag]||"").trim(),
+    st: (r[iSt]||"").trim() || "Not invited", up: (r[iUp]||"").trim(), note: (r[iNote]||"").trim()
+  })).filter(r => r.co);
+
+  /* Group by the When column, preserving the sheet's own ordering. */
+  const groups = [];
+  data.forEach(r => {
+    let g = groups.find(g => g.when === r.when);
+    if (!g){ g = { when: r.when, rows: [] }; groups.push(g); }
+    g.rows.push(r);
+  });
+
+  document.getElementById("slots").innerHTML = groups.map(g => {
+    const conf = g.rows.filter(r => r.st === "Confirmed").length;
+    return '<div class="slot">' +
+      '<h2>' + esc(g.when || "Unscheduled") + '</h2>' +
+      '<p class="when">' + g.rows.length + (g.rows.length === 1 ? " sub · " : " subs · ") +
+        conf + " confirmed</p>" +
+      '<div class="tblwrap"><table>' +
+      '<thead><tr><th>Company</th><th>Trade</th><th>Contact</th><th>Insurance</th>' +
+      '<th>Status</th><th>Showed up?</th><th>Notes</th></tr></thead><tbody>' +
+      g.rows.map(r =>
+        "<tr>" +
+        '<td class="co">' + esc(r.co) + "</td>" +
+        "<td>" + esc(r.tr) + "</td>" +
+        '<td class="who">' + esc(r.who) + "</td>" +
+        '<td><span class="badge ' + insClass(r.flag) + '">' + esc(r.ins) + "</span></td>" +
+        '<td><span class="st" data-s="' + esc(r.st) + '">' + esc(r.st) + "</span></td>" +
+        "<td>" + (showedUp(r.up)
+            ? '<span class="yes">✓ Yes</span>'
+            : '<span class="no">' + (r.up ? esc(r.up) : "—") + "</span>") + "</td>" +
+        '<td class="nt">' + esc(r.note) + "</td>" +
+        "</tr>"
+      ).join("") +
+      "</tbody></table></div></div>";
+  }).join("");
+
+  const tally = { Confirmed:0, Invited:0, Declined:0 };
+  data.forEach(r => { if (tally[r.st] !== undefined) tally[r.st]++; });
+  const blocked = data.filter(r => insClass(r.flag) === "b-bad").length;
+  const up = data.filter(r => showedUp(r.up)).length;
+
+  document.getElementById("counts").innerHTML = [
+    ["Confirmed", tally.Confirmed, "var(--accent)"],
+    ["Awaiting reply", tally.Invited, "var(--warn)"],
+    ["Declined", tally.Declined, "var(--bad)"],
+    ["Showed up", up, "var(--accent)"],
+    ["Insurance blocked", blocked, "var(--bad)"]
+  ].map(([l,n,c]) =>
+    '<div class="stat"><div class="n" style="color:' + c + '">' + n + '</div><div class="l">' + l + "</div></div>"
+  ).join("");
+
+  document.getElementById("errbox").innerHTML = "";
+  const t = new Date();
+  document.getElementById("stamp").textContent =
+    "Read from the sheet at " + t.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"}) +
+    " · " + data.length + " rows";
+}
+
+function fail(msg){
+  document.getElementById("errbox").innerHTML =
+    '<div class="err"><b>Could not read the tracker sheet.</b><br>' + esc(msg) +
+    '<br><br>Most likely the sheet\'s sharing is not set to <b>Anyone with the link · Viewer</b>. ' +
+    'Open <a href="' + SHEET_URL + '" target="_blank" rel="noopener">the sheet</a> → Share → General access. ' +
+    "Nothing below is current until this is fixed.</div>";
+  document.getElementById("stamp").textContent = "Not connected to the sheet";
+}
+
+function load(){
+  document.getElementById("stamp").textContent = "Loading…";
+  fetch(CSV_URL + "&_=" + Date.now(), { cache: "no-store" })
+    .then(r => { if (!r.ok) throw new Error("The sheet returned HTTP " + r.status + "."); return r.text(); })
+    .then(txt => {
+      if (/^\s*</.test(txt)) throw new Error("Google returned a sign-in page instead of the data, so the sheet is still private.");
+      const rows = parseCSV(txt);
+      if (rows.length < 2) throw new Error("The sheet came back empty.");
+      render(rows);
+    })
+    .catch(e => fail(e.message || String(e)));
+}
+
+document.getElementById("rf").addEventListener("click", load);
+load();
+setInterval(load, 120000);
+</script>
+</body>
+</html>
