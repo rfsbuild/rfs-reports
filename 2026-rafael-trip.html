@@ -1,0 +1,214 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rafael — Vacation Spending</title>
+<style>
+:root{--brand:#7b68ee;--brand-deep:#5a48d0;--brand-soft:#efecfe;--paper:#f5f6fb;
+--card:#fff;--rule:#e9ebf2;--ink:#1c2130;--body:#495061;--muted:#6b7385;--faint:#98a0b3;
+--ok:#2fa36b;--ok-bg:#e6f5ee;--warn:#c07d10;--warn-bg:#fbf1dc}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);overflow-x:hidden;
+font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+-webkit-font-smoothing:antialiased;padding:0 0 56px}
+.wrap{max-width:940px;margin:0 auto;padding:0 16px}
+
+header.rpt{padding:22px 0 12px;border-bottom:1px solid var(--rule);margin-bottom:4px}
+header.rpt h1{margin:0;font-size:24px;line-height:1.2;letter-spacing:-.02em}
+header.rpt .sub{color:var(--muted);font-size:14px;margin-top:5px}
+.phase{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;
+letter-spacing:.06em;background:var(--brand-soft);color:var(--brand-deep);white-space:nowrap}
+h2{margin:32px 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:.09em;
+color:var(--brand-deep)}
+h2 .h2sub{display:block;text-transform:none;letter-spacing:0;font-size:13.5px;
+color:var(--muted);font-weight:400;margin-top:5px;line-height:1.5}
+.rule{height:2px;background:var(--brand);opacity:.22;margin:8px 0 14px}
+
+.two{display:grid;grid-template-columns:1fr;gap:12px;margin:16px 0}
+.meter{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:15px 16px}
+.meter .k{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);
+font-weight:700}
+.meter .v{font-size:30px;font-weight:750;letter-spacing:-.025em;
+font-variant-numeric:tabular-nums;margin-top:3px;line-height:1.15}
+.meter .v .u{font-size:15px;font-weight:600;color:var(--muted);letter-spacing:0}
+.meter .s{font-size:13px;color:var(--muted);margin-top:6px}
+.meter .basis{font-size:12.5px;color:var(--faint);margin-top:8px;padding-top:8px;
+border-top:1px dashed var(--rule);line-height:1.55}
+.bar{height:14px;border-radius:7px;background:#eef0f6;margin:12px 0 7px;position:relative;
+overflow:hidden}
+.bar i{position:absolute;top:0;bottom:0;left:0;display:block;border-radius:7px}
+.bar .lim{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink);
+opacity:.6;border-radius:0}
+.barkey{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.barkey span{display:flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block;flex:none}
+
+.callout{border-radius:10px;padding:12px 14px;font-size:14px;margin:14px 0;
+color:var(--body);line-height:1.55}
+.callout.warn{background:var(--warn-bg)}
+.callout.ok{background:var(--ok-bg)}
+.callout b{color:var(--ink)}
+
+details.cat{background:var(--card);border:1px solid var(--rule);border-radius:12px;
+margin-bottom:8px;overflow:hidden}
+details.cat>summary{display:flex;gap:10px;align-items:center;cursor:pointer;
+padding:14px;min-height:56px;list-style:none;font-size:15px;flex-wrap:wrap}
+details.cat>summary::-webkit-details-marker{display:none}
+details.cat>summary:focus-visible{outline:2px solid var(--brand);outline-offset:-3px}
+details.cat .nm{font-weight:650;flex:1 1 auto;min-width:100px}
+details.cat .amt{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+details.cat .pc{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums;
+white-space:nowrap;min-width:42px;text-align:right}
+details.cat .open{flex:1 0 100%;font-size:12.5px;color:var(--brand-deep);font-weight:650}
+.flag{font-size:11px;background:var(--warn-bg);color:var(--warn);padding:2px 7px;
+border-radius:20px;font-weight:700;white-space:nowrap;margin-left:4px}
+.minibar{height:6px;background:#eef0f6;margin:0 14px 12px;border-radius:3px;overflow:hidden}
+.minibar i{display:block;height:100%}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;
+border-top:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--rule);
+vertical-align:top}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+white-space:nowrap;font-weight:700}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;
+font-weight:600}
+td.d{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--muted);
+font-size:13px}
+td .card{display:block;font-size:12px;color:var(--faint);margin-top:2px}
+td .note{display:block;font-size:12px;color:var(--warn);margin-top:3px;line-height:1.45}
+tr:last-child td{border-bottom:none}
+td.credit{color:var(--ok)}
+tr.net td{background:#fafbfe;font-weight:700;color:var(--ink)}
+.nothing{padding:14px;font-size:13.5px;color:var(--muted);line-height:1.55;
+border-top:1px solid var(--rule)}
+
+.burn{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:15px 16px}
+.burn .cap{font-size:13px;color:var(--muted);line-height:1.5}
+.bars{display:flex;align-items:flex-end;gap:8px;height:132px;margin-top:16px;position:relative}
+.bars .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.bars .col i{display:block;background:#0fa3a3;border-radius:5px 5px 0 0}
+.bars .col em{font-style:normal;font-size:11.5px;color:var(--muted);text-align:center;
+padding-top:6px;font-variant-numeric:tabular-nums;line-height:1.35}
+.bars .col.future i{background:transparent;border:1px dashed var(--faint);
+border-bottom:0;opacity:.5}
+.plan{position:absolute;left:0;right:0;border-top:2px dashed var(--brand);pointer-events:none}
+.plan b{position:absolute;left:0;top:-18px;font-size:11px;color:var(--brand-deep);
+background:var(--card);padding:0 4px;font-weight:700;white-space:nowrap}
+
+footer{margin-top:32px;padding-top:14px;border-top:1px solid var(--rule);
+font-size:12.5px;color:var(--faint);line-height:1.6}
+footer code{background:var(--brand-soft);color:var(--brand-deep);padding:1px 5px;
+border-radius:4px;font-size:11.5px}
+
+@media (min-width:680px){
+  .two{grid-template-columns:1fr 1fr}
+  header.rpt h1{font-size:29px}
+  .wrap{padding:0 22px}
+  details.cat .open{flex:0 0 auto}
+}
+@media print{
+  body{background:#fff;padding-bottom:0}
+  details.cat{break-inside:avoid}
+  .meter,.burn{break-inside:avoid}
+}
+</style>
+
+<div class="wrap">
+
+<header class="rpt">
+  <h1>Your vacation spending</h1>
+  <div class="sub">Aug 6 &ndash; Aug 30, 2026 &middot; 25 days &nbsp;
+    <span class="phase">DAY 2 OF 25</span></div>
+  <div class="sub">Every charge tagged to the trip, grouped by category. Updated at
+    each daily reconcile &mdash; nothing here is typed in by hand.</div>
+</header>
+
+<div class="two">
+  <div class="meter">
+    <div class="k">Spent on the road</div>
+    <div class="v">$521.24</div>
+    <div class="s">5 charges since Aug 5
+      &middot; $393.76 of it is gas</div>
+    <div class="bar"><i style="width:10.40%;
+      background:#0fa3a3"></i></div>
+    <div class="barkey">
+      <span><i class="dot" style="background:#0fa3a3"></i>$414.47 counted against the
+        $4,000</span>
+      <span>$3,585.53 left</span>
+    </div>
+    <div class="basis">The $4,000 counts on-the-road spend from Aug 6
+      onward. It does not include anything bought before the trip.</div>
+  </div>
+
+  <div class="meter">
+    <div class="k">Per day so far</div>
+    <div class="v">$207.24<span class="u">/day</span></div>
+    <div class="s">$414.47 over 2 days
+      &middot; the plan is $160.00/day</div>
+    <div class="bar"><i style="width:100.0%;
+      background:#7b68ee"></i>
+      <span class="lim" style="left:77.2%">
+      </span></div>
+    <div class="barkey">
+      <span><i class="dot" style="background:#7b68ee"></i>actual $207.24</span>
+      <span><i class="dot" style="background:var(--ink);width:2px"></i>plan
+        $160.00</span>
+    </div>
+    <div class="basis">Where $160.00/day comes from:
+      $4,000 &divide; 25 days (Aug 6&ndash;30).
+      $3,585.53 left over 23 remaining days is
+      $155.89/day.</div>
+  </div>
+</div>
+
+<div class="callout warn"><b>2 days in &mdash; too early to be a trend.</b>
+  $393.76 of the $521.24 on the road is fuel
+  (75.5%), and one fill-up moves the per-day number by
+  roughly $49.22.
+  This settles down as the days add up.</div>
+
+<div class="callout warn"><b>6 of these charges have not reached the bank feed yet.</b> They are on this page from the Aug 7 review — fleet-card fill-ups and the most recent card activity always post a few days late. They will tie to the statement line automatically once it lands, and the amounts will not change.</div>
+
+<h2>On the road &mdash; where it went
+  <span class="h2sub">The $521.24 above, by category. Tap a row to see the
+  charges behind it.</span></h2>
+<div class="rule"></div>
+<details class="cat" data-rows="4"><summary><span class="dot" style="background:#0fa3a3"></span><span class="nm">Gas</span><span class="pc">75.5%</span><span class="amt">$393.76</span><span class="open">Show the 4 charges</span></summary><div class="minibar"><i style="width:75.5%;background:#0fa3a3"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Aug 5</td><td>Shell<span class="card">Dodge Ram fleet card</span></td><td class="n">$106.77</td></tr><tr class="chg"><td class="d">Aug 6</td><td>Cumberland Farms<span class="card">Cap One 5805</span></td><td class="n">$63.88</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Sunoco<span class="card">Cap One 5805</span></td><td class="n">$109.73</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Shell<span class="card">Dodge Ram fleet card</span></td><td class="n">$113.38</td></tr></tbody></table></div></details><details class="cat" data-rows="1"><summary><span class="dot" style="background:#e05a9c"></span><span class="nm">Merchandise</span><span class="pc">24.5%</span><span class="amt">$127.48</span><span class="open">Show the 1 charge</span></summary><div class="minibar"><i style="width:24.5%;background:#e05a9c"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Aug 6</td><td>Best Buy<span class="card">Citizens 0126</span></td><td class="n">$127.48</td></tr></tbody></table></div></details><details class="cat" data-rows="0"><summary><span class="dot" style="background:#98a0b3"></span><span class="nm" style="color:var(--faint)">Meals</span><span class="pc">0.0%</span><span class="amt" style="color:var(--faint)">$0.00</span><span class="open" style="color:var(--faint)">Nothing yet</span></summary><div class="minibar"><i style="width:0.5%;background:#98a0b3"></i></div><div class="nothing">Nothing tagged as meals yet. The category stays on the page at $0.00 so a missing charge shows up as an absence rather than as nothing.</div></details>
+
+<h2>Before you left &mdash; kept separate
+  <span class="h2sub">Real money, but outside the $4,000: this is the
+  outfitting bought ahead of the trip, so it is shown on its own rather than folded
+  into the daily number above.</span></h2>
+<div class="rule"></div>
+<details class="cat" data-rows="1"><summary><span class="dot" style="background:#dd8a1c"></span><span class="nm">Unclassified<span class="flag">needs a category</span></span><span class="pc">65.2%</span><span class="amt">$2,973.94</span><span class="open">Show the 1 charge</span></summary><div class="minibar"><i style="width:65.2%;background:#dd8a1c"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Jul 29</td><td>Factory Outlet MA<span class="card">Citizens 0126</span><span class="note">bank hold #727260808 — identified as a hold, not yet itemised</span></td><td class="n">$2,973.94</td></tr></tbody></table></div></details><details class="cat" data-rows="1"><summary><span class="dot" style="background:#7b68ee"></span><span class="nm">Trailer &amp; vehicle prep</span><span class="pc">19.4%</span><span class="amt">$886.20</span><span class="open">Show the 1 charge</span></summary><div class="minibar"><i style="width:19.4%;background:#7b68ee"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Jul 31</td><td>eTrailer Corp<span class="card">Citizens 0126</span></td><td class="n">$886.20</td></tr></tbody></table></div></details><details class="cat" data-rows="4"><summary><span class="dot" style="background:#e05a9c"></span><span class="nm">Merchandise</span><span class="pc">8.2%</span><span class="amt">$373.84</span><span class="open">Show the 4 charges</span></summary><div class="minibar"><i style="width:8.2%;background:#e05a9c"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Aug 4</td><td>BestBuy.com<span class="card">Citizens 0126</span></td><td class="n">$283.54</td></tr><tr class="chg"><td class="d">Aug 4</td><td>BestBuy.com<span class="card">Citizens 0126</span></td><td class="n">$90.30</td></tr><tr class="chg"><td class="d">Aug 5</td><td>Walmart.com<span class="card">Citizens 0126</span></td><td class="n">$370.81</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Walmart.com — returned<span class="card">Citizens 0126</span></td><td class="n credit">&minus;$370.81</td></tr><tr class="net"><td colspan="2">Net of the returned item</td><td class="n">$373.84</td></tr></tbody></table></div></details><details class="cat" data-rows="1"><summary><span class="dot" style="background:#2f80e6"></span><span class="nm">Lodging &amp; campground</span><span class="pc">7.1%</span><span class="amt">$324.80</span><span class="open">Show the 1 charge</span></summary><div class="minibar"><i style="width:7.1%;background:#2f80e6"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Jul 27</td><td>Ocean Lakes, Myrtle Beach<span class="card">Citizens 0126</span></td><td class="n">$324.80</td></tr></tbody></table></div></details><details class="cat" data-rows="0"><summary><span class="dot" style="background:#98a0b3"></span><span class="nm" style="color:var(--faint)">Meals</span><span class="pc">0.0%</span><span class="amt" style="color:var(--faint)">$0.00</span><span class="open" style="color:var(--faint)">Nothing yet</span></summary><div class="minibar"><i style="width:0.5%;background:#98a0b3"></i></div><div class="nothing">Nothing tagged as meals yet. The category stays on the page at $0.00 so a missing charge shows up as an absence rather than as nothing.</div></details>
+<div class="callout"><b>$4,929.59</b> spent before the trip,
+  <b>&minus;$370.81</b> returned, <b>$4,558.78</b> net.
+  None of it counts against the $4,000.</div>
+
+<h2>Day by day
+  <span class="h2sub">On-the-road spend since the budget started counting, against the
+  $160.00/day line.</span></h2>
+<div class="rule"></div>
+<div class="burn">
+  <div class="cap">2 days of 25. Too short to read a slope from &mdash;
+    it is here so it already means something by the second week.</div>
+  <div class="bars">
+    <div class="plan" style="bottom:60.8%">
+      <b>$160.00/day plan</b></div>
+    <div class="col"><i style="height:72.7%"></i><em>Aug 6<br>$191.36</em></div><div class="col"><i style="height:84.7%"></i><em>Aug 7<br>$223.11</em></div><div class="col future"><i style="height:14%"></i><em>Aug 8</em></div><div class="col future"><i style="height:14%"></i><em>Aug 9</em></div><div class="col future"><i style="height:14%"></i><em>Aug 10</em></div>
+  </div>
+</div>
+
+<div class="callout ok"><b>How this page stays current.</b> A charge lands here when it
+  is tagged to the trip at the daily reconcile &mdash; tagging one charge brings that
+  charge, and a merchant rule brings every charge from that merchant. The money still
+  counts inside overhead exactly as before; the tag is a label, not a second set of
+  books.</div>
+
+<footer>
+Every figure traces to a row in <code>transaction_db.json</code> or to the Aug 7
+categorisation review &mdash; nothing is typed in by hand and nothing is inferred.
+If a charge is not tagged to the trip, it is not on this page.<br>
+Generated 2026-08-07 &middot; <code>scripts/gen_rafael_trip.py</code>
+</footer>
+</div>
