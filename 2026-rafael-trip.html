@@ -84,7 +84,17 @@ border-top:1px solid var(--rule)}
 
 .burn{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:15px 16px}
 .burn .cap{font-size:13px;color:var(--muted);line-height:1.5}
-.bars{display:flex;align-items:flex-end;gap:8px;height:132px;margin-top:16px;position:relative}
+/* The chart scrolls inside its own box, exactly as the tables do. Once the axis
+   carries every elapsed day (2026-08-12) the column count grows every morning and
+   reaches 25 by Aug 30, so at 390px the row cannot fit and must not be allowed to
+   widen the page — verified in a browser at 390px, where 10 columns pushed
+   documentElement.scrollWidth to 455 against a 390 viewport. The scroll sits on the
+   WRAPPER, not on .bars: the $160.00/day plan line is absolute at left:0;right:0
+   inside .bars, so .bars has to keep its full content width or the line would stop
+   at the viewport edge instead of running under every column. */
+.barswrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.bars{display:flex;align-items:flex-end;gap:8px;height:132px;margin-top:16px;
+position:relative;width:max-content;min-width:100%}
 .bars .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%}
 .bars .col i{display:block;background:#0fa3a3;border-radius:5px 5px 0 0}
 .bars .col em{font-style:normal;font-size:11.5px;color:var(--muted);text-align:center;
@@ -118,7 +128,7 @@ border-radius:4px;font-size:11.5px}
 <header class="rpt">
   <h1>Your vacation spending</h1>
   <div class="sub">Aug 6 &ndash; Aug 30, 2026 &middot; 25 days &nbsp;
-    <span class="phase">DAY 6 OF 25</span></div>
+    <span class="phase">DAY 7 OF 25</span></div>
   <div class="sub">Every charge on the trip, grouped by category. Updated at each
     daily reconcile.</div>
 </header>
@@ -156,29 +166,29 @@ border-radius:4px;font-size:11.5px}
 
   <div class="meter">
     <div class="k">Per day so far</div>
-    <div class="v">$276.23<span class="u">/day</span></div>
-    <div class="s">$1,657.40 over 6 days
+    <div class="v">$236.77<span class="u">/day</span></div>
+    <div class="s">$1,657.40 over 7 days
       &middot; the plan is $160.00/day</div>
     <div class="bar"><i style="width:100.0%;
       background:#7b68ee"></i>
-      <span class="lim" style="left:57.9%">
+      <span class="lim" style="left:67.6%">
       </span></div>
     <div class="barkey">
-      <span><i class="dot" style="background:#7b68ee"></i>actual $276.23</span>
+      <span><i class="dot" style="background:#7b68ee"></i>actual $236.77</span>
       <span><i class="dot" style="background:var(--ink);width:2px"></i>plan
         $160.00</span>
     </div>
     <div class="basis">Where $160.00/day comes from:
       $4,000 &divide; 25 days (Aug 6&ndash;30).
-      $2,342.60 left over 19 remaining days is
-      $123.29/day.</div>
+      $2,342.60 left over 18 remaining days is
+      $130.14/day.</div>
   </div>
 </div>
 
-<div class="callout warn"><b>6 days in &mdash; too early to be a trend.</b>
+<div class="callout warn"><b>7 days in &mdash; too early to be a trend.</b>
   $819.61 of the $1,764.17 on the road is fuel
   (46.5%), and one fill-up moves the per-day number by
-  roughly $15.18.
+  roughly $13.01.
   This settles down as the days add up.</div>
 
 
@@ -203,13 +213,14 @@ border-radius:4px;font-size:11.5px}
   $160.00/day line.</span></h2>
 <div class="rule"></div>
 <div class="burn">
-  <div class="cap">6 days of 25. Too short to read a slope from &mdash;
+  <div class="cap">7 days of 25. Too short to read a slope from &mdash;
     it is here so it already means something by the second week.</div>
-  <div class="bars">
+  <div class="cap">Aug 8 sits at $0.00 &mdash; no charge on your cards that day. Aug 11 and Aug 12 sit at $0.00 because nothing has posted on your cards since Aug 10. Anything spent after that lands here once the bank posts it.</div>
+  <div class="barswrap"><div class="bars">
     <div class="plan" style="bottom:22.2%">
       <b>$160.00/day plan</b></div>
-    <div class="col"><i style="height:26.6%"></i><em>Aug 6<br>$191.36</em></div><div class="col"><i style="height:75.7%"></i><em>Aug 7<br>$544.59</em></div><div class="col"><i style="height:43.3%"></i><em>Aug 9<br>$311.51</em></div><div class="col"><i style="height:84.7%"></i><em>Aug 10<br>$609.94</em></div><div class="col future"><i style="height:14%"></i><em>Aug 11</em></div><div class="col future"><i style="height:14%"></i><em>Aug 12</em></div><div class="col future"><i style="height:14%"></i><em>Aug 13</em></div>
-  </div>
+    <div class="col" data-day="2026-08-06"><i style="height:26.6%"></i><em>Aug 6<br>$191.36</em></div><div class="col" data-day="2026-08-07"><i style="height:75.7%"></i><em>Aug 7<br>$544.59</em></div><div class="col" data-day="2026-08-08"><i style="height:0.0%"></i><em>Aug 8<br>$0.00</em></div><div class="col" data-day="2026-08-09"><i style="height:43.3%"></i><em>Aug 9<br>$311.51</em></div><div class="col" data-day="2026-08-10"><i style="height:84.7%"></i><em>Aug 10<br>$609.94</em></div><div class="col" data-day="2026-08-11"><i style="height:0.0%"></i><em>Aug 11<br>$0.00</em></div><div class="col" data-day="2026-08-12"><i style="height:0.0%"></i><em>Aug 12<br>$0.00</em></div><div class="col future" data-day="2026-08-13"><i style="height:14%"></i><em>Aug 13</em></div><div class="col future" data-day="2026-08-14"><i style="height:14%"></i><em>Aug 14</em></div><div class="col future" data-day="2026-08-15"><i style="height:14%"></i><em>Aug 15</em></div>
+  </div></div>
 </div>
 
 <div class="callout ok"><b>How this page stays current.</b> A charge lands here when it
@@ -221,6 +232,6 @@ border-radius:4px;font-size:11.5px}
 <footer>
 Every figure traces to a row in <code>transaction_db.json</code>, to the QuickBooks account export for the cards that carry no bank feed (the Shell fleet card, and charges too recent for the Cap One feed) or to the dated categorisation review. 2 meal charges on the road came straight from Hadassa and carry no machine record yet &mdash; those amounts are hers, not derived. Nothing here is inferred.
 If a charge has not been ruled onto the trip, it is not on this page.<br>
-Generated 2026-08-11 &middot; <code>scripts/gen_rafael_trip.py</code>
+Generated 2026-08-12 &middot; <code>scripts/gen_rafael_trip.py</code>
 </footer>
 </div>
