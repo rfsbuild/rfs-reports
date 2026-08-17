@@ -81,12 +81,12 @@
 <div class="wrap">
   <h1>99 Concord — Walkthrough Tracker</h1>
   <p class="sub">International Family Church · 99 Concord Street, North Reading, MA · with Rafael Da Silva<br>
-     <b>Wednesday, August 5, 2026</b> — live view, updates automatically</p>
+     <b>Wednesday, August 5</b> and <b>Friday, August 7, 2026</b> — live view, updates automatically</p>
 
   <div class="bar">
     <span id="stamp">Loading…</span>
     <span>
-      <a href="https://docs.google.com/spreadsheets/d/1mQTi3aFCENEYPwCI40mkW7GDR22KiNkU0ihP8h8J-N8/edit" target="_blank" rel="noopener">✎ Edit in the sheet</a>
+      <a href="https://docs.google.com/spreadsheets/d/1mQTi3aFCENEYPwCI40mkW7GDR22KiNkU0ihP8h8J-N8/edit" target="_blank" rel="noopener">Open the sheet</a>
       &nbsp;&nbsp;<button class="rf" id="rf">Refresh</button>
     </span>
   </div>
@@ -97,8 +97,9 @@
   <div class="note">
     <b>⚠️ Watch these.</b>
     <ul>
-      <li><b>Subs with lapsed certificates cannot legally be on site.</b> Red badges below. Eagle Pro needs a full first-time pack (W-9 + both certificates), not a renewal.</li>
-      <li><b>Eliezer is not on the subs sheet at all</b> — W-9 + COI before any award.</li>
+      <li><b>A red badge means a certificate has lapsed — the badge says which one.</b> Read it before scheduling anyone: an expired <b>Workers' Comp</b> is the serious one, an expired <b>GL</b> is a contract and liability exposure. No award and nobody on site on a red badge until it is renewed — check with the office first.</li>
+      <li><b>Eagle Pro</b> needs a full first-time pack (W-9 + both certificates), not a renewal.</li>
+      <li><b>Eliezer — CFC Electric LLC</b> is on the subs sheet, in <b>onboarding</b>: no GL, no WC and no W-9 on file yet. Same bucket as Eagle Pro — nothing can be awarded to him until that pack is in.</li>
       <li><b>BCC, never To.</b> Every sub in a slot is a competing bidder against the others.</li>
     </ul>
   </div>
@@ -107,8 +108,9 @@
 
   <div class="foot">
     This page is a live <b>view</b> of the tracker sheet — it re-reads the sheet every time it is opened, so it can never
-    disagree with it. To change anything (statuses, who showed up, adding or removing subs), edit the sheet;
-    this page follows within seconds.
+    disagree with it. Nothing on this page can be typed into: <b>Hadassa and Alice</b> hold edit access on the sheet, and
+    changes there (RSVPs, who showed up, notes, adding or removing subs) appear here within seconds.
+    <b>Insurance is not maintained here</b> — the certificate dates come from the subs sheet, which is the record of truth.
   </div>
 </div>
 
@@ -160,9 +162,12 @@ function showedUp(v){
 function render(rows){
   const head = rows[0].map(h => h.trim().toLowerCase());
   const col = name => head.findIndex(h => h === name.toLowerCase());
+  /* The RSVP column was renamed from "Status" on 2026-08-17 — accept either header so the
+     page never breaks depending on which side (sheet or page) is updated first. */
+  const colAny = (...names) => { for (const n of names){ const i = col(n); if (i >= 0) return i; } return -1; };
   const iWhen = col("When"), iCo = col("Company"), iTr = col("Trade"),
         iWho = col("Contact"), iIns = col("Insurance on file"),
-        iFlag = col("Ins."), iSt = col("Status"),
+        iFlag = col("Ins."), iSt = colAny("RSVP", "Status"),
         iUp = col("Showed up?"), iNote = col("Notes");
 
   if (iCo < 0) throw new Error("The sheet no longer has a 'Company' column — the header row may have been edited.");
@@ -186,10 +191,10 @@ function render(rows){
     return '<div class="slot">' +
       '<h2>' + esc(g.when || "Unscheduled") + '</h2>' +
       '<p class="when">' + g.rows.length + (g.rows.length === 1 ? " sub · " : " subs · ") +
-        conf + " confirmed</p>" +
+        conf + " RSVP'd yes</p>" +
       '<div class="tblwrap"><table>' +
       '<thead><tr><th>Company</th><th>Trade</th><th>Contact</th><th>Insurance</th>' +
-      '<th>Status</th><th>Showed up?</th><th>Notes</th></tr></thead><tbody>' +
+      '<th>RSVP</th><th>Showed up?</th><th>Notes</th></tr></thead><tbody>' +
       g.rows.map(r =>
         "<tr>" +
         '<td class="co">' + esc(r.co) + "</td>" +
@@ -212,10 +217,10 @@ function render(rows){
   const up = data.filter(r => showedUp(r.up)).length;
 
   document.getElementById("counts").innerHTML = [
-    ["Confirmed", tally.Confirmed, "var(--accent)"],
+    ["RSVP'd yes", tally.Confirmed, "var(--accent)"],
     ["Awaiting reply", tally.Invited, "var(--warn)"],
     ["Declined", tally.Declined, "var(--bad)"],
-    ["Showed up", up, "var(--accent)"],
+    ["Actually showed up", up, "var(--accent)"],
     ["Insurance blocked", blocked, "var(--bad)"]
   ].map(([l,n,c]) =>
     '<div class="stat"><div class="n" style="color:' + c + '">' + n + '</div><div class="l">' + l + "</div></div>"
