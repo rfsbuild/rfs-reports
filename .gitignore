@@ -1,0 +1,3 @@
+# Working backups of published reports — drafts only, never publish.
+# These hold pre-revision content that was deliberately removed.
+*.bak*
