@@ -1,0 +1,1330 @@
+<!doctype html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Primeiro Ano · Hadassa Lima · RFS Builders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#7b68ee; --brand-deep:#5a48d0; --brand-soft:#efecfe;
+  --paper:#f5f6fb; --card:#ffffff; --rule:#e9ebf2; --rule-soft:#f1f2f8;
+  --ink:#1c2130; --body:#495061; --muted:#6b7385; --faint:#98a0b3;
+  --ok:#2fa36b; --ok-bg:#e6f5ee; --bad:#dc4638; --bad-bg:#fbe7e5;
+  --warn:#c07d10; --warn-bg:#fbf1dc;
+  --display:"Bricolage Grotesque",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --sans:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --brand:#9b8cf0; --brand-deep:#b3a7f5; --brand-soft:#252140;
+  --paper:#12141c; --card:#191c26; --rule:#282c39; --rule-soft:#21242f;
+  --ink:#eef0f6; --body:#c2c7d4; --muted:#9aa2b4; --faint:#6f7789;
+  --ok:#4dbb85; --ok-bg:#16281f; --bad:#e8695c; --bad-bg:#2b1a19;
+  --warn:#d69b2e; --warn-bg:#2a2013;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3,.num{font-family:var(--display);color:var(--ink);line-height:1.15;margin:0}
+.num{font-variant-numeric:tabular-nums;font-weight:800}
+html[data-lang="pt"] [lang="en"],html[data-lang="en"] [lang="pt"]{display:none}
+
+.mast{background:var(--card);border-bottom:1px solid var(--rule);padding:32px 0 24px}
+.masthold{position:relative}
+.mast .eyebrow{font-size:12px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;
+  color:var(--brand);margin-bottom:12px}
+.mast h1{font-size:clamp(28px,4.5vw,42px);font-weight:800;letter-spacing:-.02em}
+.mast .sub{margin-top:8px;color:var(--muted);font-size:15px}
+.langbtn{position:absolute;top:0;right:24px;display:flex;border:1px solid var(--rule);
+  border-radius:999px;overflow:hidden;background:var(--paper)}
+.langbtn button{border:0;background:transparent;font-family:var(--sans);font-size:12px;
+  font-weight:600;letter-spacing:.06em;padding:7px 14px;color:var(--muted);cursor:pointer;
+  transition:background 180ms ease-out,color 180ms ease-out}
+.langbtn button[aria-pressed="true"]{background:var(--brand);color:#fff}
+
+.lede{padding:48px 0 0;max-width:70ch}
+.lede p{font-size:17px;line-height:1.65}
+.hero{padding:32px 0 8px}
+.hero-lead{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:32px}
+.hero-lead .num{font-size:clamp(44px,7vw,68px);letter-spacing:-.03em;display:block}
+.hero-lead .lbl{font-size:15px;font-weight:600;color:var(--ink);margin-top:4px}
+.hero-lead .note{font-size:13px;color:var(--muted);margin-top:8px}
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:12px}
+.trio>div{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:16px}
+.trio .num{font-size:26px;letter-spacing:-.02em}
+.trio .lbl{font-size:13px;color:var(--muted);margin-top:2px}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:24px 0 4px;
+  position:sticky;top:0;background:var(--paper);z-index:5}
+.controls select{font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--card);
+  border:1px solid var(--rule);border-radius:8px;padding:8px 12px}
+.controls .count{margin-left:auto;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.controls button.reset{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--brand-deep);
+  background:var(--brand-soft);border:0;border-radius:8px;padding:8px 12px;cursor:pointer}
+
+.rail{display:flex;gap:4px;overflow-x:auto;padding:12px 0 16px}
+.rail button{flex:0 0 auto;background:var(--card);border:1px solid var(--rule);border-radius:8px;
+  padding:10px 14px;min-width:78px;text-align:center;cursor:pointer;font-family:var(--sans);
+  transition:border-color 180ms ease-out,background 180ms ease-out}
+.rail button:hover{border-color:var(--brand)}
+.rail button[aria-pressed="true"]{border-color:var(--brand);background:var(--brand-soft)}
+.rail .m{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.rail .n{font-family:var(--display);font-weight:800;font-size:19px;color:var(--ink);
+  font-variant-numeric:tabular-nums}
+
+details.sec{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);margin-bottom:8px}
+details.sec[hidden]{display:none}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.per{color:var(--muted);font-size:.92em}
+details.sec>summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:12px}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::after{content:"+";margin-left:auto;font-family:var(--display);font-weight:700;
+  color:var(--faint);font-size:20px;line-height:1}
+details.sec[open]>summary::after{content:"\2212"}
+details.sec[open]>summary{border-bottom:1px solid var(--rule-soft)}
+.sec h2{font-size:17px;font-weight:700}
+.sec .tally{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dots{display:flex;gap:3px;flex:0 0 auto}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.dot.live{background:var(--ok)}.dot.wip{background:var(--brand)}
+.dot.radar{background:var(--faint)}.dot.off{background:var(--rule)}
+.secbody{padding:8px 20px 20px}
+
+.item{padding:16px 0;border-top:1px solid var(--rule-soft)}
+.item[hidden]{display:none}
+.item-h{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.item-h h3{font-size:15px;font-weight:700;font-family:var(--sans);color:var(--ink)}
+.when{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.pill{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;
+  border-radius:999px;white-space:nowrap}
+.pill.live{background:var(--ok-bg);color:var(--ok)}
+.pill.wip{background:var(--brand-soft);color:var(--brand-deep)}
+.pill.radar{background:var(--rule-soft);color:var(--muted)}
+.pill.off{background:var(--rule-soft);color:var(--faint)}
+.item p{margin:6px 0 0;font-size:14.5px}
+.ev{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ev a{font-size:12px;font-weight:600;text-decoration:none;color:var(--brand-deep);
+  background:var(--brand-soft);border-radius:6px;padding:4px 9px;transition:opacity 180ms ease-out}
+.ev a:hover{opacity:.75}
+.ev .src{font-size:12px;color:var(--faint);font-family:var(--mono)}
+.note-in{background:var(--brand-soft);border-radius:8px;padding:16px;border-top:0;margin-top:8px}
+
+.block{margin-top:56px}
+.block>h2{font-size:22px;font-weight:800;letter-spacing:-.01em}
+.block>.kicker{font-size:14.5px;color:var(--muted);margin-top:6px;max-width:70ch}
+table{width:100%;border-collapse:collapse;margin-top:16px;background:var(--card);
+  border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;font-size:14px}
+th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);padding:12px;border-bottom:1px solid var(--rule);background:var(--rule-soft)}
+td{padding:12px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);white-space:nowrap}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.callout{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--brand);
+  border-radius:var(--r);padding:20px 24px;margin-top:16px}
+.callout h3{font-size:16px;font-weight:700;font-family:var(--sans);margin-bottom:6px}
+.quote{font-size:15px;line-height:1.6;color:var(--ink);font-style:italic;
+  border-left:2px solid var(--rule);padding-left:16px;margin:12px 0}
+footer{margin:64px 0 48px;padding-top:24px;border-top:1px solid var(--rule);font-size:13px;
+  color:var(--faint);max-width:70ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media(max-width:640px){
+  .wrap{padding:0 16px}.langbtn{right:16px}.lede{padding:32px 0 0}
+  .hero-lead{padding:24px}.controls{position:static}.callout{padding:16px}
+}
+
+/* ---- status sub-groups inside each department ---- */
+details.grp{border-top:1px solid var(--rule-soft)}
+details.grp>summary{list-style:none;cursor:pointer;padding:12px 0;display:flex;align-items:center;gap:10px}
+details.grp>summary::-webkit-details-marker{display:none}
+details.grp>summary::after{content:"+";margin-left:auto;font-family:var(--mono);font-size:14px;color:var(--faint)}
+details.grp[open]>summary::after{content:"\2212"}
+details.grp>summary:hover .gname{color:var(--brand-deep)}
+details.grp[hidden]{display:none}
+.gdot{width:16px;height:4px;border-radius:999px;display:inline-block;flex:0 0 auto}
+.gdot.live{background:var(--ok)}
+.gdot.wip{background:var(--brand)}
+.gdot.radar{background:var(--faint)}
+.gdot.off{background:var(--rule)}
+details.grp .item-h > .pill{display:none}
+.gname{font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+.gcount{font-family:var(--mono);font-size:12px;color:var(--faint)}
+details.grp>.item:first-of-type{border-top:1px solid var(--rule-soft)}
+details.grp .item{padding-left:14px}
+</style>
+</head>
+<body>
+
+<div class="mast"><div class="wrap masthold">
+  <div class="langbtn">
+    <button aria-pressed="true" onclick="setLang('pt',this)">PT</button>
+    <button aria-pressed="false" onclick="setLang('en',this)">EN</button>
+  </div>
+  <div class="eyebrow">RFS Builders Inc.</div>
+  <h1><span lang="pt">Primeiro ano</span><span lang="en">First year</span></h1>
+  <div class="sub">Hadassa Lima <span style="color:var(--faint)">·</span>
+    <span lang="pt">Operações e Finanças</span><span lang="en">Operations and Finance</span>
+    <span style="color:var(--faint)">·</span>
+    <span class="when"><span lang="pt">outubro 2025 &rarr; agosto 2026</span><span lang="en">October 2025 &rarr; August 2026</span></span></div>
+</div></div>
+
+<div class="wrap">
+
+  <div class="lede">
+    <p><span lang="pt">Este é o registro do que eu implantei na RFS entre outubro de 2025 e
+      agosto de 2026, organizado por área e por mês. São as coisas que eu fiz e as que mudaram. O que foi construído e não pegou também está aqui.</span>
+      <span lang="en">This is the record of what I put in place at RFS between October 2025 and
+      August 2026, organised by area and by month. These are the things I did and the things that changed. What was built and did not stick is here too.</span></p>
+  </div>
+
+  <div class="hero">
+    <div class="trio">
+      <div><span class="num">5.809</span><div class="lbl"><span lang="pt">transações bancárias conciliadas</span><span lang="en">bank transactions reconciled</span><br><span lang="pt">três contas, 2024 a 2026</span><span lang="en">three accounts, 2024 to 2026</span></div></div>
+      <div><span class="num">32</span><div class="lbl"><span lang="pt">folhas de pagamento processadas</span><span lang="en">payrolls processed</span></div></div>
+      <div><span class="num">43</span><div class="lbl"><span lang="pt">relatórios publicados</span><span lang="en">reports published</span></div></div>
+      <div><span class="num">116+</span><div class="lbl"><span lang="pt">ordens de serviço da Andersen arquivadas</span><span lang="en">Andersen work orders filed</span></div></div>
+    </div>
+  </div>
+  
+  
+  <details class="sec block" id="sysmap"><summary><h2><span lang="pt">Sistemas e IA</span><span lang="en">Systems and AI</span></h2><span class="tally">21</span></summary><div class="secbody"><p class="kicker"><span lang="pt">Tudo que existe hoje, o que está sendo construído, o que ainda vai ser feito e o que foi descontinuado.</span><span lang="en">Everything that exists today, what is being built, what is still to be done, and what was discontinued.</span></p><div class="tw"><table><thead><tr><th><span lang="pt">Sistema</span><span lang="en">System</span></th><th><span lang="pt">Categoria</span><span lang="en">Category</span></th><th><span lang="pt">Para quê</span><span lang="en">What for</span></th><th><span lang="pt">Situação</span><span lang="en">Status</span></th></tr></thead><tbody><tr><td><b><span lang="pt">Claude Code para a equipe</span><span lang="en">Claude Code for the team</span></b></td><td><span lang="pt">IA</span><span lang="en">AI</span></td><td><span lang="pt">Operação diária de finanças, RBA e relatórios. Configurado para a RFS, acesso para todos.</span><span lang="en">Daily finance, RBA and reporting operations. Configured for RFS, access for everyone.</span></td><td><span class="pill live"><span lang="pt">implantado</span><span lang="en">live</span></span></td></tr><tr><td><b><span lang="pt">Regras da empresa que a IA segue</span><span lang="en">Company rules the AI follows</span></b></td><td><span lang="pt">IA</span><span lang="en">AI</span></td><td><span lang="pt">Um erro corrigido uma vez não volta, e o conhecimento não fica em uma cabeça só.</span><span lang="en">A mistake corrected once does not come back, and the knowledge is not held in one head.</span></td><td><span class="pill live"><span lang="pt">implantado</span><span lang="en">live</span></span></td></tr><tr><td><b><span lang="pt">Sistema financeiro interno</span><span lang="en">Internal financial system</span></b></td><td><span lang="pt">Financeiro</span><span lang="en">Finance</span></td><td><span lang="pt">Conciliação, previsão de caixa, folha e obrigações num só lugar.</span><span lang="en">Reconciliation, cash forecast, payroll and obligations in one place.</span></td><td><span class="pill live"><span lang="pt">implantado</span><span lang="en">live</span></span></td></tr><tr><td><b><span lang="pt">Cópia de segurança dos dados financeiros</span><span lang="en">Backup of the financial data</span></b></td><td><span lang="pt">Financeiro</span><span lang="en">Finance</span></td><td><span lang="pt">Se o computador falhar, nada se perde.</span><span lang="en">If the computer fails, nothing is lost.</span></td><td><span class="pill live"><span lang="pt">implantado</span><span lang="en">live</span></span></td></tr><tr><td><b><span lang="pt">Calculadora de overhead</span><span lang="en">Overhead calculator</span></b></td><td><span lang="pt">Financeiro</span><span lang="en">Finance</span></td><td><span lang="pt">A taxa correta e, por consequência, custeio de obra correto.</span><span lang="en">The correct rate and therefore correct job costing.</span></td><td><span class="pill live"><span lang="pt">implantado</span><span lang="en">live</span></span></td></tr><tr><td><b><span lang="pt">Calculadora de aumentos</span><span lang="en">Raise calculator</span></b></td><td><span lang="pt">Pessoas</span><span lang="en">People</span></td><td><span lang="pt">Ver o efeito na folha antes de assumir o aumento.</span><span lang="en">See the payroll effect before committing to a raise.</span></td><td><span class="pill live"><span lang="pt">implantado</span><span lang="en">live</span></span></td></tr><tr><td><b><span lang="pt">Repositório de conhecimento operacional</span><span lang="en">Operating knowledge repository</span></b></td><td><span lang="pt">Sistemas</span><span lang="en">Systems</span></td><td><span lang="pt">Decisão e regra ficam pesquisáveis, não na memória de alguém.</span><span lang="en">Decisions and rules stay searchable, not in someone's memory.</span></td><td><span class="pill live"><span lang="pt">implantado</span><span lang="en">live</span></span></td></tr><tr><td><b><span lang="pt">Slack — comunicação interna</span><span lang="en">Slack — internal communication</span></b></td><td><span lang="pt">Sistemas</span><span lang="en">Systems</span></td><td><span lang="pt">A comunicação organizada por obra dentro do Slack, em vez de assunto espalhado no text e/ou WhatsApp, como era até agora.</span><span lang="en">Communication organised by project inside Slack, instead of conversation scattered across text messages and/or WhatsApp, as it was until now.</span></td><td><span class="pill live"><span lang="pt">implantado</span><span lang="en">live</span></span></td></tr><tr><td><b><span lang="pt">Acesso remoto seguro para os donos</span><span lang="en">Secure remote access for the owners</span></b></td><td><span lang="pt">Sistemas</span><span lang="en">Systems</span></td><td><span lang="pt">Os donos vêem os números sem expor a máquina.</span><span lang="en">The owners see the figures without exposing the machine.</span></td><td><span class="pill live"><span lang="pt">implantado</span><span lang="en">live</span></span></td></tr><tr><td><b><span lang="pt">Digest matinal</span><span lang="en">Morning digest</span></b></td><td><span lang="pt">Relatórios</span><span lang="en">Reporting</span></td><td><span lang="pt">E-mail, obra e caixa numa leitura só.</span><span lang="en">Email, projects and cash in a single read.</span></td><td><span class="pill off"><span lang="pt">descontinuado</span><span lang="en">discontinued</span></span></td></tr><tr><td><b><span lang="pt">Sistema de controle da Andersen</span><span lang="en">Andersen control system</span></b></td><td><span lang="pt">RBA</span><span lang="en">RBA</span></td><td><span lang="pt">Lucro por ordem de serviço calculado sozinho, na base da FD e na nova taxa de overhead.</span><span lang="en">Profit per work order calculated automatically, on FD's basis and the new overhead rate.</span></td><td><span class="pill wip"><span lang="pt">em construção</span><span lang="en">building</span></span></td></tr><tr><td><b><span lang="pt">Slack conectado à IA</span><span lang="en">Slack connected to the AI</span></b></td><td><span lang="pt">IA</span><span lang="en">AI</span></td><td><span lang="pt">O que é trocado em conversa alimenta o controle e a busca, sem digitação dupla.</span><span lang="en">What gets exchanged in conversation feeds the controls and search, without double entry.</span></td><td><span class="pill live"><span lang="pt">implantado</span><span lang="en">live</span></span></td></tr><tr><td><b><span lang="pt">Custo por obra: sub e material</span><span lang="en">Job cost: sub and material</span></b></td><td><span lang="pt">Financeiro</span><span lang="en">Finance</span></td><td><span lang="pt">Os dois cortes que tornam o custo por obra acionável.</span><span lang="en">The two breakdowns that make job cost actionable.</span></td><td><span class="pill radar"><span lang="pt">a construir</span><span lang="en">to be created</span></span></td></tr><tr><td><b><span lang="pt">Nova taxa de overhead gravada</span><span lang="en">New overhead rate written in</span></b></td><td><span lang="pt">RBA</span><span lang="en">RBA</span></td><td><span lang="pt">O sistema ainda calcula com a taxa antiga.</span><span lang="en">The system still computes on the old rate.</span></td><td><span class="pill radar"><span lang="pt">a construir</span><span lang="en">to be created</span></span></td></tr><tr><td><b><span lang="pt">Indicador de recuperação Andersen</span><span lang="en">Andersen recovery indicator</span></b></td><td><span lang="pt">RBA</span><span lang="en">RBA</span></td><td><span lang="pt">Medir quanto o acompanhamento efetivamente recuperou.</span><span lang="en">Measure how much the follow up actually recovered.</span></td><td><span class="pill radar"><span lang="pt">a construir</span><span lang="en">to be created</span></span></td></tr><tr><td><b><span lang="pt">Trocar a base do sistema financeiro</span><span lang="en">Move the financial system onto a new base</span></b></td><td><span lang="pt">Sistemas</span><span lang="en">Systems</span></td><td><span lang="pt">As mesmas telas, rodando mais rápido e aguentando o volume de hoje.</span><span lang="en">The same screens, running faster and holding today's volume.</span></td><td><span class="pill radar"><span lang="pt">a construir</span><span lang="en">to be created</span></span></td></tr><tr><td><b><span lang="pt">Relatório diário automático no fim do dia</span><span lang="en">Automatic end of day daily report</span></b></td><td><span lang="pt">Relatórios</span><span lang="en">Reporting</span></td><td><span lang="pt">Geração automática é segura; publicação automática não.</span><span lang="en">Automatic generation is safe; automatic publishing is not.</span></td><td><span class="pill radar"><span lang="pt">a construir</span><span lang="en">to be created</span></span></td></tr><tr><td><b><span lang="pt">Rastreador de materiais em planilha única</span><span lang="en">Materials tracker as one sheet</span></b></td><td><span lang="pt">Obras</span><span lang="en">Projects</span></td><td><span lang="pt">Substituído por uma aba dentro da planilha de cada obra.</span><span lang="en">Replaced by a tab inside each project's own sheet.</span></td><td><span class="pill off"><span lang="pt">descontinuado</span><span lang="en">discontinued</span></span></td></tr><tr><td><b><span lang="pt">Gestor de tarefas externo</span><span lang="en">External task manager</span></b></td><td><span lang="pt">Sistemas</span><span lang="en">Systems</span></td><td><span lang="pt">Não foi adotado pela equipe.</span><span lang="en">Not adopted by the team.</span></td><td><span class="pill off"><span lang="pt">descontinuado</span><span lang="en">discontinued</span></span></td></tr><tr><td><b><span lang="pt">Checagem semanal de veículos</span><span lang="en">Weekly vehicle check</span></b></td><td><span lang="pt">Pessoas</span><span lang="en">People</span></td><td><span lang="pt">O hábito de preencher não se manteve.</span><span lang="en">The habit of filling it in did not hold.</span></td><td><span class="pill off"><span lang="pt">descontinuado</span><span lang="en">discontinued</span></span></td></tr><tr><td><b><span lang="pt">Avaliação semanal dos funcionários</span><span lang="en">Weekly employee evaluation</span></b></td><td><span lang="pt">Pessoas</span><span lang="en">People</span></td><td><span lang="pt">O hábito de preencher não se manteve.</span><span lang="en">The habit of filling it in did not hold.</span></td><td><span class="pill off"><span lang="pt">descontinuado</span><span lang="en">discontinued</span></span></td></tr></tbody></table></div></div></details>
+  <div class="controls">
+    <select id="fArea" onchange="applyFilters()">
+      <option value=""><span>Todas as áreas</span></option>
+      <option value="fin">Financeiro</option><option value="rba">RBA</option>
+      <option value="hr">Pessoas</option><option value="pm">Obras</option>
+      <option value="sys">Sistemas</option><option value="rep">Relatórios</option>
+      <option value="ctl">Controles</option><option value="dead">Descontinuados</option>
+    </select>
+    <select id="fStatus" onchange="applyFilters()">
+      <option value="">Todos os status</option><option value="live">Implantado</option>
+      <option value="wip">Em andamento</option><option value="radar">No radar</option>
+      <option value="off">Descontinuado</option>
+    </select>
+    <button class="reset" onclick="resetFilters()"><span lang="pt">Limpar</span><span lang="en">Clear</span></button>
+    <span class="count" id="shownCount"></span>
+  </div>
+
+  
+
+  <!-- ============ FINANCEIRO ============ -->
+  <details class="sec" data-area="fin">
+    <summary><span class="dots"></span>
+      <h2><span lang="pt">Financeiro</span><span lang="en">Finance</span></h2>
+      <span class="tally"></span></summary>
+    <div class="secbody">
+
+      
+
+      
+
+      <div class="item" data-month="2025-11" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Parecer ao dono sobre estrutura societária</span><span lang="en">Advisory to the owner on entity structure</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Memorando escrito comparando LLC, S-Corp e C-Corp, com as implicações de
+          imposto e de obrigação de folha, citando a orientação da contadora.</span>
+          <span lang="en">A written memo comparing LLC, S-Corp and C-Corp, with the tax and payroll
+          obligation implications, citing the accountant's guidance.</span></p>
+        </div>
+
+      <div class="item" data-month="2025-12" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Políticas administrativas, com trava de pagamento</span><span lang="en">Administrative policies, with a payment gate</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Pacote enviado aos subcontratados com modelo de W-9, instituindo duas
+          regras que valem até hoje: pagamento só é processado com certificado de seguro válido em
+          arquivo, e invoice enviada por WhatsApp não é aceita. Publicado em três idiomas.</span>
+          <span lang="en">A package sent to subcontractors with a W-9 template, setting two rules
+          that still hold: payment is processed only with a valid insurance certificate on file, and
+          invoices sent by WhatsApp are not accepted. Published in three languages.</span></p>
+        </div>
+
+      <div class="item" data-month="2025-12" data-status="off">
+        <div class="item-h"><h3><span lang="pt">Primeira planilha de controle de contas a pagar</span><span lang="en">First accounts payable control sheet</span></h3><span class="pill off"></span></div>
+        <p><span lang="pt">Nasceu de uma tentativa de resgate: recuperar todos os pagamentos já feitos aos subcontratados e reconciliá-los com as obras a que pertenciam, para alimentar o QuickBooks e, com isso, o trabalho de custo por obra da FD. Introduziu o identificador obra-serviço-subcontratado que todas as planilhas seguintes reusam. Registrou a cadeia inteira: cotação recebida, conferência
+          contra o contrato, aprovação, emissão do cheque, retirada pelo sub e baixa no QuickBooks.
+          Foi o que passou a impedir que se pagasse mais do que o devido: o controle por subcontratado comparava o contratado mais os adicionais aprovados contra o efetivamente pago, e apontava a divergência antes do pagamento sair. Substituída pela planilha master em
+          maio.</span>
+          <span lang="en">It began as a recovery exercise: pulling back every payment already made to subcontractors and reconciling it to the job it belonged to, so QuickBooks could be fed and, through it, FD's job costing work. It introduced the project-trade-subcontractor identifier that every later sheet reuses. It recorded the whole chain: quote received, checked against the contract,
+          approved, check issued, picked up by the sub, entered in QuickBooks. It is what stopped us paying more than was owed: the per subcontractor control compared contracted plus approved extras against what was actually paid, and flagged the discrepancy before the payment went out. Superseded by the master sheet in May.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/1O3C4c0alYaONRksMR3gsVcr2vniuQrFrWJ153zRYF88/edit" target="_blank" rel="noopener">Quotes &amp; Finance Tracker</a></div>
+        </div>
+
+      <div class="item" data-month="2025-12" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Varredura de compliance de fim de ano</span><span lang="en">Year end compliance sweep</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">A primeira rodada formal de cobrança de documentos de subcontratado, que evoluiu até virar um conjunto de mensagens nomeadas disparadas por situação.</span>
+          <span lang="en">The first formal round of subcontractor document chasing, which evolved into a set of named messages fired by situation.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-01" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Diretrizes de faturamento que mudaram o comportamento dos subs</span><span lang="en">Invoicing guidelines that changed subcontractor behaviour</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Exigem adicional em invoice separada do contrato base, e endereço da obra,
+          valor exato e descrição do serviço em toda invoice.</span>
+          <span lang="en">They require extras on an invoice separate from the base contract, and the
+          project address, exact amount and work description on every invoice.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-01" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Expliquei à FD a convenção interna do QuickBooks</span><span lang="en">Explained the internal QuickBooks convention to FD</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Expliquei como a RFS separa contrato de adicional dentro do QuickBooks, e passei a fornecer o número e a data do cheque quando pedida a rastreabilidade de um custo
+          por obra.</span>
+          <span lang="en">I explained how RFS separates contract from change order inside QuickBooks, and began supplying the check number and date when asked to trace a cost to a
+          job.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-02" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Lista de produtos e serviços do QuickBooks montada e conferida</span><span lang="en">QuickBooks products and services list built and confirmed</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Importada seguindo o mapeamento de custo de construção e receita definido pela FD, que confirmou estar correto. Reconstruída em junho
+          sobre um padrão de classificação da indústria depois que a versão anterior gerou colisões
+          de nome.</span>
+          <span lang="en">Imported following the cost of construction and income mapping set by FD, which confirmed it was correct. Rebuilt in June on an
+          industry classification standard after the earlier version produced name
+          collisions.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-02" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Reconstruí duas semanas de custo por obra à mão</span><span lang="en">Rebuilt two weeks of job cost by hand</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Quando o apontamento de horas por obra falhou, refiz os dados do período manualmente e entregou em planilha, para o custeio não ficar com buraco.</span>
+          <span lang="en">When job level time tracking broke, I rebuilt the period by hand and
+          delivered it as a spreadsheet, so job costing would not carry a hole.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-02" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Achei, contornei e escalei uma falha do QuickBooks</span><span lang="en">Found, worked around and escalated a QuickBooks defect</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">A FD sinalizou que horas de obras específicas estavam desaparecendo entre o apontamento e a contabilidade.  Operei com contorno por algumas semanas, escalei ao suporte do fornecedor com sessão de compartilhamento de tela, acompanhei a transferência para o segundo time e reportei o desfecho internamente.</span>
+          <span lang="en">FD flagged that hours from specific jobs were disappearing between timekeeping and the books.  I worked around it for a few weeks, escalated to the vendor's support with a screen sharing
+          session, followed the handoff to a second team, and reported the outcome internally.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-03" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Termos de quitação parcial e final</span><span lang="en">Partial and final release documents</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Modelos criados e assinados sempre que um subcontratado retira um cheque. Estendidos para cobrir também adicionais, com termo
+          próprio de quitação parcial e final de change order. Ajustados sempre que a situação de um subcontratado exige.</span>
+          <span lang="en">Templates created and signed whenever a subcontractor collects a check. Extended to cover change orders too, with their own
+          partial and final release. Adjusted whenever a subcontractor's situation requires it.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-03" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Funil único de entrada de cotações e invoices</span><span lang="en">A single intake funnel for quotes and invoices</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Reorganizei a entrada para que invoice e cotação chegassem só à caixa de faturamento, e desenhei a cadeia de aprovação em cima disso: invoice recebida, planilha alimentada, conferência da gerência de projetos contra o contrato, aprovação do dono, cheque impresso, lançamento no QuickBooks e baixa na planilha quando o subcontratado retira o cheque. Fornecedores que mandavam para o lugar errado passaram a receber o guia do subcontratado junto com a correção.</span>
+          <span lang="en">I reorganised intake so quotes and invoices arrive only at the billing mailbox, and designed the approval chain on top of it: invoice received, sheet updated, checked against the contract by project management, owner's approval, check printed, entered in QuickBooks, and closed off on the sheet when the subcontractor collects the check. Vendors sending to the wrong place now receive the subcontractor guide along with the correction.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/1O3C4c0alYaONRksMR3gsVcr2vniuQrFrWJ153zRYF88/edit" target="_blank" rel="noopener">Quotes &amp; Finance Tracker</a></div>
+        </div>
+
+      <div class="item" data-month="2026-05" data-status="wip">
+        <div class="item-h"><h3><span lang="pt">Planilha financeira master</span><span lang="en">Master financial sheet</span></h3><span class="pill wip"></span></div>
+        <p><span lang="pt">Sucessora da primeira, organizada por assunto e cobrindo todas as obras
+          ao mesmo tempo, com os dados de subcontratado puxados automaticamente das planilhas de
+          obra. O lado de pagamento a subcontratado opera. As abas de recebimento do cliente,
+          materiais e retenção foram construídas e não entraram em uso, e o painel de totais está
+          com defeito de vínculo, exibindo zero apesar de haver dado real no arquivo.</span>
+          <span lang="en">Successor to the first, organised by topic and covering all projects at
+          once, with subcontractor data pulled automatically from the per project sheets. The
+          subcontractor payment side is in use. The client receipts, materials and retention tabs
+          were built and never adopted, and the totals panel has a linkage defect, showing zero
+          despite real data in the file.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/1GNja6ou4CVtTp-fLfwn30SGQUJjJx6wNrXhdMnfSNkY/edit" target="_blank" rel="noopener">RFS Financial Sheet — MASTER</a></div>
+        </div>
+
+      <div class="item" data-month="2026-05" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Plano de contas do QuickBooks reestruturado</span><span lang="en">QuickBooks chart of accounts restructured</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">O plano de contas é a lista dentro do QuickBooks em que cada gasto e cada entrada é classificado, e é dela que sai qualquer relatório. Bancos, cartões e empréstimos foram corrigidos, incluindo um número de conta corrente que não pertencia à empresa e contas encerradas ainda ativas, herdados da FD. Contas legadas sem uso foram inativadas.</span>
+          <span lang="en">The chart of accounts is the list inside QuickBooks that every expense and every receipt is classified against, and every report comes out of it. Banks, cards and loans were corrected, including a checking account number that did not belong to the company and closed accounts still active, inherited from FD. Unused legacy accounts were deactivated.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-07" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Reconciliação integral do extrato contra a contabilidade</span><span lang="en">Full statement to books reconciliation</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Auditoria do ano de 2025 inteiro: cada movimento da conta corrente foi categorizado e conferido contra a contabilidade, numa planilha de decisão de 928 linhas que fecha ao centavo. Doze regras
+          bancárias automáticas foram criadas na sequência, para o trabalho não precisar ser
+          repetido à mão.</span>
+          <span lang="en">An audit of the whole of 2025: every checking account movement was categorised and checked against the books, in a 928 row decision sheet that ties to the cent. Twelve automatic bank rules were
+          then created so the work would not have to be repeated by hand.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-04" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Conciliação bancária diária</span><span lang="en">Daily bank reconciliation</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Rotina diária, não mensal. O saldo do sistema é conferido contra o banco
+          todo dia útil e o que não fecha é sinalizado na hora, com a explicação. O histórico de
+          2025 inteiro foi reconstruído para trás, para que comparação entre períodos passasse a ser
+          possível.</span>
+          <span lang="en">A daily routine, not a monthly one. The system balance is checked against
+          the bank every business day and whatever does not tie is flagged immediately, with the
+          explanation. The whole of 2025 was rebuilt backwards so period comparison became
+          possible.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-08" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Rastreamento de gasto de viagem do dono</span><span lang="en">Owner travel spend tracking</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Sistema criado para a viagem do dono em agosto, mostrando o gasto acumulado por categoria contra o orçamento diário combinado, e separando o gasto de estrada, que está no orçamento, do gasto pessoal.</span>
+          <span lang="en">Built for the owner's August trip, showing cumulative spend by category against the agreed daily budget, and separating road spend, which is in the budget, from personal spend.</span></p>
+        </div>
+
+    
+      <div class="item" data-month="2025-11" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Revisão das contas e dos cartões da empresa</span><span lang="en">Review of the company's accounts and cards</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Levantei todas as contas bancárias e todos os cartões em uso, quem é o portador de cada um e para que cada um serve. Era a base necessária para qualquer controle de caixa depois, e não existia em lugar nenhum de forma consolidada.</span>
+          <span lang="en">I mapped every bank account and every card in use, who holds each one and what each is for. It was the necessary basis for any cash control afterwards, and it did not exist anywhere in consolidated form.</span></p>
+      </div>
+      <div class="item" data-month="2026-02" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Cheques passaram a ser emitidos dentro do QuickBooks</span><span lang="en">Checks moved to being issued inside QuickBooks</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Antes os cheques eram feitos por fora e lançados depois, o que fez com que tivéssemos vários gaps de informação financeira por esquecimento de update. Passei a emissão para dentro do QuickBooks, para subcontratados e para funcionários internos, e com isso cada cheque já sai vinculado à obra e à categoria certa.</span>
+          <span lang="en">Checks used to be written outside the books and entered afterwards, which left us with gaps in the financial information whenever an update was forgotten. I moved issuance into QuickBooks, for both subcontractors and internal workers, so every check now leaves already tied to the right job and the right category.</span></p>
+      </div>
+      <div class="item" data-month="2026-03" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Descrição e envio das invoices ao cliente</span><span lang="en">Invoice descriptions and sending to the client</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Nos últimos meses passei a analisar cada invoice criada pelo dono, escrever a descrição do que está sendo cobrado em linguagem que o cliente entende, e enviar. Antes saíam sem descrição clara, o que gerava dúvida do cliente e atraso no pagamento.</span>
+          <span lang="en">In the last few months I began reviewing each invoice the owner creates, writing the description of what is being billed in language the client understands, and sending it. They used to go out without a clear description, which produced client queries and delayed payment.</span></p>
+      </div>
+      <div class="item" data-month="2026-06" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Apoio ao fechamento contábil</span><span lang="en">Support for the accounting close</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Reúno e entrego tudo que a contadora pede para o fechamento: extratos, faturas, comprovantes, classificações e as explicações do que não é óbvio no extrato.</span>
+          <span lang="en">I gather and deliver everything the accountant asks for at close: statements, invoices, receipts, classifications, and the explanations for whatever is not obvious on the statement.</span></p>
+      </div>
+      
+      <div class="item" data-month="2026-08" data-status="radar">
+        <div class="item-h"><h3><span lang="pt">Detecção automática de autopay que falhou</span><span lang="en">Automatic detection of a failed autopay</span></h3><span class="pill radar"></span></div>
+        <p><span lang="pt">O sistema já sabe o valor e o dia esperado de cada pagamento recorrente. Falta a checagem diária que compara isso com o extrato e avisa se um pagamento automático não entrou, antes de qualquer conta chegar a vencer. Está definida e no radar.</span>
+          <span lang="en">The system already knows the expected amount and day of every recurring payment. What is missing is the daily check that compares that against the statement and says so if an automatic payment did not go through, before any bill reaches its due date. It is specified and on the radar.</span></p>
+      </div>
+      <div class="item" data-month="2026-08" data-status="radar">
+        <div class="item-h"><h3><span lang="pt">Relatórios de custo por obra: subcontratado e material</span><span lang="en">Job cost reports by subcontractor and by material</span></h3><span class="pill radar"></span></div>
+        <p><span lang="pt">A informação já existe: quanto cada subcontratado pediu e quanto de material entrou em cada obra. O que falta é o sistema que junta tudo. Com o BuilderTrend, o novo QuickBooks e as planilhas de obra no lugar, o próximo passo é calcular as horas dos funcionários e os materiais, tudo dentro do QuickBooks, contra o custo de cada obra.</span>
+          <span lang="en">The information already exists: how much each subcontractor asked for and how much material went into each job. What is missing is the system that brings it together. With BuilderTrend, the new QuickBooks and the project sheets in place, the next step is to calculate the workers' hours and the materials, all inside QuickBooks, against each job's cost.</span></p>
+      </div>
+      
+      <div class="item" data-month="2025-11" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Calendário de folha: terça e quinta</span><span lang="en">Payroll calendar: Tuesday and Thursday</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">A folha é preparada na terça e os cheques são liberados na quinta, para subcontratados e para a equipe interna. O calendário já existia e passou a ser cumprido sem exceção: as horas fecham antes da terça, a folha é conferida e aprovada, e a retirada acontece na quinta. Trinta e duas folhas processadas no período.</span>
+          <span lang="en">Payroll is prepared on Tuesday and checks are released on Thursday, for subcontractors and for the internal crew. The calendar already existed and became something held to without exception: hours close before Tuesday, payroll is checked and approved, and collection happens on Thursday. Thirty two payrolls processed in the period.</span></p>
+      </div>
+      <div class="item" data-month="2026-03" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Controle de contas a receber, com a gerência de projetos e o dono</span><span lang="en">Accounts receivable control, with project management and the owner</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">O que a empresa tem a receber passou a ser acompanhado em conjunto: eu, a gerência de projetos e o dono. O dono emite a invoice, eu analiso, escrevo a descrição e envio, e o saldo em aberto por obra fica visível para os três.</span>
+          <span lang="en">What the company is owed became something tracked jointly: myself, project management and the owner. The owner issues the invoice, I review it, write the description and send it, and the open balance per job is visible to all three.</span></p>
+      </div>
+      <div class="item" data-month="2026-04" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Cobrança de invoices enviadas e ainda em aberto</span><span lang="en">Follow up on invoices sent and still open</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt"> As que passam do prazo entram numa fila de cobrança e são acompanhadas até entrar, com o cliente e com a obra. É de onde vem a informação de quanto realmente se pode contar para a semana, e não apenas quanto foi faturado.</span>
+          <span lang="en"> Those past their date go into a chase queue and are followed until they land, with the client and with the project side. It is where the figure for what can actually be counted on for the week comes from, rather than simply what was billed.</span></p>
+      </div>
+      <div class="item" data-month="2026-02" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Implantação do novo QuickBooks Online e QuickBooks Time</span><span lang="en">The new QuickBooks Online and QuickBooks Time stood up</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">O QuickBooks antigo não fechava custo por obra. Implantamos o novo QuickBooks Online junto com o QuickBooks Time, seguindo o modelo definido pela FD, para que apontamento de horas, custo por obra e conciliação passassem a falar a mesma língua. O plano de contas, a lista de produtos e serviços e a emissão de cheques dentro do sistema são as peças dessa mesma implantação.</span>
+          <span lang="en">The old QuickBooks could not close job cost. We stood up the new QuickBooks Online together with QuickBooks Time, following the model FD had defined, so that time tracking, job cost and reconciliation would finally speak the same language. The chart of accounts, the products and services list and issuing checks inside the system are all pieces of that same implementation.</span></p>
+      </div>
+      <div class="item" data-month="2026-01" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Processo de contagem de horas dos funcionários internos, com a FD</span><span lang="en">The internal-worker hour counting process, with FD</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Depois de várias tentativas frustradas no QuickBooks antigo, o processo de contagem de horas dos funcionários internos foi estabelecido em conjunto com a FD: como a hora é apontada, como é aprovada e como chega ao custo da obra. Junto com isso criamos um sistema para facilitar a criação das bills dentro do novo QuickBooks, para que a informação de hora chegue correta ao custo de cada obra. É o que tornou o custo por obra confiável.</span>
+          <span lang="en">After several failed attempts in the old QuickBooks, the process for counting internal workers' hours was established jointly with FD: how an hour is recorded, how it is approved, and how it reaches the job cost. Alongside it we built a way to make raising the bills inside the new QuickBooks easier, so the hour information reaches each job's cost correctly. It is what made job cost trustworthy.</span></p>
+      </div>
+      </div>
+  </details>
+
+  <!-- ============ RBA ============ -->
+  <details class="sec" data-area="rba">
+    <summary><span class="dots"></span>
+      <h2>RBA <span style="font-weight:400;color:var(--muted)">/ Renewal by Andersen</span></h2>
+      <span class="tally"></span></summary>
+    <div class="secbody">
+
+      
+
+      <div class="item" data-month="2025-11" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Rotina diária de operação da RBA</span><span lang="en">Daily RBA operating routine</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Checklist formal de rotina: marcação dos e-mails, conferência da planilha de controle e atualização dos adicionais na contabilidade. O lançamento de recibos no QuickBooks e o arquivamento no repositório não é só da RBA: vale para todo recibo que chega, dos funcionários em obra da construtora e dos materiais que a gerência de projetos compra e me informa.</span>
+          <span lang="en">A formal routine checklist: email tagging, control sheet check, and updating extras in the books. Entering receipts in QuickBooks and filing them to the repository is not RBA only: it covers every receipt that comes in, from the crews on the construction side and from the materials project management buys and tells me about.</span></p>
+        </div>
+
+      <div class="item" data-month="2025-11" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Uma pasta por ordem de serviço, com a documentação e as fotos</span><span lang="en">One folder per work order, with the paperwork and photos</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Ao menos 116 pastas de ordem de serviço criadas e alimentadas ao longo do
+          ano, com aproximadamente dois mil documentos e as fotos de obra enviadas pela equipe. A contagem é piso, não
+          total. A Andersen exige a documentação de campo para liberar pagamento de mão de obra, e o
+          atendimento dessas exigências passou a ser feito no mesmo dia.</span>
+          <span lang="en">At least 116 work order folders created and populated over the year, with roughly two thousand documents and the site photos sent in by the crew. The count is a floor, not a total.
+          Andersen requires field paperwork before releasing labour payment, and those requests
+          began being answered same day.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-02" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Reconstruí a planilha de controle</span><span lang="en">Rebuilt the control sheet</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">A planilha anterior falhou. Quando a FD perguntou por ela, a substituta já estava pronta e no ar.</span>
+          <span lang="en">The previous sheet failed. When FD asked about it, the replacement was already built and running.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/11ipogdFaAuQj9ED9if5SwpHHC1WrqececY_BZ8m9pDU/edit" target="_blank" rel="noopener">RBA Remittance Tracker (New)</a></div>
+        </div>
+
+      <div class="item" data-month="2026-03" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Propus a convenção de nomenclatura de retorno, e ela foi adotada</span><span lang="en">Proposed the return visit naming convention, and it was adopted</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Como registrar na contabilidade uma segunda visita à mesma obra sem
+          perder o vínculo com a primeira. Minha proposta, com concordância da FD, aplicada na prática.</span>
+          <span lang="en">How to record a second visit to the same job in the books without losing
+          the link to the first. My proposal, agreed by FD, applied in practice.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-03" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Remediação de compliance com prazo de duas a três semanas</span><span lang="en">Compliance remediation on a two to three week clock</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">A Andersen notificou que a documentação da empresa estava fora de
+          conformidade, por divergência de razão social e de titularidade, e que a capacidade de
+          processar pagamento de mão de obra poderia ser suspensa em duas a três semanas. Certificados reemitidos com a titularidade correta e o pacote de assinatura da nova titular concluído.</span>
+          <span lang="en">Andersen notified that the company's documents were out of compliance, on
+          business name and ownership discrepancies, and that the ability to process labour payments
+          could be suspended within two to three weeks. Certificates reissued with the correct ownership and the new owner's signature package completed.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-04" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Cotação de seguro e troca de corretor de registro</span><span lang="en">Insurance quoting and broker of record change</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Conduzida junto à corretora enquanto a remediação corria. A seguradora
+          existente foi mantida por ser a melhor opção após comparação, e o corretor de registro foi
+          transferido. Também obtive a declaração de cobertura específica exigida para uma obra em
+          andamento.</span>
+          <span lang="en">Run with the broker while the remediation was under way. The existing
+          carrier was retained as the best option after comparison, and the broker of record was
+          transferred. I also obtained the job specific coverage affidavit required for a live
+          project.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-04" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Conferência do repasse semanal, com contestação documentada</span><span lang="en">Weekly remittance check, with documented disputes</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Toda sexta, o remittance é conferido contra o registro interno, a planilha é alimentada e a contabilidade recebe a baixa, com os cancelamentos espelhados. Diferença encontrada é contestada com a evidência anexa.</span>
+          <span lang="en">Every Friday the remittance is checked against the internal record, the sheet is updated and the books are cleared, with cancellations mirrored. A shortfall found is disputed with the evidence attached.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-04" data-status="live">
+        <div class="item-h"><h3><span lang="pt">O processo de acompanhamento de adicional nasceu de uma perda</span><span lang="en">The extras follow up process was born from a loss</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Um adicional foi recusado pela Andersen por submissão fora do prazo
+          acordado. Desde então, adicional submetido entra na planilha e na contabilidade, e a
+          ausência de aprovação ou recusa passa a ser cobrada em vez de esperada.</span>
+          <span lang="en">One extra was refused by Andersen for being submitted outside the agreed
+          window. Since then a submitted extra is entered in the sheet and the books, and the
+          absence of an approval or a refusal gets chased rather than waited on.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-05" data-status="live">
+        <div class="item-h"><h3><span lang="pt">A planilha de controle da Andersen na forma atual</span><span lang="en">The Andersen control sheet in its current form</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Deixou de ser um registro e passou a ser ferramenta de cobrança e de previsão. Acompanha as obras, os pedidos de adicional, os pagamentos recebidos e os cancelamentos, e é atualizada toda semana. Mantém uma fila de cobrança do que veio a menos ou a mais, uma lista de
+          obras concluídas e ainda não submetidas, e um controle de perda em adicional, separando o
+          que está pendente de aprovação, o que foi negado e o que foi aprovado parcialmente.
+          Também prevê a data do próximo pagamento a partir do padrão histórico, com a acurácia
+          declarada dentro da própria planilha.</span>
+          <span lang="en">It stopped being a log and became a collections and forecasting tool. It tracks the jobs, the extra labour requests, the payments received and the cancellations, and is updated every week. It holds a chase queue for what came in short or over, a list of finished jobs not yet
+          submitted, and a leakage control on extras, separating what is pending approval, what was
+          refused and what was only partly approved. It also predicts the next payment date from the
+          historical pattern, with its accuracy stated inside the sheet itself.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/11ipogdFaAuQj9ED9if5SwpHHC1WrqececY_BZ8m9pDU/edit" target="_blank" rel="noopener">RBA Remittance Tracker (New)</a></div>
+        </div>
+
+      
+
+      <div class="item" data-month="2026-05" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Rotina semanal de programação e de aprovação de horas</span><span lang="en">Weekly scheduling and hour approval routine</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Toda segunda: a programação da semana seguinte é montada e a atual é
+          conferida, com verificação ao menos três vezes por semana. Cada obra nova é verificada no aplicativo da Andersen e entra com a documentação baixada, a pasta criada, o registro na contabilidade, o orçamento lançado e o
+          apontamento de horas preparado. As horas da equipe e a lista de produtos e serviços são conferidas e corrigidas diariamente, para o custo por obra da Andersen sair certo, e as horas são aprovadas em conjunto com o dono na segunda, para pagamento na terça.</span>
+          <span lang="en">Every Monday the next week's schedule is built and the current one
+          checked, with verification at least three times a week. Each new job is checked in Andersen's own app and enters with its paperwork downloaded, folder created, record in the books, estimate entered and
+          timekeeping prepared. Crew hours and the products and services list are checked and corrected daily, so Andersen's job cost comes out right, and hours are approved with the owner on Monday for Tuesday payment.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-08" data-status="wip">
+        <div class="item-h"><h3><span lang="pt">Taxa de overhead recalculada em base de ano cheio</span><span lang="en">Overhead rate recalculated on a full year basis</span></h3><span class="pill wip"></span></div>
+        <p><span lang="pt">O ano foi auditado e a taxa recalculada com o custo indireto real. O impacto sobre a linha de RBA foi re-derivado de forma independente antes de ser aceito. Aprovado, com o restatement do histórico ainda pendente.</span>
+          <span lang="en">The year was audited and the rate recalculated with the real indirect cost. The impact on the RBA line was independently re derived before being accepted. Approved, with the restatement of history still pending.</span></p>
+        </div>
+
+    
+      <div class="item" data-month="2026-05" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Pedidos de cancelamento e de prorrogação junto à Andersen</span><span lang="en">Cancellation and run long requests with Andersen</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Submissão dos pedidos de cancelamento de ordem de serviço e de prorrogação de prazo diretamente à Andersen, pelo formulário próprio deles. Parte por necessidade da operação, parte a pedido do dono.</span>
+          <span lang="en">Work order cancellations and run long requests submitted to Andersen directly, through their own form. Partly as the operation requires it, partly at the owner's request.</span></p>
+      </div>
+      
+      <div class="item" data-month="2026-08" data-status="radar">
+        <div class="item-h"><h3><span lang="pt">Nova taxa de overhead gravada no sistema</span><span lang="en">The new overhead rate written into the system</span></h3><span class="pill radar"></span></div>
+        <p><span lang="pt">A taxa recalculada em base de ano cheio foi aprovada, e o sistema ainda calcula com a antiga. Regravar é uma correção deliberada de histórico, porque muda o resultado de obras já encerradas, então é feita de uma vez com o impacto medido antes e depois.</span>
+          <span lang="en">The rate recalculated on a full year basis has been approved, and the system still computes on the old one. Rewriting it is a deliberate history correction, because it changes the result of jobs already closed, so it is done once with the impact measured before and after.</span></p>
+      </div>
+      <div class="item" data-month="2026-08" data-status="radar">
+        <div class="item-h"><h3><span lang="pt">Indicador de recuperação junto à Andersen</span><span lang="en">Recovery indicator with Andersen</span></h3><span class="pill radar"></span></div>
+        <p><span lang="pt">O acompanhamento de adicional e de repasse já existe. O que falta é o indicador que mede quanto foi efetivamente recuperado com esse acompanhamento, para o esforço aparecer em número.</span>
+          <span lang="en">The extras and remittance follow up already exist. What is missing is the indicator that measures how much was actually recovered through it, so the effort shows up as a number.</span></p>
+      </div>
+      </div>
+  </details>
+
+  <!-- ============ PESSOAS ============ -->
+  <details class="sec" data-area="hr">
+    <summary><span class="dots"></span>
+      <h2><span lang="pt">Pessoas</span><span lang="en">People</span></h2>
+      <span class="tally"></span></summary>
+    <div class="secbody">
+
+      <div class="item" data-month="2025-10" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Manual da empresa e políticas internas</span><span lang="en">Company manual and internal policies</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Manual e políticas administrativas revisados e ampliados a partir do
+          material que existia, com edição contínua até dezembro e tradução para espanhol. O modelo
+          de contrato de subcontratado foi trabalhado no mesmo período e revisado com o advogado até
+          março.</span>
+          <span lang="en">Manual and administrative policies revised and expanded from the material
+          that existed, edited continuously through December and translated into Spanish. The
+          subcontractor contract template was worked in the same period and reviewed with counsel
+          through March.</span></p>
+        </div>
+
+      <div class="item" data-month="2025-10" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Cadastro de subcontratados</span><span lang="en">Subcontractor registry</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">É o controle principal de subcontratados e segue sendo editado sempre que algo muda. Reúne contato, identificação fiscal, situação de seguro e de formulário fiscal por subcontratado.</span>
+          <span lang="en">It is the main subcontractor control and goes on being edited whenever something changes. It holds contact, tax identification, insurance status and tax form status per subcontractor.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-02" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Processo de contratação: formulário e dois roteiros</span><span lang="en">Hiring process: a form and two scripts</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Formulário para coletar os dados de quem se candidata, e dois documentos escritos na mesma noite: um roteiro interno para
+          conduzir a conversa e um documento entregue ao candidato. A separação é deliberada, cada
+          lado da mesa recebe o seu.</span>
+          <span lang="en">A form to collect applicant details, and two documents written the same evening: an internal script for running the conversation and a
+          document handed to the candidate. The split is deliberate, each side of the table gets its
+          own.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-03" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Guia do subcontratado</span><span lang="en">Subcontractor guide</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Reescrito a partir do material anterior e posto em uso como anexo da mensagem de boas vindas que abre o relacionamento com todo novo
+          subcontratado.</span>
+          <span lang="en">Rewritten from the earlier material and put into use as the attachment to the welcome message that opens the relationship with every new
+          subcontractor.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-04" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Política de férias e faltas por doença, formalizada</span><span lang="en">Vacation and sick policy, formalised</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Cinco dias de doença e cinco de férias por ano, contados do aniversário
+          de admissão, sem acúmulo, com um ano de casa como requisito. O saldo passou a ser
+          rastreado por pessoa, e o pedido de folga passou a ser feito pelo aplicativo.</span>
+          <span lang="en">Five sick days and five vacation days a year, counted from the hire
+          anniversary, no rollover, with one year of tenure required. The balance began being
+          tracked per person, and time off requests moved into the app.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-07" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Compliance de seguro dos subcontratados</span><span lang="en">Subcontractor insurance compliance</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">A revisão de certificados é por demanda: se um subcontratado vai orçar algo ou vai trabalhar com a gente, precisa estar em conformidade. Vencidos e a vencer são cobrados, e os documentos são mantidos atualizados no sistema de obra.</span>
+          <span lang="en">Certificate review is on demand: if a subcontractor is going to price something out or work with us, they have to be compliant. Expired and expiring ones are chased, and the documents are kept current in the project system.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-01" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Abertura de empresa, testada primeiro na minha própria</span><span lang="en">Company formation, tested on my own first</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Levantei o processo de abertura de empresa em Massachusetts e abri a minha própria como piloto, antes de o caminho ser proposto a qualquer trabalhador.</span>
+          <span lang="en">I researched the Massachusetts company formation process and opened my own as a pilot, before the path was proposed to any worker.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-04" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Documentação fiscal dos prestadores em dia</span><span lang="en">Contractor tax paperwork kept current</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Formulários fiscais assinados perseguidos, recebidos e arquivados.</span>
+          <span lang="en">Signed tax forms chased, received and filed.</span></p>
+        </div>
+
+    
+      <div class="item" data-month="2026-02" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Anúncio da vaga e agendamento dos candidatos</span><span lang="en">Job posting and candidate scheduling</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Criei a peça do anúncio, publiquei a vaga e passei a agendar o início e o dia de teste de cada candidato.</span>
+          <span lang="en">I created the advert artwork, posted the role, and took over scheduling each candidate's start and trial day.</span></p>
+      </div>
+      <div class="item" data-month="2025-12" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Planilha de logins da empresa</span><span lang="en">Company logins sheet</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Manutenção do controle de todos os acessos da empresa: sistema, portador, e onde a credencial vive. A planilha já existia, mas estava desatualizada.</span>
+          <span lang="en">Upkeep of the record of every company access: system, holder, and where the credential lives. The sheet already existed but was out of date.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/1iwrCwG5XBFU_hfJ2cbb494AF16o2mK8-4GAZrMRu-bM/edit" target="_blank" rel="noopener">Logins</a></div>
+      </div>
+      <div class="item" data-month="2026-01" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Certificados de seguro mantidos em dia no BuilderTrend</span><span lang="en">Insurance certificates kept current in BuilderTrend</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Manutenção dos certificados de seguro dos subcontratados dentro do BuilderTrend, que é onde a obra consulta antes de liberar um subcontratado, em paralelo ao cadastro próprio.</span>
+          <span lang="en">Subcontractor insurance certificates kept current inside BuilderTrend, which is where the project side checks before releasing a subcontractor, alongside the separate registry.</span></p>
+      </div>
+      </div>
+  </details>
+
+  <!-- ============ OBRAS ============ -->
+  <details class="sec" data-area="pm">
+    <summary><span class="dots"></span>
+      <h2><span lang="pt">Obras</span><span lang="en">Projects</span></h2>
+      <span class="tally"></span></summary>
+    <div class="secbody">
+
+      <div class="item" data-month="2025-10" data-status="live">
+        <div class="item-h"><h3><span lang="pt">A arquitetura de arquivos da empresa</span><span lang="en">The company's filing architecture</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Organização do Drive compartilhado entre as contas de e-mail da empresa: dois repositórios compartilhados, e dentro deles um fluxo de obra de cinco estágios: orçamento a fazer, em andamento, em espera, concluída, perdida. Cerca de cinquenta certificados de seguro e formulários fiscais de subcontratados que estavam soltos foram consolidados na estrutura nova. A árvore de pessoas, subcontratados e
+          políticas foi criada no mesmo dia.</span>
+          <span lang="en">The shared Drive organised across the company's own email accounts: two shared repositories, and inside them a five stage project flow: quote
+          to be made, ongoing, on hold, completed, lost. About fifty loose subcontractor insurance certificates and tax forms were consolidated into the new structure. The
+          people, subcontractors and policies tree was created the same day.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-01" data-status="off">
+        <div class="item-h"><h3><span lang="pt">Rastreador de materiais</span><span lang="en">Materials tracker</span></h3><span class="pill off"></span></div>
+        <p><span lang="pt">Criado para apoiar a gerência de projetos no controle dos pedidos de material, quando ainda não existiam as planilhas próprias de cada obra, e para impedir que um material não pedido ou não entregue atrase a obra. Acompanha o ciclo inteiro por item: cotação pedida, cobrada, recebida, aprovada pela
+          empresa, aprovada pelo cliente, pedido feito, prazo, entrega, e a diferença entre orçado e
+          aprovado, com data da próxima cobrança e sinalização de risco de cronograma. Trinta e nove pedidos registrados em cinco obras. Substituída: o controle de material passou a viver dentro da aba própria de cada planilha de obra, por obra, em vez de uma planilha única para todas.</span>
+          <span lang="en">Built to support project management in tracking material orders, at a time when the per project sheets did not yet exist, and to stop an unordered or undelivered material from delaying a job. It
+          tracks the full cycle per item: quote requested, chased, received, approved by the
+          company, approved by the client, ordered, lead time, delivery, and the gap between budget
+          and approved, with a next chase date and a schedule risk flag. Thirty nine orders recorded across five projects. Superseded: material control now lives in its own tab inside each project sheet, per job, instead of one sheet covering all of them.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/1QZzd1LHqwUhcqfA3ZCnUmzeV4Hm4UbsTaPxf4mTICZU/edit" target="_blank" rel="noopener">Major Materials Tracker</a></div>
+        </div>
+
+      <div class="item" data-month="2026-02" data-status="off">
+        <div class="item-h"><h3><span lang="pt">Primeira planilha de controle de obra</span><span lang="en">First per project control sheet</span></h3><span class="pill off"></span></div>
+        <p><span lang="pt">Pensada para rodar o ciclo inteiro numa obra: concorrência, contratação,
+          adicionais, faturamento, materiais, alvarás e inspeções. Foi desativada porque o uso dela pela gerência de projetos apontou uma série de melhorias, que entraram na segunda geração da planilha. O próprio título registra a desativação.</span>
+          <span lang="en">Designed to run a job's whole cycle: bidding, buyout, change orders,
+          billing, materials, permits and inspections. It was deactivated because project management's use of it surfaced a series of improvements, which went into the second generation of the sheet. Its own title records the deactivation.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/1j01WsRMwY1yBvLH_aBkYfArqeBbWs2VW9ywrcoy-T2M/edit" target="_blank" rel="noopener">14 Guernsey (desativada)</a></div>
+        </div>
+
+      <div class="item" data-month="2026-05" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Planilha de obra, segunda geração, e as cópias vivas</span><span lang="en">Project sheet, second generation, and the live copies</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">A versão dois embute três controles
+          que a primeira não tinha: o markup calculado dentro do orçamento, a custódia do material,
+          registrando quem está com o quê, e a classificação do adicional por origem, com "correção interna" nomeada explicitamente como erosão de margem evitável. O uso do orçamento antes de fechar com subcontratado foi o ganho maior: o orçamento passou a ser montado pelo preço que o dono deu ao cliente no estimate, o que mostrou quais cotações estavam fora da faixa e por quanto, e levou a negociações com subcontratado que antes não aconteciam.</span>
+          <span lang="en">Version two embeds three
+          controls the first lacked: markup calculated inside the budget, material custody recording
+          who currently holds what, and change orders classified by origin, with "internal correction" named explicitly as avoidable margin erosion. Using the budget before committing to a subcontractor was the bigger gain: the budget began being set from the price the owner gave the client in the estimate, which showed which quotes were out of range and by how much, and led to negotiations with subcontractors that had not happened before.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/1dse0eXkX7_5LtXmeN_-VyR6w-zw4WH8LT-I98BAiQIk/edit" target="_blank" rel="noopener">RFS PM Sheet — TEMPLATE</a></div>
+        </div>
+
+      <div class="item" data-month="2026-05" data-status="wip">
+        <div class="item-h"><h3><span lang="pt">Planilha de escolhas do cliente</span><span lang="en">Owner selection sheet</span></h3><span class="pill wip"></span></div>
+        <p><span lang="pt">Construída a partir da análise do projeto recebido, para levar o cliente pelas decisões que precisa tomar antes que cada uma vire atraso ou adicional fora do orçamento. O número de decisões depende do projeto. Nasceu porque não havia controle prévio de qual material seria necessário nem de quem era responsável por cada um, o cliente ou a construtora, e é o que permite cuidar do material com antecedência. As decisões são separadas em três faixas de urgência: as que param a obra, as que geram risco de atraso e as que podem esperar o fechamento. Uma aba interna, oculta do cliente, quantifica o custo e o retrabalho de cada decisão tomada tarde. Em andamento, já em uso com um cliente.</span>
+          <span lang="en">Built from the analysis of the received plan, to walk the client through the decisions they must make before each one turns into delay or an unbudgeted change order. How many decisions there are depends on the project. It came about because there was no prior control of which materials would be needed or who was responsible for each one, the client or the builder, and it is what makes it possible to deal with materials ahead of time. The decisions are split into three urgency tiers: the ones that stop work, the ones that create delay risk and the ones that can wait for closeout. An internal tab, hidden from the client, quantifies the cost and rework of each decision taken late. In progress, already in use with one client.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/1sHeZCvggji2MaIxDITuKMMl8z_U1isdPo2dkm1jT53o/edit" target="_blank" rel="noopener">Owner Selection — 14 Guernsey</a></div>
+        </div>
+
+      <div class="item" data-month="2026-07" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Quadro de gestão de obra, para o período em que a gerência de projetos esteve de férias</span><span lang="en">Project management board, for the period the project manager was on holiday</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Construído para o período em que a gerência de projetos esteve de férias e a carga de gestão de obra passou para mim. Reúne o que chega por e-mail e por mensagem num só painel, separa o que está esperando resposta de terceiro do que está comigo, e registra o que foi cobrado e resolvido. Não está em uso agora, e está pronto para os próximos meses.</span>
+          <span lang="en">Built for the period the project manager was on holiday and the project management workload moved to me. It gathers what arrives by email and message into a single board, separates what is waiting on someone else from what is with me, and records what was chased and resolved. Not in use right now, and ready for the coming months.</span></p>
+        </div>
+
+      
+
+    </div>
+  </details>
+
+  <!-- ============ SISTEMAS ============ -->
+  <details class="sec" data-area="sys">
+    <summary><span class="dots"></span>
+      <h2><span lang="pt">Sistemas</span><span lang="en">Systems</span></h2>
+      <span class="tally"></span></summary>
+    <div class="secbody">
+      <p class="kicker"><span lang="pt">Esta seção é a parte mais técnica do relatório: trata do sistema financeiro interno e da inteligência artificial que eu uso todos os dias para operar a empresa. </span><span lang="en">This section is the more technical part of the report: it covers the internal financial system and the artificial intelligence I use every day to run the company. </span></p>
+
+      <div class="item" data-month="2026-04" data-status="live">
+        <div class="item-h"><h3><span lang="pt">O sistema financeiro interno, construído com IA, e o que ele faz</span><span lang="en">The internal financial system, built with AI, and what it does</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Antes dele, nada disso era feito. Hoje o sistema confere o saldo contra o
+          banco todo dia e sinaliza o que não fecha, com a explicação. Aprende como classificar cada
+          pagamento recorrente, e deixa de perguntar o que já sabe. Projeta o caixa dia a dia contra
+          um piso de segurança, e avisa quando um dia projetado cai abaixo dele. Mede o próprio erro
+          de previsão e registra a diferença. Calcula a folha a partir das horas apontadas, com
+          todos os componentes, e acompanha cada cheque emitido até compensar no banco. Acompanha
+          reservas, impostos e o endividamento em cartão. E monitora a própria saúde: quando um dado
+          fica velho, quando uma obrigação recorrente não apareceu, quando um número guardado deixa
+          de bater com o que o cálculo produz.</span>
+          <span lang="en">Before it, none of this was being done. Today the system checks the
+          balance against the bank every day and flags what does not tie, with the explanation. It
+          learns how to classify each recurring payment, and stops asking what it already knows. It
+          projects cash day by day against a safety floor, and warns when a projected day falls
+          below it. It measures its own forecast error and records the gap. It calculates payroll
+          from logged hours, with every component, and follows each issued check until it clears the
+          bank. It tracks reserves, taxes and card debt. And it monitors its own health: when data
+          goes stale, when a recurring obligation has not appeared, when a stored number stops
+          agreeing with what the calculation produces.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-05" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Cópia de segurança em três lugares</span><span lang="en">Backup kept in three places</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Os dados financeiros da empresa ficam guardados em três lugares diferentes, para que uma falha não leve nada embora: um histórico que guarda cada alteração e permite voltar atrás, uma cópia protegida na nuvem, e uma terceira cópia gravada só no computador, que por desenho não pode ser enviada para fora. Se um dos três falhar, os outros dois continuam.</span>
+          <span lang="en">The company's financial data is kept in three separate places, so that one failure cannot take anything with it: a history that records every change and lets you go back, a protected copy in the cloud, and a third copy written only to the computer, which by design cannot be sent anywhere. If one of the three fails, the other two carry on.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-06" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Calculadora de aumentos</span><span lang="en">Raise calculator</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Ferramenta para ver o efeito de um aumento na folha antes de decidir.</span>
+          <span lang="en">A tool to see the payroll effect of a raise before deciding.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-07" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Calculadora de overhead</span><span lang="en">Overhead calculator</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Auditoria dos valores do ano nas contas bancárias e uma ferramenta que
+          recalcula a taxa ao vivo, permitindo ligar e desligar cada linha que compõe o custo
+          indireto e ver o efeito na hora. Bilíngue, construída para a conversa com a FD sobre a taxa correta e, por consequência, sobre o custeio das obras.</span>
+          <span lang="en">An audit of the year's figures in the bank accounts and a tool that
+          recalculates the rate live, letting each line of indirect cost be switched on and off and
+          the effect seen immediately. Bilingual, built for the conversation with FD about the correct rate and therefore about job costing.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-07" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Acesso remoto seguro para os donos</span><span lang="en">Secure remote access for the owners</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">O sistema passou a ser acessível de qualquer lugar, atrás de autenticação
+          por código enviado por e-mail, com perfis somente leitura para quem só precisa consultar.
+          O caminho de autenticação foi testado de ponta a ponta antes de ser liberado.</span>
+          <span lang="en">The system became reachable from anywhere, behind authentication by a code
+          sent to email, with read only profiles for those who only need to look. The authentication
+          path was tested end to end before release.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-06" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Repositório de conhecimento operacional</span><span lang="en">Operating knowledge repository</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Trezentas e sessenta e três notas escritas ao longo do ano, registrando
+          como cada coisa funciona, por que cada decisão foi tomada e o que não deve ser refeito.
+          Somado ao registro diário de sessão, é o que permite que a operação continue sem depender
+          de memória de ninguém.</span>
+          <span lang="en">Three hundred and sixty three notes written over the year, recording how
+          each thing works, why each decision was taken and what must not be redone. Together with
+          the daily session record, it is what lets the operation continue without depending on
+          anyone's memory.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-08" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Slack — comunicação interna</span><span lang="en">Slack — internal communication</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Canal por obra, para as conversas de campo pararem de se perder em
+          mensagens pessoais, integrado ao sistema para que o que é decidido ali seja capturado. Implantado e em uso, com melhoria contínua.</span>
+          <span lang="en">A channel per project, so field conversations stop getting lost in
+          personal messages, integrated with the system so what is decided there gets captured. Implemented and in use, under continuous enhancement.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-08" data-status="wip">
+        <div class="item-h"><h3><span lang="pt">Sistema de controle da Andersen, em construção</span><span lang="en">Andersen control system, under construction</span></h3><span class="pill wip"></span></div>
+        <p><span lang="pt">Levar o que a planilha faz para dentro do sistema, com o cálculo de lucro
+          por obra usando a taxa de overhead correta em vez da anterior. O desenho foi aprovado tela
+          por tela e a camada de escrita está construída e testada, aguardando implantação em
+          paralelo com a planilha antes de qualquer troca.</span>
+          <span lang="en">Bringing what the sheet does into the system, with per job profit
+          calculated on the correct overhead rate rather than the old one. The design was approved
+          screen by screen and the write layer is built and tested, awaiting a parallel run
+          alongside the sheet before any switchover.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-06" data-status="off">
+        <div class="item-h"><h3><span lang="pt">Digest matinal</span><span lang="en">Morning digest</span></h3><span class="pill off"></span></div>
+        <p><span lang="pt">Painel diário reunindo e-mail, sistema de obra e as conversas internas num só lugar,
+          construído principalmente para o período em que a gerência de projetos estava fora.
+          </span>
+          <span lang="en">A daily panel gathering email, the project system and the internal conversations in one
+          place, built mainly for the period when project management was away.</span></p>
+        </div>
+
+    
+      <div class="item" data-month="2026-04" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Implantação de IA para uso diário da equipe</span><span lang="en">AI deployed for the team's daily operations</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Contratação do Claude Code para uso da equipe, configurado de acordo com as necessidades da RFS, com acesso liberado para todos e acompanhamento para que cada um aprenda a usar melhor. Não é piloto nem uso pessoal: a Alice usa diariamente, eu também, e o dono usa ao menos uma vez por semana. Sustenta hoje conciliação, folha de pagamento, previsão de caixa, relatórios e auditorias, e é usada no dia a dia para escrever e corrigir e-mails, revisar e redigir documentos como contratos, change orders e invoices, e apoiar o levantamento de quantidades do projeto. Tudo com acesso controlado às fontes da empresa e regras escritas sobre o que pode e o que não pode gravar.</span>
+          <span lang="en">Claude Code brought in for the team, configured to RFS's needs, with access enabled for everyone and ongoing help so each person learns to use it better. Not a pilot and not personal use: Alice uses it daily, I use it daily, and the owner uses it at least weekly. It now carries reconciliation, payroll, cash forecasting, reporting and the audits, and is used day to day to write and correct emails, to review and draft documents such as contracts, change orders and invoices, and to help with taking quantities off a project. All of it with controlled access to the company's sources and written rules on what it may and may not write.</span></p>
+      </div>
+      <div class="item" data-month="2026-04" data-status="live">
+        <div class="item-h"><h3><span lang="pt">O conhecimento da empresa transformado em regras que a IA segue</span><span lang="en">Company knowledge turned into rules the AI follows</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Cada decisão, correção e particularidade da RFS vira regra escrita e permanente: como a folha é calculada, o que nunca pode ser deduzido duas vezes, quais números precisam de verificação independente, como um cheque devolvido é tratado. São cerca de duzentas regras hoje. O efeito prático é que um erro corrigido uma vez não volta, e o conhecimento não fica só na minha cabeça, o que é exatamente o risco que a empresa tinha antes.</span>
+          <span lang="en">Every decision, correction and particularity of RFS becomes a written, permanent rule: how payroll is calculated, what must never be deducted twice, which figures require independent verification, how a returned check is handled. There are around two hundred of these rules today. The practical effect is that a mistake corrected once does not come back, and the knowledge does not live only in my head, which is exactly the risk the company carried before.</span></p>
+      </div>
+      <div class="item" data-month="2026-08" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Slack conectado à IA</span><span lang="en">Slack connected to the AI</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">A ligação entre o Slack e o assistente já está funcionando: recibos, pedidos e decisões trocados em conversa entram no controle sem digitação dupla, e dá para procurar informação nas conversas a qualquer momento. Falta trabalhar o relatório diário sobre a conversa de cada obra.</span>
+          <span lang="en">The link between Slack and the assistant is already working: receipts, requests and decisions exchanged in conversation reach the controls without double entry, and the conversations can be searched for information at any time. What remains is the daily report on each project's conversation.</span></p>
+      </div>
+      
+      <div class="item" data-month="2026-08" data-status="radar">
+        <div class="item-h"><h3><span lang="pt">Migração da plataforma do sistema financeiro</span><span lang="en">Platform migration for the financial system</span></h3><span class="pill radar"></span></div>
+        <p><span lang="pt">O sistema atual atende, mas foi construído para um volume menor do que o de hoje. A migração planejada troca a base por uma estrutura mais rápida e mais robusta, sem mudar o que a operação já usa.</span>
+          <span lang="en">The current system does the job, but it was built for a smaller volume than today's. The planned migration replaces the foundation with a faster and more robust one, without changing what the operation already uses.</span></p>
+      </div>
+      </div>
+  </details>
+
+  <!-- ============ RELATÓRIOS ============ -->
+  <details class="sec" data-area="rep">
+    <summary><span class="dots"></span>
+      <h2><span lang="pt">Relatórios</span><span lang="en">Reporting</span></h2>
+      <span class="tally"></span></summary>
+    <div class="secbody">
+
+      <div class="item" data-month="2026-05" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Recapitulação semanal para o dono</span><span lang="en">Weekly recap for the owner</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Publicada toda sexta desde maio, pensada para leitura no celular: o que
+          entrou, o que saiu, o que vem na semana seguinte. Dez publicadas.</span>
+          <span lang="en">Published every Friday since May, designed for reading on a phone: what
+          came in, what went out, what is coming next week. Ten published.</span></p>
+        <div class="lnk"><a href="https://rfsbuild.github.io/rfs-reports/" target="_blank" rel="noopener">rfs-reports</a></div>
+        </div>
+
+      <div class="item" data-month="2026-07" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Relatório diário, a pedido da FD</span><span lang="en">Daily report, at FD's request</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Publicado todo dia útil desde julho. Vinte e sete publicados.</span>
+          <span lang="en">Published every business day since July. Twenty seven published.</span></p>
+        <div class="lnk"><a href="https://rfsbuild.github.io/rfs-dailyreport/" target="_blank" rel="noopener">rfs-dailyreport</a></div>
+        </div>
+
+      <div class="item" data-month="2026-05" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Relatórios especiais</span><span lang="en">Special reports</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Seis análises pontuais para decisões específicas: o retrato para a
+          discussão de linha de crédito, o plano de caixa e capital de giro, o relatório de controle financeiro para a FD, o rastreamento da viagem do dono, o controle de presença
+          da vistoria e a apuração de pagamentos de uma obra.</span>
+          <span lang="en">Six one off analyses for specific decisions: the snapshot for the line of
+          credit discussion, the cash and working capital plan, the financial control report for FD, the owner's trip tracking, the walkthrough attendance record and a
+          project's payment reconciliation.</span></p>
+        <div class="lnk"><a href="https://rfsbuild.github.io/rfs-reports/" target="_blank" rel="noopener">rfs-reports</a></div>
+        </div>
+
+      <div class="item" data-month="2026-07" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Regra de publicação</span><span lang="en">Publishing rule</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Nenhum relatório é enviado sem ser aberto e lido inteiro antes.</span>
+          <span lang="en">No report is sent without being opened and read in full first.</span></p>
+        </div>
+
+    
+      <div class="item" data-month="2026-08" data-status="radar">
+        <div class="item-h"><h3><span lang="pt">Atualização automática do relatório diário no fim do dia</span><span lang="en">Automatic end of day refresh of the daily report</span></h3><span class="pill radar"></span></div>
+        <p><span lang="pt">O relatório diário já é publicado e o dono acessa pelo link. A ideia é ele se atualizar sozinho no fim do dia. A geração automática é segura; a publicação automática não, porque as três últimas correções encontradas em relatório publicado estavam no texto e não na conta, e é a leitura humana que pega isso.</span>
+          <span lang="en">The daily report is already published and the owner reads it from the link. The intent is for it to refresh itself at end of day. Automatic generation is safe; automatic publishing is not, because the last three corrections found in a published report were in the wording rather than the arithmetic, and it is human reading that catches those.</span></p>
+      </div>
+      </div>
+  </details>
+
+  <!-- ============ CONTROLES ============ -->
+  <details class="sec" data-area="ctl">
+    <summary><span class="dots"></span>
+      <h2><span lang="pt">Controles e governança</span><span lang="en">Controls and governance</span></h2>
+      <span class="tally"></span></summary>
+    <div class="secbody">
+
+      <div class="item note-in" style="border-radius:8px">
+        <div class="item-h"><h3><span lang="pt">Por que esta seção existe</span><span lang="en">Why this section exists</span></h3></div>
+        <p><span lang="pt"> Elas existem porque um sistema que
+          reporta dinheiro precisa de um mecanismo que desconfie dele, e porque cada uma delas nasceu
+          de um erro concreto que passou uma vez e não podia passar de novo.</span>
+          <span lang="en"> They exist because a system that reports
+          money needs a mechanism that distrusts it, and because each one was born from a concrete
+          error that got through once and could not get through again.</span></p>
+      </div>
+
+      <div class="item" data-month="2026-04" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Registro diário de decisões</span><span lang="en">Daily decision record</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Toda decisão, todo número informado e toda mudança feita ficam escritos no
+          dia em que acontecem, com o motivo. Resposta errada que foi corrigida é apagada do
+          registro, para o histórico não guardar o caminho errado.</span>
+          <span lang="en">Every decision, every figure given and every change made is written down
+          on the day it happens, with the reason. A wrong answer that was corrected is purged from
+          the record, so the history does not keep the wrong path.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-05" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Checagem obrigatória antes de qualquer recomendação de caixa</span><span lang="en">Mandatory check before any cash recommendation</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Oito categorias conferidas antes de dizer se um pagamento pode sair.
+          Existe porque pular a checagem, uma vez, produziu uma diferença material no mesmo
+          dia.</span>
+          <span lang="en">Eight categories checked before saying whether a payment can go out. It
+          exists because skipping the check, once, produced a material swing the same day.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-05" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Decisão de postergar tem de aparecer no dia seguinte</span><span lang="en">A decision to postpone must show up the next day</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Um pagamento decidido para a semana seguinte continuou aparecendo na data
+          antiga. A checagem que impede isso virou etapa obrigatória do fechamento do dia.</span>
+          <span lang="en">A payment moved to the following week kept showing on the old date. The check that prevents it became a mandatory step in the daily close.</span></p>
+        
+      </div>
+
+      <div class="item" data-month="2026-06" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Protocolo de erro em quatro partes</span><span lang="en">Four part error protocol</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Erro reconhecido gera quatro coisas, obrigatoriamente: o que deu errado, a
+          causa de raiz, a correção feita naquele momento e uma regra nova escrita em lugar
+          permanente. A regra nova não é opcional, porque código se desfaz e regra escrita fica. Um
+          pré-mortem equivalente roda antes, não depois, em qualquer mudança que toque dinheiro.</span>
+          <span lang="en">An acknowledged error produces four things, mandatorily: what went wrong,
+          the root cause, the correction made at that moment, and a new rule written somewhere
+          permanent. The new rule is not optional, because code gets undone and a written rule
+          stays. An equivalent pre mortem runs before, not after, on any change that touches
+          money.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-06" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Cadência de auditoria</span><span lang="en">Audit cadence</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Auditoria completa por mês, checagem leve de risco a cada quinze dias, e
+          um rastreador único de pendências que substituiu a varredura diária dos últimos sete dias.
+          Nada levantado sai do radar sem resolução explícita ou sem entrar nesse rastreador.</span>
+          <span lang="en">A full audit monthly, a light risk check every fifteen days, and a single
+          open items tracker that replaced the daily seven day sweep. Nothing raised leaves the radar
+          without explicit resolution or without entering that tracker.</span></p>
+        </div>
+
+      
+
+      <div class="item" data-month="2026-07" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Nenhum número financeiro passa sem verificação independente</span><span lang="en">No financial figure passes without independent verification</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Regra escrita: trabalho feito por ferramenta mais barata ou mais rápida
+          nunca encosta num número financeiro, num valor de relatório ou no estado do sistema sem uma
+          conferência independente e adversarial por cima. Duas fontes concordarem não conta como
+          verificação, porque duas estimativas continuam sendo estimativas.</span>
+          <span lang="en">A written rule: work done by a cheaper or faster tool never touches a
+          financial figure, a report number or the system state without an independent, adversarial
+          check on top. Two sources agreeing does not count as verification, because two estimates
+          are still estimates.</span></p>
+        </div>
+
+      <div class="item" data-month="2026-07" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Auditoria diária de variância da previsão</span><span lang="en">Daily forecast variance audit</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Quando o caixa real vem abaixo do previsto, a diferença não é apenas
+          registrada: ela é investigada, a causa é escrita e a regra que impede a repetição é
+          adicionada. É assim que o número da próxima seção existe.</span>
+          <span lang="en">When actual cash comes in below forecast, the gap is not merely recorded:
+          it is investigated, the cause written down and the rule that prevents the repeat added.
+          That is how the number in the next section exists at all.</span></p>
+        </div>
+
+      
+
+      <div class="item" data-month="2026-08" data-status="live">
+        <div class="item-h"><h3><span lang="pt">Congelamento de mudanças em período de risco</span><span lang="en">Change freeze in a risk period</span></h3><span class="pill live"></span></div>
+        <p><span lang="pt">Durante as três semanas de viagem do dono e a transição da gerência de
+          projetos, o sistema entrou em congelamento: só correção de defeito, nenhuma construção
+          nova, e cada mudança dentro da janela exigiu uma classificação explícita como defeito
+          antes de ser feita.</span>
+          <span lang="en">During the owner's three week trip and the project management transition,
+          the system went into a freeze: defect fixes only, no new building, and every change inside
+          the window required an explicit classification as a defect before being made.</span></p>
+        </div>
+
+    </div>
+  </details>
+
+  <!-- ============ O QUE NÃO PEGOU ============ -->
+  <details class="sec" data-area="dead">
+    <summary><span class="dots"></span>
+      <h2><span lang="pt">O que tentamos e não pegou</span><span lang="en">What we tried that did not stick</span></h2>
+      <span class="tally"></span></summary>
+    <div class="secbody">
+
+      <div class="item" data-month="2025-10" data-status="off">
+        <div class="item-h"><h3><span lang="pt">Checagem semanal de veículos</span><span lang="en">Weekly vehicle check</span></h3><span class="pill off"></span></div>
+        <p><span lang="pt">Formulário de segurança e manutenção
+          para os dois caminhões, respondido pelos motoristas: quilometragem, pneus, luzes, freios,
+          fluidos, equipamento obrigatório, avarias novas, documentação a bordo. Recebeu sete
+          respostas em cerca de seis semanas e parou. As quilometragens sobem de forma consistente,
+          então o dado era real. O que acabou foi o hábito de preencher.</span>
+          <span lang="en">A safety and maintenance form for the two
+          trucks, filled in by the drivers: mileage, tyres, lights, brakes, fluids, required
+          equipment, new damage, documents on board. It received seven responses over about six
+          weeks and stopped. The mileage readings climb consistently, so the data was real. What ran
+          out was the habit of filling it in.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/1J5RDBa3Db75oUN96pam6Jz0f50Lgmn_9YXn5Ab_9_7s/edit" target="_blank" rel="noopener">Weekly Vehicle Check</a></div>
+        </div>
+
+      <div class="item" data-month="2025-11" data-status="off">
+        <div class="item-h"><h3><span lang="pt">Avaliação semanal dos funcionários</span><span lang="en">Weekly employee evaluation</span></h3><span class="pill off"></span></div>
+        <p><span lang="pt">Formulário para os líderes avaliarem as próprias equipes em onze
+          dimensões: pontualidade, respeito, cumprimento de regra, segurança, organização,
+          qualidade, necessidade de supervisão, iniciativa, trabalho em equipe, clareza de
+          comunicação e interesse em aprender. Dois líderes avaliaram sete pessoas, vinte e uma
+          respostas em quatro rodadas semanais, e parou.</span>
+          <span lang="en">A form for crew leaders to rate their own teams across eleven dimensions:
+          punctuality, respect, rule following, safety, organisation, quality, need for supervision,
+          initiative, teamwork, clarity of communication and interest in learning. Two leaders rated
+          seven people, twenty one responses across four weekly rounds, then it stopped.</span></p>
+        <div class="lnk"><a href="https://docs.google.com/spreadsheets/d/1B1jSmF_HAX8t366rdfNd2892XqJnU1LPjbgu2Citgl8/edit" target="_blank" rel="noopener">Avaliação Semanal dos Funcionários</a></div>
+        </div>
+
+      
+
+      
+
+    
+      <div class="item" data-month="2025-11" data-status="off">
+        <div class="item-h"><h3><span lang="pt">ClickUp para tarefas e comunicação interna</span><span lang="en">ClickUp for tasks and internal communication</span></h3><span class="pill off"></span></div>
+        <p><span lang="pt">Sistema de tarefas e comunicação interna montado e implantado do zero: espaços por área, tarefas atribuídas e o histórico das conversas num só lugar. Não pegou como hábito da equipe e saiu de uso. A necessidade que ele atendia foi resolvida depois pelo Slack e pelo quadro de gestão de obra.</span>
+          <span lang="en">A task and internal communication system set up and rolled out from nothing: spaces per area, assigned tasks, and the history of conversations in one place. It did not take hold as a team habit and fell out of use. The need it served was later met by Slack and the project management board.</span></p>
+      </div>
+      </div>
+  </details>
+
+  
+
+  
+
+  <!-- ============ PREVISÃO MEDIDA ============ -->
+  <details class="sec block"><summary><h2><span lang="pt">A previsão de caixa, e o erro dela</span><span lang="en">The cash forecast, and its error</span></h2><span class="tally"></span></summary><div class="secbody"><p class="kicker"><span lang="pt">Por que esta seção existe: uma previsão que ninguém confere é opinião. Esta é medida contra o extrato todos os dias, o erro é decomposto até a última linha e a causa vira regra. Os números abaixo são o resultado dessa medição, não uma promessa de acerto.</span><span lang="en">Why this section exists: a forecast nobody checks is an opinion. This one is measured against the statement every day, the error is broken down to the last line, and the cause becomes a rule. The figures below are the result of that measurement, not a claim of accuracy.</span></p>
+    
+    <p class="kicker"><span lang="pt">O ponto não é a previsão acertar. É o erro dela ser medido
+      todos os dias e ficar escrito, o que permite dizer com precisão o quanto se pode confiar
+      nela.</span>
+      <span lang="en">The point is not that the forecast is right. It is that its error is measured
+      every day and written down, which makes it possible to say precisely how far it can be
+      trusted.</span></p>
+    <div class="trio" style="margin-top:16px">
+      <div><span class="num">43</span><div class="lbl"><span lang="pt">dias medidos</span><span lang="en">days measured</span></div></div>
+      <div><span class="num">30,9%</span><div class="lbl"><span lang="pt">erro médio absoluto</span><span lang="en">mean absolute error</span></div></div>
+      <div><span class="num">29 / 43</span><div class="lbl"><span lang="pt">dias em que o caixa real veio acima do previsto</span><span lang="en">days where actual cash came in above forecast</span></div></div>
+    </div>
+    <p style="font-size:14.5px;margin-top:16px;max-width:70ch"><span lang="pt">O viés é deliberado.
+      As entradas são modeladas por baixo, de propósito, então o erro cai do lado seguro em dois
+      terços dos dias: a previsão avisa que há menos dinheiro do que haverá, nunca o contrário. Nos
+      quatorze dias em que veio menos do que o previsto, o pior caso foi de vinte e seis por cento.
+      A mediana do erro é de dezoito por cento, e a tendência melhorou: junho tinha desvios acima de
+      cinquenta por cento, agosto ficou majoritariamente na faixa de doze a vinte e cinco.</span>
+      <span lang="en">The bias is deliberate. Inflows are modelled low on purpose, so the error
+      falls on the safe side on two thirds of days: the forecast warns there is less money than
+      there will be, never the reverse. On the fourteen days that came in below forecast, the worst
+      case was twenty six per cent. The median error is eighteen per cent, and the trend improved:
+      June had deviations above fifty per cent, August sat mostly in the twelve to twenty five
+      range.</span></p>
+  </div></details>
+
+  <!-- ============ VIABILIZADO ============ -->
+  <details class="sec block"><summary><h2><span lang="pt">O que passou a ser possível</span><span lang="en">What became possible</span></h2><span class="tally"></span></summary><div class="secbody">
+    
+    
+    <div class="tw"><table>
+      <thead><tr>
+        <th><span lang="pt">Antes</span><span lang="en">Before</span></th>
+        <th><span lang="pt">Hoje</span><span lang="en">Today</span></th>
+      </tr></thead>
+      <tbody>
+        <tr><td><span lang="pt">Cotação e invoice de subcontratado chegavam em várias caixas, inclusive a do dono.</span><span lang="en">Subcontractor quotes and invoices arrived in several mailboxes, including the owner's.</span></td>
+          <td><span lang="pt">Entrada única, com o dono fazendo o encaminhamento por escrito, e um guia enviado a todo novo subcontratado.</span><span lang="en">A single intake, with the owner enforcing it in writing, and a guide sent to every new subcontractor.</span></td></tr>
+        <tr><td><span lang="pt">Pagamento a subcontratado saía sem checagem sistemática de seguro.</span><span lang="en">Subcontractor payment went out with no systematic insurance check.</span></td>
+          <td><span lang="pt">Pagamento condicionado a certificado válido em arquivo, com revisão mensal de vencidos e a vencer.</span><span lang="en">Payment conditional on a valid certificate on file, with monthly review of expired and expiring.</span></td></tr>
+        <tr><td><span lang="pt">Cheque escrito à mão, fora do sistema contábil, sem rastro por obra.</span><span lang="en">Checks written by hand, outside the accounting system, with no per job trace.</span></td>
+          <td><span lang="pt">Cheque emitido dentro do sistema, com termo de quitação assinado na retirada e custo atribuído à obra.</span><span lang="en">Checks issued inside the system, with a signed release at pickup and the cost attributed to the job.</span></td></tr>
+        <tr><td><span lang="pt">Conferência bancária mensal, quando acontecia.</span><span lang="en">Monthly bank checking, when it happened.</span></td>
+          <td><span lang="pt">Conferência diária, com o histórico de dois anos reconstruído para permitir comparação entre períodos.</span><span lang="en">Daily checking, with two years of history rebuilt to allow period comparison.</span></td></tr>
+        <tr><td><span lang="pt">Nenhuma projeção de caixa. A decisão de pagar era tomada olhando o saldo.</span><span lang="en">No cash projection. The decision to pay was made by looking at the balance.</span></td>
+          <td><span lang="pt">Projeção diária contra um piso de segurança, com o erro da própria projeção medido e registrado.</span><span lang="en">Daily projection against a safety floor, with the projection's own error measured and recorded.</span></td></tr>
+        <tr><td><span lang="pt">Sem visibilidade do que a Andersen devia por obra.</span><span lang="en">No visibility of what Andersen owed per job.</span></td>
+          <td><span lang="pt">Controle por ordem de serviço, com fila de cobrança, acompanhamento de adicional e previsão da data de pagamento.</span><span lang="en">Per work order control, with a chase queue, extras follow up and payment date prediction.</span></td></tr>
+        <tr><td><span lang="pt">Documento de obra espalhado, sem estrutura comum.</span><span lang="en">Project paperwork scattered, with no common structure.</span></td>
+          <td><span lang="pt">Estrutura única por estágio de obra, uma pasta por ordem de serviço e a documentação de campo arquivada no dia.</span><span lang="en">A single structure by project stage, one folder per work order, and field paperwork filed same day.</span></td></tr>
+        <tr><td><span lang="pt">Os donos não tinham como olhar a posição financeira sem pedir.</span><span lang="en">The owners had no way to look at the financial position without asking.</span></td>
+          <td><span lang="pt">Acesso remoto autenticado, com perfil somente leitura, e relatório publicado todo dia útil.</span><span lang="en">Authenticated remote access, with a read only profile, and a report published every business day.</span></td></tr>
+        <tr><td><span lang="pt">O conhecimento de como a operação funciona estava na cabeça de quem operava.</span><span lang="en">The knowledge of how the operation works lived in the head of whoever ran it.</span></td>
+          <td><span lang="pt">Escrito: as rotinas, as regras, o porquê de cada decisão e o que não deve ser refeito.</span><span lang="en">Written down: the routines, the rules, the reason for each decision and what must not be redone.</span></td></tr>
+              <tr><td><span lang="pt">Horas de obras específicas desapareciam entre o apontamento e a contabilidade, e um funcionário aparecia classificado como prestador.</span><span lang="en">Hours from specific jobs disappeared between timekeeping and the books, and an employee showed up classified as a contractor.</span></td>
+          <td><span lang="pt">Processo de contagem estabelecido junto à FD, e as horas chegam ao custo da obra.</span><span lang="en">A counting process established with FD, and the hours reach job cost.</span></td></tr>
+        <tr><td><span lang="pt">O QuickBooks antigo não sustentava custo por obra nem reconciliação limpos, depois de várias tentativas.</span><span lang="en">The old QuickBooks did not support clean job costing or reconciliation, after several attempts.</span></td>
+          <td><span lang="pt">QuickBooks Online e QuickBooks Time novos, implantados sobre o modelo estabelecido pela FD.</span><span lang="en">A new QuickBooks Online and QuickBooks Time, implemented on the model set by FD.</span></td></tr>
+        <tr><td><span lang="pt">Custo lançado sem um mapeamento consistente.</span><span lang="en">Cost posted with no consistent mapping.</span></td>
+          <td><span lang="pt">Plano de contas reestruturado em padrão de classificação do setor, com a lista de produtos e serviços montada e conferida.</span><span lang="en">Chart of accounts restructured on an industry classification standard, with the products and services list built and checked.</span></td></tr>
+        <tr><td><span lang="pt">Invoice saía sem descrição padronizada, e não havia cobrança do que ficava em aberto.</span><span lang="en">Invoices went out with no standard description, and there was no chase on what stayed open.</span></td>
+          <td><span lang="pt">Descrição escrita e invoice enviada ao cliente, com cobrança do que segue pendente.</span><span lang="en">Descriptions written and the invoice sent to the client, with a chase on what remains outstanding.</span></td></tr>
+        <tr><td><span lang="pt">Recibo ficava fora dos livros.</span><span lang="en">Receipts sat outside the books.</span></td>
+          <td><span lang="pt">Rotina diária de recibos dentro do QuickBooks.</span><span lang="en">A daily receipts routine inside QuickBooks.</span></td></tr>
+        <tr><td><span lang="pt">Folha e retirada de cheque aconteciam quando dava.</span><span lang="en">Payroll and check pickup happened when they happened.</span></td>
+          <td><span lang="pt">Folha preparada nas terças e cheques liberados nas quintas, para subcontratado e funcionário interno.</span><span lang="en">Payroll prepared on Tuesdays and checks released on Thursdays, for subcontractors and internal workers.</span></td></tr>
+        <tr><td><span lang="pt">Cerca de cinquenta certificados de seguro e formulários fiscais soltos.</span><span lang="en">About fifty loose insurance certificates and tax forms.</span></td>
+          <td><span lang="pt">Um cadastro único, com contato, identificação fiscal, situação de seguro e situação de formulário por subcontratado.</span><span lang="en">A single registry, with contact, tax identification, insurance status and form status per subcontractor.</span></td></tr>
+        <tr><td><span lang="pt">A planilha de logins existia, mas estava desatualizada: um acesso perdido virava reconstruir quem o tinha.</span><span lang="en">The logins sheet existed but was out of date: a lost access meant working out from scratch who held it.</span></td>
+          <td><span lang="pt">Assumida, reorganizada e mantida em dia — sistema, responsável e onde a credencial vive.</span><span lang="en">Taken over, reorganised and kept current — system, holder, and where the credential lives.</span></td></tr>
+        <tr><td><span lang="pt">Não havia caminho definido para contratar.</span><span lang="en">There was no defined route to hire.</span></td>
+          <td><span lang="pt">Vaga publicada, formulário de candidato, agendamento, e dois roteiros de conversa inicial.</span><span lang="en">A published posting, a candidate form, scheduling, and two scripts for the first conversation.</span></td></tr>
+        <tr><td><span lang="pt">O material de políticas era curto e não chegava a quem executa.</span><span lang="en">The policy material was thin and did not reach the people doing the work.</span></td>
+          <td><span lang="pt">Manual e políticas revisados e ampliados, traduzidos para o espanhol, e o contrato de subcontratado revisado com o advogado.</span><span lang="en">Manual and policies revised and expanded, translated into Spanish, and the subcontractor contract reviewed with counsel.</span></td></tr>
+        <tr><td><span lang="pt">Adicional enviado à Andersen podia ficar sem resposta e se perder.</span><span lang="en">An extra labour submission to Andersen could sit with no answer and be lost.</span></td>
+          <td><span lang="pt">Cada envio na planilha e no QuickBooks, com cobrança quando não vem aprovação nem recusa.</span><span lang="en">Every submission on the sheet and in QuickBooks, with a chase when neither approval nor refusal arrives.</span></td></tr>
+        <tr><td><span lang="pt">O comprovante semanal de pagamento não era conferido contra o controle.</span><span lang="en">The weekly payment advice was not checked against the control.</span></td>
+          <td><span lang="pt">Planilha alimentada e baixa no QuickBooks toda semana, com o que foi cancelado espelhado nos dois.</span><span lang="en">The sheet fed and QuickBooks cleared every week, with cancellations mirrored in both.</span></td></tr>
+        <tr><td><span lang="pt">Arquivo espalhado entre contas e conversa espalhada entre canais.</span><span lang="en">Files spread across accounts and conversation spread across channels.</span></td>
+          <td><span lang="pt">Uma estrutura compartilhada entre as contas da própria empresa, e uma conversa por obra.</span><span lang="en">One shared structure across the company's own accounts, and one thread per project.</span></td></tr>
+        <tr><td><span lang="pt">Nenhuma inteligência artificial na operação.</span><span lang="en">No artificial intelligence in the operation.</span></td>
+          <td><span lang="pt">Claude configurado para a RFS com acesso para todos: uso diário de duas pessoas e semanal do dono. O próprio sistema financeiro foi construído com IA.</span><span lang="en">Claude configured for RFS with access for everyone: daily use by two people and weekly by the owner. The financial system itself was built with AI.</span></td></tr>
+        <tr><td><span lang="pt">Um erro era corrigido e esquecido.</span><span lang="en">A mistake was corrected and forgotten.</span></td>
+          <td><span lang="pt">Protocolo de erro em quatro partes, auditoria independente antes de cada fechamento, e nenhum número financeiro publicado sem verificação independente.</span><span lang="en">A four part error protocol, an independent audit before each close, and no financial figure published without independent verification.</span></td></tr>
+        <tr><td><span lang="pt">Não havia como acompanhar o custo de uma viagem do dono contra um orçamento.</span><span lang="en">There was no way to track the cost of an owner's trip against a budget.</span></td>
+          <td><span lang="pt">Gasto classificado todos os dias contra uma base diária definida.</span><span lang="en">Spend classified every day against a defined per day basis.</span></td></tr>
+</tbody>
+    </table></div>
+  </div></details>
+
+  <!-- ============ EM ANDAMENTO / RADAR — rows generated from the items ============ -->
+  
+
+  <!-- ============ VOLUME FINANCEIRO ============ -->
+  <details class="sec block"><summary><h2><span lang="pt">Volume financeiro</span><span lang="en">Financial volume</span></h2><span class="tally"></span></summary><div class="secbody">
+    <p class="kicker"><span lang="pt">O dinheiro correspondente ao trabalho descrito acima. Cada valor é somado a partir do próprio razão, no período indicado, e nenhum deles é estimativa.</span><span lang="en">The money behind the work described above. Every figure is summed from the ledger itself, over the period stated, and none of them is an estimate.</span></p>
+    <div class="tw"><table>
+      <thead><tr>
+        <th><span lang="pt">O quê</span><span lang="en">What</span></th>
+        <th><span lang="pt">Valor</span><span lang="en">Value</span></th>
+        <th><span lang="pt">Período</span><span lang="en">Period</span></th>
+      </tr></thead>
+      <tbody>
+        <tr><td><b><span lang="pt">Folha de pagamento processada, valor bruto</span><span lang="en">Payroll processed, gross</span></b></td>
+          <td class="num"><span lang="pt">$573.408,12</span><span lang="en">$573,408.12</span></td>
+          <td class="per"><span lang="pt">32 rodadas semanais · 2 jan 2026 a 15 ago 2026</span><span lang="en">32 weekly runs · Jan 2 2026 to Aug 15 2026</span></td></tr>
+        <tr><td><b><span lang="pt">Movimentação da conta operacional conferida</span><span lang="en">Operating account movement checked</span></b></td>
+          <td class="num"><span lang="pt">$2.375.206,77 em saídas · $2.188.519,59 em entradas</span><span lang="en">$2,375,206.77 out · $2,188,519.59 in</span></td>
+          <td class="per"><span lang="pt">1.594 lançamentos · 20 out 2025 a 19 ago 2026</span><span lang="en">1,594 entries · Oct 20 2025 to Aug 19 2026</span></td></tr>
+        <tr><td><b><span lang="pt">Cartões da empresa conferidos</span><span lang="en">Company cards checked</span></b></td>
+          <td class="num"><span lang="pt">$335.634,37 em compras</span><span lang="en">$335,634.37 in purchases</span></td>
+          <td class="per"><span lang="pt">1.546 lançamentos · 20 out 2025 a 19 ago 2026</span><span lang="en">1,546 entries · Oct 20 2025 to Aug 19 2026</span></td></tr>
+        <tr><td><b><span lang="pt">O ano de 2025, reconstruído e auditado</span><span lang="en">The 2025 year, rebuilt and audited</span></b></td>
+          <td class="num"><span lang="pt">$2.811.221,94 em saídas · $2.909.150,37 em entradas</span><span lang="en">$2,811,221.94 out · $2,909,150.37 in</span></td>
+          <td class="per"><span lang="pt">1.589 lançamentos · ano civil de 2025</span><span lang="en">1,589 entries · calendar year 2025</span></td></tr>
+      </tbody>
+    </table></div>
+  </div></details>
+
+  <!-- ============ ESCALA ============ -->
+  <details class="sec block"><summary><h2><span lang="pt">Escala</span><span lang="en">Scale</span></h2><span class="tally"></span></summary><div class="secbody">
+    
+    
+    <div class="tw"><table>
+      <tbody>
+        <tr><td><span lang="pt">Transações bancárias conciliadas</span><span lang="en">Bank transactions reconciled</span></td><td class="n">5.809</td></tr>
+        <tr><td><span lang="pt">Folhas de pagamento processadas</span><span lang="en">Payrolls processed</span></td><td class="n">32</td></tr>
+        <tr><td><span lang="pt">Ordens de serviço da Andersen acompanhadas</span><span lang="en">Andersen work orders tracked</span></td><td class="n">218</td></tr>
+        <tr><td><span lang="pt">Pedidos de adicional rastreados junto à Andersen</span><span lang="en">Extra labour requests tracked with Andersen</span></td><td class="n">147</td></tr>
+        <tr><td><span lang="pt">Pagamentos da Andersen conferidos e baixados</span><span lang="en">Andersen payments checked and cleared</span></td><td class="n">414</td></tr>
+        <tr><td><span lang="pt">Pastas de ordem de serviço com documentação e fotos</span><span lang="en">Work order folders with paperwork and photos</span></td><td class="n">116+</td></tr>
+        <tr><td><span lang="pt">Obras com planilha de gestão própria</span><span lang="en">Projects with their own management sheet</span></td><td class="n">13</td></tr>
+        <tr><td><span lang="pt">Subcontratados ativos no cadastro</span><span lang="en">Active subcontractors on the registry</span></td><td class="n">56</td></tr>
+        <tr><td><span lang="pt">Linhas na reconciliação do extrato contra a contabilidade</span><span lang="en">Rows in the statement to books reconciliation</span></td><td class="n">928</td></tr>
+        <tr><td><span lang="pt">Relatórios publicados</span><span lang="en">Reports published</span></td><td class="n">43</td></tr>
+        <tr><td><span lang="pt">Notas de conhecimento operacional documentadas</span><span lang="en">Operating knowledge notes documented</span></td><td class="n">363</td></tr>
+        <tr><td><span lang="pt">Dias com registro de decisões escrito</span><span lang="en">Days with a written decision record</span></td><td class="n">83</td></tr>
+      </tbody>
+    </table></div>
+  </div></details>
+
+  <footer>
+    <p><span lang="pt">Documento gerado em 19 de agosto de 2026, cobrindo outubro de 2025 a agosto de 2026. Cada item foi verificado contra a sua fonte: e-mail, repositório de
+      arquivos, planilha, ou o registro diário de decisões. Onde a fonte não sustentava um item, ele
+      não entrou. Onde uma contagem depende de busca por nome e portanto pode estar incompleta, ela
+      está marcada como piso e não como total. Os primeiros seis meses do período não têm registro
+      diário de sessão, porque esse registro começou em 22 de abril de 2026: para esse intervalo, as
+      fontes são o histórico de e-mail e as datas de criação dos arquivos.</span>
+      <span lang="en">Document generated on August 19 2026, covering October 2025 to August 2026. Every item was verified against its source: email, the file repository, a spreadsheet,
+      or the daily decision record. Where the source did not support an item, it did not go in.
+      Where a count depends on a name search and may therefore be incomplete, it is marked as a
+      floor and not a total. The first six months of the period have no daily session record,
+      because that record began on April 22 2026: for that interval the sources are the email
+      history and file creation dates.</span></p>
+  </footer>
+
+</div>
+
+<script>
+function setLang(l,btn){
+  document.documentElement.setAttribute('data-lang',l);
+  document.documentElement.setAttribute('lang', l==='pt' ? 'pt-BR' : 'en');
+  document.querySelectorAll('.langbtn button').forEach(function(b){
+    b.setAttribute('aria-pressed', String(b===btn));
+  });
+}
+function allItems(){return Array.prototype.slice.call(document.querySelectorAll('.item[data-status]'));}
+
+/* Every count on this page is derived from the DOM, never typed in. */
+function applyFilters(){
+  var a=document.getElementById('fArea').value,
+      s=document.getElementById('fStatus').value, shown=0;
+  document.querySelectorAll('details.sec').forEach(function(sec){
+    var vis=0;
+    sec.querySelectorAll('.item[data-status]').forEach(function(it){
+      var ok = (!s || it.dataset.status===s);
+      it.hidden = !ok;
+      if(ok) vis++;
+    });
+    var areaOk = (!a || sec.dataset.area===a);
+    /* A fixed reference block (before/after, systems map, the four questions, cash
+       forecast, scale) carries tables, not items. The item filter must NEVER hide it:
+       making these blocks into details.sec elements pulled them into this selector, and
+       "vis===0" then blanked all six of them on page load. They stay visible always. */
+    var hasItems = sec.querySelectorAll('.item[data-status]').length > 0;
+    sec.hidden = hasItems ? (!areaOk || vis===0) : false;
+    if(areaOk) shown += vis;
+    /* section tally + status dots, both computed */
+    var live=sec.querySelectorAll('.item[data-status]'), t=sec.querySelector('.tally');
+    var counts={live:0,wip:0,radar:0,off:0};
+    live.forEach(function(i){ if(counts[i.dataset.status]!==undefined) counts[i.dataset.status]++; });
+    /* no items means no count to show — an empty tally, never a misleading "0" */
+    if(t) t.textContent = !hasItems ? '' : ((s) ? (vis+' / '+live.length) : String(live.length));
+    var d=sec.querySelector('.dots');
+    if(d && !d.dataset.done){
+      d.dataset.done='1'; d.innerHTML='';
+      ['live','wip','radar','off'].forEach(function(k){
+        for(var i=0;i<Math.min(counts[k],4);i++){
+          var e=document.createElement('i'); e.className='dot '+k; d.appendChild(e);
+        }
+      });
+    }
+  });
+  var total=allItems().length;
+  document.getElementById('shownCount').textContent =
+    (document.documentElement.getAttribute('data-lang')==='en')
+      ? (shown+' of '+total+' items') : (shown+' de '+total+' itens');
+  /* status pill labels, filled from data-status so label and state cannot diverge */
+  var L={pt:{live:'implantado',wip:'em andamento',radar:'no radar',off:'descontinuado'},
+         en:{live:'live',wip:'in progress',radar:'on the radar',off:'discontinued'}};
+  var lg=document.documentElement.getAttribute('data-lang');
+  document.querySelectorAll('.item[data-status] > .item-h > .pill').forEach(function(p){
+    var st=p.closest('.item').dataset.status;
+    if(L[lg][st]) p.textContent=L[lg][st];
+  });
+}
+function resetFilters(){
+  document.getElementById('fArea').value='';
+  document.getElementById('fStatus').value='';
+  applyFilters();
+}
+
+var _sl=setLang;
+setLang=function(l,b){_sl(l,b);applyFilters();}; applyFilters();
+
+/* ============ status sub-groups inside each department ============
+   Generated FROM each item's own data-status at load, never hand-written, so a group's
+   label, membership and count cannot drift from what it actually holds. Collapsed by
+   default; all four states kept, since leaving "no radar" out would orphan its items. */
+var GRP_ORDER = ['live','wip','radar','off'];
+var GRP_LABEL = {
+  pt:{live:'Implantado', wip:'Em andamento', radar:'No radar',      off:'Descontinuado'},
+  en:{live:'Live',       wip:'In progress',  radar:'On the radar',  off:'Discontinued'}
+};
+function buildStatusGroups(){
+  document.querySelectorAll('details.sec[data-area] > .secbody').forEach(function(body){
+    if(body.dataset.grouped) return;
+    var items = Array.prototype.slice.call(body.children).filter(function(n){
+      return n.classList && n.classList.contains('item') && n.dataset.status;
+    });
+    if(!items.length) return;
+    GRP_ORDER.forEach(function(st){
+      var mine = items.filter(function(i){ return i.dataset.status === st; });
+      if(!mine.length) return;
+      var d = document.createElement('details');
+      d.className = 'grp'; d.dataset.gstatus = st;
+      var s = document.createElement('summary');
+      s.innerHTML = '<span class="gdot ' + st + '"></span>'
+        + '<span class="gname"><span lang="pt">' + GRP_LABEL.pt[st] + '</span>'
+        + '<span lang="en">' + GRP_LABEL.en[st] + '</span></span>'
+        + '<span class="gcount">' + mine.length + '</span>';
+      d.appendChild(s);
+      mine.forEach(function(i){ d.appendChild(i); });
+      body.appendChild(d);
+    });
+    body.dataset.grouped = '1';
+  });
+}
+/* A drawer with nothing visible under the current filter hides itself; with a status
+   filter active the matching drawer opens, so a filter never lands on closed boxes. */
+function syncStatusGroups(){
+  var s = document.getElementById('fStatus').value;
+  document.querySelectorAll('details.grp').forEach(function(g){
+    var vis = Array.prototype.slice.call(g.querySelectorAll('.item[data-status]'))
+                .filter(function(i){ return !i.hidden; }).length;
+    g.hidden = (vis === 0);
+    if(s){ if(!g.hidden) g.open = true; } else { g.open = false; }
+  });
+}
+buildStatusGroups();
+var _af = applyFilters;
+applyFilters = function(){ _af(); syncStatusGroups(); };
+applyFilters();
+
+
+
+</script>
+</body>
+</html>
