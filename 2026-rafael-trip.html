@@ -101,8 +101,8 @@ border-top:1px solid var(--rule)}
 .burn{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:15px 16px}
 .burn .cap{font-size:13px;color:var(--muted);line-height:1.5}
 /* The chart scrolls inside its own box, exactly as the tables do. Once the axis
-   carries every elapsed day (2026-08-12) the column count grows every morning and
-   reaches 25 by Aug 30, so at 390px the row cannot fit and must not be allowed to
+   carries every elapsed day (2026-08-12) the column count grew every morning and
+   finished at {TRIP_DAYS} on {TRIP_END:%b %-d}, so at 390px the row cannot fit and must not be allowed to
    widen the page — verified in a browser at 390px, where 10 columns pushed
    documentElement.scrollWidth to 455 against a 390 viewport. The scroll sits on the
    WRAPPER, not on .bars: the $160.00/day plan line is absolute at left:0;right:0
@@ -143,67 +143,81 @@ border-radius:4px;font-size:11.5px}
 
 <header class="rpt">
   <h1>Your vacation spending</h1>
-  <div class="sub">Aug 6 &ndash; Aug 30, 2026 &middot; 25 days &nbsp;
-    <span class="phase">DAY 13 OF 25</span></div>
-  <div class="sub">Every charge on the trip, grouped by category. Updated at each
-    daily reconcile.</div>
+  <div class="sub">Aug 6 &ndash;
+    Aug 26, 2026 &middot; 21 days &nbsp;
+    <span class="phase">TRIP COMPLETE &middot; DAY
+      21 OF 21</span></div>
+  <div class="sub">Every charge on the trip, grouped by category. Rafael returned at
+    noon on August 26, so that morning still counts; spend from
+    that afternoon onward is not trip spend.</div>
 </header>
 
 <div class="two">
   <div class="meter">
     <div class="k">Spent in total so far</div>
-    <div class="v">$9,864.54</div>
-    <div class="s">$7,355.79 outfitting &amp; lodging &middot; $2,508.75 on the road</div>
-    <div class="bar"><i style="width:74.6%;
-      background:#dd8a1c"></i><i style="width:25.4%;
+    <div class="v">$11,343.71</div>
+    <div class="s">$7,355.79 outfitting &amp; lodging &middot; $3,987.92 on the road</div>
+    <div class="bar"><i style="width:64.8%;
+      background:#dd8a1c"></i><i style="width:35.2%;
       background:#0fa3a3"></i></div>
     <div class="barkey">
       <span><i class="dot" style="background:#dd8a1c"></i>outfitting &amp; lodging $7,355.79</span>
-      <span><i class="dot" style="background:#0fa3a3"></i>on the road $2,508.75</span>
+      <span><i class="dot" style="background:#0fa3a3"></i>on the road $3,987.92</span>
     </div>
     <div class="basis">Everything spent on the trip so far. Only the on-the-road
-      side is counted against the $4,000.</div>
+      side is counted against the $3,360.</div>
   </div>
 
   <div class="meter">
     <div class="k">Spent on the road</div>
-    <div class="v">$2,508.75</div>
-    <div class="s">30 charges since Aug 5
-      &middot; $1,188.11 of it is gas</div>
-    <div class="bar"><i style="width:53.90%;
+    <div class="v">$3,987.92</div>
+    <div class="s">47 charges since Aug 5
+      &middot; $1,709.20 of it is gas</div>
+    <div class="bar"><i style="width:100.00%;
       background:#0fa3a3"></i></div>
     <div class="barkey">
-      <span><i class="dot" style="background:#0fa3a3"></i>$2,155.84 counted against the
-        $4,000</span>
-      <span>$1,844.16 left</span>
+      <span><i class="dot" style="background:#0fa3a3"></i>$3,431.10 counted against the
+        $3,360</span>
+      <span>$71.10 left</span>
     </div>
-    <div class="basis">The $4,000 counts on-the-road spend from Aug 6
+    <div class="basis">The $3,360 counts on-the-road spend from Aug 6
       onward &mdash; gas, meals and purchases. It does not include outfitting or
       lodging, whenever those were bought.</div>
   </div>
 
   <div class="meter">
     <div class="k">Per day so far</div>
-    <div class="v">$165.83<span class="u">/day</span></div>
-    <div class="s">$2,155.84 over 13 days
+    <div class="v">$163.39<span class="u">/day</span></div>
+    <div class="s">$3,431.10 over 21 days
       &middot; the plan is $160.00/day</div>
     <div class="bar"><i style="width:100.0%;
       background:#7b68ee"></i>
-      <span class="lim" style="left:96.5%">
+      <span class="lim" style="left:97.9%">
       </span></div>
     <div class="barkey">
-      <span><i class="dot" style="background:#7b68ee"></i>actual $165.83</span>
+      <span><i class="dot" style="background:#7b68ee"></i>actual $163.39</span>
       <span><i class="dot" style="background:var(--ink);width:2px"></i>plan
         $160.00</span>
     </div>
     <div class="basis">Where $160.00/day comes from:
-      $4,000 &divide; 25 days (Aug 6&ndash;30).
-      $1,844.16 left over 12 remaining days is
-      $153.68/day.</div>
+      $3,360 &divide; 21 days
+      (Aug 6&ndash;26).
+      The trip is finished, so this is final: it came in <b>$71.10 over</b> the $3,360 budget.</div>
   </div>
 </div>
 
 
+<div class="card" style="border-left:3px solid var(--warn,#d98324)">
+  <div class="s"><b>$121.43 more is on the way and is not counted above.</b></div>
+  <div class="basis">Two card charges on the Capital One ending 5805 &mdash; Sunoco
+    $96.43 and Starbucks $25.00 &mdash; have not finished posting, and
+    the bank gives no date for either, so they cannot be placed on a day. The money is
+    real. Counting them, the on-the-road company total becomes
+    $3,552.53 against the $3,360 budget, taking it from
+    $71.10 over to
+    $192.53
+    over.</div>
+</div>
 
 
 <h2>Who paid &mdash; company cards vs Rafael&rsquo;s own</h2>
@@ -217,48 +231,48 @@ border-radius:4px;font-size:11.5px}
     <th class="wp-n">Total</th>
   </tr></thead>
   <tbody>
-    <tr><td class="wp-cat"><i class="dot" style="background:#0fa3a3"></i>Gas</td><td class="wp-n">$1,188.11</td><td class="wp-p">100.0%</td><td class="wp-n">$0.00</td><td class="wp-p">0.0%</td><td class="wp-n wp-tot">$1,188.11</td></tr><tr><td class="wp-cat"><i class="dot" style="background:#e05a9c"></i>Purchases</td><td class="wp-n">$127.48</td><td class="wp-p">70.3%</td><td class="wp-n">$53.96</td><td class="wp-p">29.7%</td><td class="wp-n wp-tot">$181.44</td></tr><tr><td class="wp-cat"><i class="dot" style="background:#98a0b3"></i>Meals</td><td class="wp-n">$947.02</td><td class="wp-p">83.1%</td><td class="wp-n">$192.18</td><td class="wp-p">16.9%</td><td class="wp-n wp-tot">$1,139.20</td></tr>
+    <tr><td class="wp-cat"><i class="dot" style="background:#0fa3a3"></i>Gas</td><td class="wp-n">$1,709.20</td><td class="wp-p">100.0%</td><td class="wp-n">$0.00</td><td class="wp-p">0.0%</td><td class="wp-n wp-tot">$1,709.20</td></tr><tr><td class="wp-cat"><i class="dot" style="background:#e05a9c"></i>Purchases</td><td class="wp-n">$610.71</td><td class="wp-p">91.9%</td><td class="wp-n">$53.96</td><td class="wp-p">8.1%</td><td class="wp-n wp-tot">$664.67</td></tr><tr><td class="wp-cat"><i class="dot" style="background:#98a0b3"></i>Meals</td><td class="wp-n">$1,217.96</td><td class="wp-p">75.5%</td><td class="wp-n">$396.09</td><td class="wp-p">24.5%</td><td class="wp-n wp-tot">$1,614.05</td></tr>
   </tbody>
   <tfoot><tr>
     <td>Total on the road</td>
-    <td class="wp-n">$2,262.61</td>
-    <td class="wp-p">90.2%</td>
-    <td class="wp-n">$246.14</td>
-    <td class="wp-p">9.8%</td>
-    <td class="wp-n wp-tot">$2,508.75</td>
+    <td class="wp-n">$3,537.87</td>
+    <td class="wp-p">88.7%</td>
+    <td class="wp-n">$450.05</td>
+    <td class="wp-p">11.3%</td>
+    <td class="wp-n wp-tot">$3,987.92</td>
   </tr></tfoot>
 </table>
 </div>
 
 
 <h2>On the road &mdash; where it went
-  <span class="h2sub">The $2,508.75 above, by category. Tap a row to see the
+  <span class="h2sub">The $3,987.92 above, by category. Tap a row to see the
   charges behind it.</span></h2>
 <div class="rule"></div>
-<details class="cat" data-rows="13"><summary><span class="dot" style="background:#0fa3a3"></span><span class="nm">Gas</span><span class="pc">47.4%</span><span class="amt">$1,188.11</span><span class="open">Show the 13 charges</span></summary><div class="minibar"><i style="width:47.4%;background:#0fa3a3"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Aug 5</td><td>Shell<span class="card">Dodge Ram fleet card</span></td><td class="n">$106.77</td></tr><tr class="chg"><td class="d">Aug 6</td><td>Cumberland Farms<span class="card">Cap One 5805</span></td><td class="n">$63.88</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Sunoco<span class="card">Cap One 5805</span></td><td class="n">$109.73</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Shell<span class="card">Dodge Ram fleet card</span></td><td class="n">$113.38</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Gulf Oil<span class="card">Cap One 5805</span></td><td class="n">$74.33</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Gulf Oil<span class="card">Cap One 5805</span></td><td class="n">$9.25</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Buchanan Quick Stop<span class="card">Cap One 5805</span></td><td class="n">$80.76</td></tr><tr class="chg"><td class="d">Aug 9</td><td>BJ&#x27;s — gas<span class="card">Cap One 5805</span></td><td class="n">$141.02</td></tr><tr class="chg"><td class="d">Aug 9</td><td>Shell<span class="card">Cap One 5805</span></td><td class="n">$120.49</td></tr><tr class="chg"><td class="d">Aug 14</td><td>Shell<span class="card">Citizens 0126</span></td><td class="n">$113.06</td></tr><tr class="chg"><td class="d">Aug 14</td><td>Buc-ee&#x27;s<span class="card">Cap One 5805</span></td><td class="n">$65.88</td></tr><tr class="chg"><td class="d">Aug 14</td><td>Shell fleet — Dodge Ram<span class="card">Dodge Ram fleet card</span></td><td class="n">$77.58</td></tr><tr class="chg"><td class="d">Aug 15</td><td>Wawa<span class="card">Cap One 5805</span></td><td class="n">$111.98</td></tr></tbody></table></div></details><details class="cat" data-rows="15"><summary><span class="dot" style="background:#98a0b3"></span><span class="nm">Meals</span><span class="pc">45.4%</span><span class="amt">$1,139.20</span><span class="open">Show the 15 charges</span></summary><div class="minibar"><i style="width:45.4%;background:#98a0b3"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Aug 7</td><td>McDonald&#x27;s — Jonestown, PA<span class="card">Citizens 0126</span></td><td class="n">$26.03</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Meal on the road<span class="card">Rafael</span></td><td class="n">$60.98</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Meal on the road<span class="card">Rafael</span></td><td class="n">$70.13</td></tr><tr class="chg"><td class="d">Aug 9</td><td>Dunkin&#x27;<span class="card">Cap One 5805</span></td><td class="n">$50.00</td></tr><tr class="chg"><td class="d">Aug 10</td><td>Wal-Mart — Surfside Beach, SC<span class="card">Citizens 0126</span></td><td class="n">$600.62</td></tr><tr class="chg"><td class="d">Aug 10</td><td>WM Supercenter — Surfside Beach, SC<span class="card">Citizens 0126</span></td><td class="n">$9.32</td></tr><tr class="chg"><td class="d">Aug 14</td><td>Shell<span class="card">Rafael personal 6924</span></td><td class="n">$11.96</td></tr><tr class="chg"><td class="d">Aug 14</td><td>Shell — convenience store<span class="card">Cap One 5805</span></td><td class="n">$23.30</td></tr><tr class="chg"><td class="d">Aug 15</td><td>Wawa<span class="card">Rafael personal 6924</span></td><td class="n">$7.50</td></tr><tr class="chg"><td class="d">Aug 15</td><td>Wawa<span class="card">Rafael personal 6924</span></td><td class="n">$7.96</td></tr><tr class="chg"><td class="d">Aug 16</td><td>CVS Pharmacy<span class="card">Rafael personal 6924</span></td><td class="n">$37.41</td></tr><tr class="chg"><td class="d">Aug 16</td><td>Meal on the road<span class="card">Cap One 5805</span></td><td class="n">$106.64</td></tr><tr class="chg"><td class="d">Aug 16</td><td>La Cremeria<span class="card">Rafael personal 6924</span></td><td class="n">$8.74</td></tr><tr class="chg"><td class="d">Aug 17</td><td>Buc-ee&#x27;s<span class="card">Rafael personal 6924</span></td><td class="n">$97.61</td></tr><tr class="chg"><td class="d">Aug 15</td><td>Abbott Farms<span class="card">Rafael personal 6924</span></td><td class="n">$21.00</td></tr></tbody></table></div></details><details class="cat" data-rows="2"><summary><span class="dot" style="background:#e05a9c"></span><span class="nm">Purchases</span><span class="pc">7.2%</span><span class="amt">$181.44</span><span class="open">Show the 2 charges</span></summary><div class="minibar"><i style="width:7.2%;background:#e05a9c"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Aug 6</td><td>Best Buy<span class="card">Citizens 0126</span></td><td class="n">$127.48</td></tr><tr class="chg"><td class="d">Aug 16</td><td>CVS Pharmacy<span class="card">Rafael personal 6924</span></td><td class="n">$53.96</td></tr></tbody></table></div></details>
+<details class="cat" data-rows="19"><summary><span class="dot" style="background:#0fa3a3"></span><span class="nm">Gas</span><span class="pc">42.9%</span><span class="amt">$1,709.20</span><span class="open">Show the 19 charges</span></summary><div class="minibar"><i style="width:42.9%;background:#0fa3a3"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Aug 5</td><td>Shell<span class="card">Dodge Ram fleet card</span></td><td class="n">$106.77</td></tr><tr class="chg"><td class="d">Aug 6</td><td>Cumberland Farms<span class="card">Cap One 5805</span></td><td class="n">$63.88</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Sunoco<span class="card">Cap One 5805</span></td><td class="n">$109.73</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Shell<span class="card">Dodge Ram fleet card</span></td><td class="n">$113.38</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Gulf Oil<span class="card">Cap One 5805</span></td><td class="n">$74.33</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Gulf Oil<span class="card">Cap One 5805</span></td><td class="n">$9.25</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Buchanan Quick Stop<span class="card">Cap One 5805</span></td><td class="n">$80.76</td></tr><tr class="chg"><td class="d">Aug 9</td><td>BJ&#x27;s — gas<span class="card">Cap One 5805</span></td><td class="n">$141.02</td></tr><tr class="chg"><td class="d">Aug 9</td><td>Shell<span class="card">Cap One 5805</span></td><td class="n">$120.49</td></tr><tr class="chg"><td class="d">Aug 14</td><td>Shell<span class="card">Citizens 0126</span></td><td class="n">$113.06</td></tr><tr class="chg"><td class="d">Aug 14</td><td>Buc-ee&#x27;s<span class="card">Cap One 5805</span></td><td class="n">$65.88</td></tr><tr class="chg"><td class="d">Aug 14</td><td>Shell fleet — Dodge Ram<span class="card">Dodge Ram fleet card</span></td><td class="n">$77.58</td></tr><tr class="chg"><td class="d">Aug 15</td><td>Wawa<span class="card">Cap One 5805</span></td><td class="n">$111.98</td></tr><tr class="chg"><td class="d">Aug 20</td><td>Cumberland Farms — Destin, FL<span class="card">Citizens 0126</span></td><td class="n">$99.00</td></tr><tr class="chg"><td class="d">Aug 24</td><td>Buc-ee&#x27;s #0063<span class="card">Cap One 5805</span></td><td class="n">$98.70</td></tr><tr class="chg"><td class="d">Aug 24</td><td>Love&#x27;s #0964<span class="card">Cap One 5805</span></td><td class="n">$115.32</td></tr><tr class="chg"><td class="d">Aug 25</td><td>Love&#x27;s Country Stores<span class="card">Cap One 5805</span></td><td class="n">$78.36</td></tr><tr class="chg"><td class="d">Aug 25</td><td>Circle K<span class="card">Cap One 5805</span></td><td class="n">$118.78</td></tr><tr class="chg"><td class="d">Aug 25</td><td>Love&#x27;s #0317<span class="card">Citizens 0126</span></td><td class="n">$10.93</td></tr></tbody></table></div></details><details class="cat" data-rows="24"><summary><span class="dot" style="background:#98a0b3"></span><span class="nm">Meals</span><span class="pc">40.5%</span><span class="amt">$1,614.05</span><span class="open">Show the 24 charges</span></summary><div class="minibar"><i style="width:40.5%;background:#98a0b3"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Aug 7</td><td>McDonald&#x27;s — Jonestown, PA<span class="card">Citizens 0126</span></td><td class="n">$26.03</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Meal on the road<span class="card">Rafael personal 6924</span></td><td class="n">$60.98</td></tr><tr class="chg"><td class="d">Aug 7</td><td>Meal on the road<span class="card">Rafael personal 6924</span></td><td class="n">$70.13</td></tr><tr class="chg"><td class="d">Aug 9</td><td>Dunkin&#x27;<span class="card">Cap One 5805</span></td><td class="n">$50.00</td></tr><tr class="chg"><td class="d">Aug 10</td><td>Wal-Mart — Surfside Beach, SC<span class="card">Citizens 0126</span></td><td class="n">$600.62</td></tr><tr class="chg"><td class="d">Aug 10</td><td>WM Supercenter — Surfside Beach, SC<span class="card">Citizens 0126</span></td><td class="n">$9.32</td></tr><tr class="chg"><td class="d">Aug 14</td><td>Shell<span class="card">Rafael personal 6924</span></td><td class="n">$11.96</td></tr><tr class="chg"><td class="d">Aug 14</td><td>Shell — convenience store<span class="card">Cap One 5805</span></td><td class="n">$23.30</td></tr><tr class="chg"><td class="d">Aug 15</td><td>Wawa<span class="card">Rafael personal 6924</span></td><td class="n">$7.50</td></tr><tr class="chg"><td class="d">Aug 15</td><td>Wawa<span class="card">Rafael personal 6924</span></td><td class="n">$7.96</td></tr><tr class="chg"><td class="d">Aug 16</td><td>CVS Pharmacy<span class="card">Rafael personal 6924</span></td><td class="n">$37.41</td></tr><tr class="chg"><td class="d">Aug 18</td><td>Baytowne Lands — Miramar Beach, FL<span class="card">Citizens 0126</span></td><td class="n">$106.64</td></tr><tr class="chg"><td class="d">Aug 16</td><td>La Cremeria<span class="card">Rafael personal 6924</span></td><td class="n">$8.74</td></tr><tr class="chg"><td class="d">Aug 17</td><td>Buc-ee&#x27;s<span class="card">Rafael personal 6924</span></td><td class="n">$97.61</td></tr><tr class="chg"><td class="d">Aug 15</td><td>Abbott Farms<span class="card">Rafael personal 6924</span></td><td class="n">$21.00</td></tr><tr class="chg"><td class="d">Aug 20</td><td>Ice cream (SQ *ICECREAM)<span class="card">Cap One 5805</span></td><td class="n">$24.00</td></tr><tr class="chg"><td class="d">Aug 21</td><td>Outcast Sushi — Miramar Beach, FL<span class="card">Citizens 0126</span></td><td class="n">$134.49</td></tr><tr class="chg"><td class="d">Aug 25</td><td>Cracker Barrel #4<span class="card">Citizens 0126</span></td><td class="n">$42.68</td></tr><tr class="chg"><td class="d">Aug 25</td><td>Cracker Barrel<span class="card">personal •1393 (cardholder unidentified)</span></td><td class="n">$72.80</td></tr><tr class="chg"><td class="d">Aug 24</td><td>Starbucks<span class="card">Cap One 5805</span></td><td class="n">$50.00</td></tr><tr class="chg"><td class="d">Aug 25</td><td>Burger King<span class="card">Cap One 5805</span></td><td class="n">$25.80</td></tr><tr class="chg"><td class="d">Aug 26</td><td>Buc-ee&#x27;s #0063<span class="card">Cap One 5805</span></td><td class="n">$60.99</td></tr><tr class="chg"><td class="d">Aug 26</td><td>Buc-ee&#x27;s #0063<span class="card">Cap One 5805</span></td><td class="n">$2.13</td></tr><tr class="chg"><td class="d">Aug 26</td><td>Olive Garden<span class="card">Citizens 0126</span></td><td class="n">$61.96</td></tr></tbody></table></div></details><details class="cat" data-rows="4"><summary><span class="dot" style="background:#e05a9c"></span><span class="nm">Purchases</span><span class="pc">16.7%</span><span class="amt">$664.67</span><span class="open">Show the 4 charges</span></summary><div class="minibar"><i style="width:16.7%;background:#e05a9c"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Aug 6</td><td>Best Buy<span class="card">Citizens 0126</span></td><td class="n">$127.48</td></tr><tr class="chg"><td class="d">Aug 16</td><td>CVS Pharmacy<span class="card">Rafael personal 6924</span></td><td class="n">$53.96</td></tr><tr class="chg"><td class="d">Aug 25</td><td>Camping World #13<span class="card">Citizens 0126</span></td><td class="n">$303.23</td></tr><tr class="chg"><td class="d">Aug 13</td><td>E-ZPASS MA<span class="card">Cap One 5805</span></td><td class="n">$180.00</td></tr></tbody></table></div></details>
 
 <h2>Outfitting &amp; lodging &mdash; kept separate
-  <span class="h2sub">Real money, but outside the $4,000: the gear bought
-  ahead of the trip and the places to stay. The $4,000 is a day-to-day
+  <span class="h2sub">Real money, but outside the $3,360: the gear bought
+  ahead of the trip and the places to stay. The $3,360 is a day-to-day
   allowance for gas, meals and purchases, so these are shown on their own rather than
   folded into the daily number above.</span></h2>
 <div class="rule"></div>
 <details class="cat" data-rows="6"><summary><span class="dot" style="background:#e05a9c"></span><span class="nm">Purchases</span><span class="pc">50.6%</span><span class="amt">$3,718.59</span><span class="open">Show the 6 charges</span></summary><div class="minibar"><i style="width:50.6%;background:#e05a9c"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Jul 29</td><td>Factory Outlet MA<span class="card">Citizens 0126</span><span class="note">generator</span></td><td class="n">$2,973.94</td></tr><tr class="chg"><td class="d">Aug 4</td><td>BestBuy.com<span class="card">Citizens 0126</span></td><td class="n">$283.54</td></tr><tr class="chg"><td class="d">Aug 4</td><td>BestBuy.com<span class="card">Citizens 0126</span></td><td class="n">$90.30</td></tr><tr class="chg"><td class="d">Aug 5</td><td>Walmart.com<span class="card">Citizens 0126</span></td><td class="n">$370.81</td></tr><tr class="chg"><td class="d">Aug 6</td><td>Walmart.com<span class="card">Citizens 0126</span></td><td class="n">$370.81</td></tr><tr class="chg"><td class="d">Aug 10</td><td>Walmart.com order — returned in store, Woodstock VA<span class="card">Citizens 0126</span></td><td class="n credit">&minus;$370.81</td></tr><tr class="net"><td colspan="2">Net of the returned item</td><td class="n">$3,718.59</td></tr></tbody></table></div></details><details class="cat" data-rows="4"><summary><span class="dot" style="background:#2f80e6"></span><span class="nm">Lodging &amp; campground</span><span class="pc">37.4%</span><span class="amt">$2,751.00</span><span class="open">Show the 4 charges</span></summary><div class="minibar"><i style="width:37.4%;background:#2f80e6"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Jun 5</td><td>Camping on Miramar Beach, FL<span class="card">Citizens 0126</span></td><td class="n">$378.00</td></tr><tr class="chg"><td class="d">Jun 5</td><td>Ocean Lakes, Myrtle Beach<span class="card">Citizens 0126</span></td><td class="n">$324.80</td></tr><tr class="chg"><td class="d">Jul 27</td><td>Ocean Lakes, Myrtle Beach<span class="card">Citizens 0126</span></td><td class="n">$324.80</td></tr><tr class="chg"><td class="d">Aug 17</td><td>Camping on Miramar Beach, FL<span class="card">Citizens 0126</span></td><td class="n">$1,723.40</td></tr></tbody></table></div></details><details class="cat" data-rows="1"><summary><span class="dot" style="background:#7b68ee"></span><span class="nm">Trailer &amp; vehicle prep</span><span class="pc">12.0%</span><span class="amt">$886.20</span><span class="open">Show the 1 charge</span></summary><div class="minibar"><i style="width:12.0%;background:#7b68ee"></i></div><div class="tblwrap"><table><thead><tr><th>Date</th><th>Merchant</th><th class="n">Amount</th></tr></thead><tbody><tr class="chg"><td class="d">Jul 31</td><td>eTrailer Corp<span class="card">Citizens 0126</span></td><td class="n">$886.20</td></tr></tbody></table></div></details><details class="cat" data-rows="0"><summary><span class="dot" style="background:#98a0b3"></span><span class="nm" style="color:var(--faint)">Meals</span><span class="pc">0.0%</span><span class="amt" style="color:var(--faint)">$0.00</span><span class="open" style="color:var(--faint)">Nothing yet</span></summary><div class="minibar"><i style="width:0.5%;background:#98a0b3"></i></div><div class="nothing">Nothing tagged as meals yet. The category stays on the page at $0.00 so a missing charge shows up as an absence rather than as nothing.</div></details>
 <div class="callout"><b>$7,726.60</b> spent on outfitting &amp; lodging, <b>&minus;$370.81</b> returned, <b>$7,355.79</b> net.
-  None of it counts against the $4,000.</div>
+  None of it counts against the $3,360.</div>
 
 <h2>Day by day
   <span class="h2sub">On-the-road spend since the budget started counting, against the
   $160.00/day line.</span></h2>
 <div class="rule"></div>
 <div class="burn">
-  <div class="cap">13 days of 25. Too short to read a slope from &mdash;
+  <div class="cap">21 days of 21. Too short to read a slope from &mdash;
     it is here so it already means something by the second week.</div>
-  <div class="cap">Aug 8, Aug 11, Aug 12, Aug 13 and Aug 17 sit at $0.00 &mdash; no charge on your cards those days. Aug 18 sits at $0.00 because nothing has posted on your cards since Aug 17. Anything spent after that lands here once the bank posts it.</div>
+  <div class="cap">Aug 8, Aug 11, Aug 12, Aug 16, Aug 17, Aug 19, Aug 22 and Aug 23 sit at $0.00 &mdash; no charge on your cards those days.</div>
   <div class="barswrap"><div class="bars">
     <div class="plan" style="bottom:22.2%">
       <b>$160.00/day plan</b></div>
-    <div class="col" data-day="2026-08-06"><i style="height:26.6%"></i><em>Aug 6<br>$191.36</em></div><div class="col" data-day="2026-08-07"><i style="height:75.7%"></i><em>Aug 7<br>$544.59</em></div><div class="col" data-day="2026-08-08"><i style="height:0.0%"></i><em>Aug 8<br>$0.00</em></div><div class="col" data-day="2026-08-09"><i style="height:43.3%"></i><em>Aug 9<br>$311.51</em></div><div class="col" data-day="2026-08-10"><i style="height:84.7%"></i><em>Aug 10<br>$609.94</em></div><div class="col" data-day="2026-08-11"><i style="height:0.0%"></i><em>Aug 11<br>$0.00</em></div><div class="col" data-day="2026-08-12"><i style="height:0.0%"></i><em>Aug 12<br>$0.00</em></div><div class="col" data-day="2026-08-13"><i style="height:0.0%"></i><em>Aug 13<br>$0.00</em></div><div class="col" data-day="2026-08-14"><i style="height:38.9%"></i><em>Aug 14<br>$279.82</em></div><div class="col" data-day="2026-08-15"><i style="height:15.6%"></i><em>Aug 15<br>$111.98</em></div><div class="col" data-day="2026-08-16"><i style="height:14.8%"></i><em>Aug 16<br>$106.64</em></div><div class="col" data-day="2026-08-17"><i style="height:0.0%"></i><em>Aug 17<br>$0.00</em></div><div class="col" data-day="2026-08-18"><i style="height:0.0%"></i><em>Aug 18<br>$0.00</em></div><div class="col future" data-day="2026-08-19"><i style="height:14%"></i><em>Aug 19</em></div><div class="col future" data-day="2026-08-20"><i style="height:14%"></i><em>Aug 20</em></div><div class="col future" data-day="2026-08-21"><i style="height:14%"></i><em>Aug 21</em></div>
+    <div class="col" data-day="2026-08-06"><i style="height:26.6%"></i><em>Aug 6<br>$191.36</em></div><div class="col" data-day="2026-08-07"><i style="height:57.4%"></i><em>Aug 7<br>$413.48</em></div><div class="col" data-day="2026-08-08"><i style="height:0.0%"></i><em>Aug 8<br>$0.00</em></div><div class="col" data-day="2026-08-09"><i style="height:43.3%"></i><em>Aug 9<br>$311.51</em></div><div class="col" data-day="2026-08-10"><i style="height:84.7%"></i><em>Aug 10<br>$609.94</em></div><div class="col" data-day="2026-08-11"><i style="height:0.0%"></i><em>Aug 11<br>$0.00</em></div><div class="col" data-day="2026-08-12"><i style="height:0.0%"></i><em>Aug 12<br>$0.00</em></div><div class="col" data-day="2026-08-13"><i style="height:25.0%"></i><em>Aug 13<br>$180.00</em></div><div class="col" data-day="2026-08-14"><i style="height:38.9%"></i><em>Aug 14<br>$279.82</em></div><div class="col" data-day="2026-08-15"><i style="height:15.6%"></i><em>Aug 15<br>$111.98</em></div><div class="col" data-day="2026-08-16"><i style="height:0.0%"></i><em>Aug 16<br>$0.00</em></div><div class="col" data-day="2026-08-17"><i style="height:0.0%"></i><em>Aug 17<br>$0.00</em></div><div class="col" data-day="2026-08-18"><i style="height:14.8%"></i><em>Aug 18<br>$106.64</em></div><div class="col" data-day="2026-08-19"><i style="height:0.0%"></i><em>Aug 19<br>$0.00</em></div><div class="col" data-day="2026-08-20"><i style="height:17.1%"></i><em>Aug 20<br>$123.00</em></div><div class="col" data-day="2026-08-21"><i style="height:18.7%"></i><em>Aug 21<br>$134.49</em></div><div class="col" data-day="2026-08-22"><i style="height:0.0%"></i><em>Aug 22<br>$0.00</em></div><div class="col" data-day="2026-08-23"><i style="height:0.0%"></i><em>Aug 23<br>$0.00</em></div><div class="col" data-day="2026-08-24"><i style="height:36.7%"></i><em>Aug 24<br>$264.02</em></div><div class="col" data-day="2026-08-25"><i style="height:80.6%"></i><em>Aug 25<br>$579.78</em></div><div class="col" data-day="2026-08-26"><i style="height:17.4%"></i><em>Aug 26<br>$125.08</em></div>
   </div></div>
 </div>
 
@@ -269,8 +283,8 @@ border-radius:4px;font-size:11.5px}
   books.</div>
 
 <footer>
-Every figure traces to a row in <code>transaction_db.json</code>, to the QuickBooks account export for the cards that carry no bank feed (the Shell fleet card, and charges too recent for the Cap One feed) or to the dated categorisation review. 10 charges on the road came straight from Hadassa and carry no machine record yet &mdash; those amounts are hers, not derived. Nothing here is inferred.
+Every figure traces to a row in <code>transaction_db.json</code>, to the QuickBooks account export for the cards that carry no bank feed (the Shell fleet card, and charges too recent for the Cap One feed) or to the dated categorisation review. 21 charges on the road came straight from Hadassa and carry no machine record yet &mdash; those amounts are hers, not derived. Nothing here is inferred.
 If a charge has not been ruled onto the trip, it is not on this page.<br>
-Generated 2026-08-18 &middot; <code>scripts/gen_rafael_trip.py</code>
+Generated 2026-08-26 &middot; <code>scripts/gen_rafael_trip.py</code>
 </footer>
 </div>
