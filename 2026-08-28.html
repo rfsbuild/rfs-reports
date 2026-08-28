@@ -1,0 +1,312 @@
+<style>
+  :root{--blue:#3b6ea5;--blue-deep:#2c5683;--blue-soft:#e8eef6;--paper:#f0f4f8;--card:#fff;--ink:#1e293b;--ink-soft:#475569;--ink-muted:#94a3b8;--rule:#e2e8f0;--green:#3b8268;--amber:#c8841d;--red:#b8443c;}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--paper);color:var(--ink);padding:20px 12px;line-height:1.5;font-feature-settings:"tnum";font-variant-numeric:tabular-nums;font-size:15px;-webkit-text-size-adjust:100%}
+  .wrap{max-width:680px;margin:0 auto}
+  .header .brand{font-size:11px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.18em;font-weight:700}
+  .header h1{font-size:26px;font-weight:700;margin:4px 0 0;color:var(--blue-deep);letter-spacing:-0.02em}
+  .header .week{font-size:14px;color:var(--ink-soft);margin-top:2px}
+  .narrative{background:var(--blue-soft);border-left:4px solid var(--blue);padding:14px 16px;border-radius:10px;font-size:15px;font-weight:500;margin:22px 0 24px;line-height:1.55}
+  .narrative strong{color:var(--blue-deep)}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
+  .card{background:var(--card);border-radius:12px;padding:14px 14px;box-shadow:0 1px 3px rgba(30,41,59,.06)}
+  .card-label{font-size:10px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.1em;font-weight:700}
+  .card-value{font-size:24px;font-weight:700;color:var(--ink);margin-top:4px;letter-spacing:-0.02em;line-height:1.1}
+  .card-sub{font-size:11px;color:var(--ink-soft);margin-top:3px;font-weight:500;line-height:1.35}
+  .delta-up{color:var(--green);font-weight:700}.delta-down{color:var(--red);font-weight:700}
+  .section-title{font-size:14px;color:var(--ink);font-weight:700;margin:28px 0 10px;padding:0 2px}
+  .section-title .icon{margin-right:6px}
+  .chart-wrap{background:var(--card);border-radius:12px;padding:10px;box-shadow:0 1px 3px rgba(30,41,59,.06)}
+  .chart-wrap img{width:100%;height:auto;display:block;border-radius:8px}
+  .chart-legend{font-size:10.5px;color:var(--ink-muted);margin-top:8px;padding:0 4px;line-height:1.7}
+  .chart-legend span{display:inline-block;margin-right:12px}
+  .legend-dot{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:4px}
+  .twocol{display:grid;grid-template-columns:1fr;gap:10px}
+  .col{background:var(--card);border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(30,41,59,.06)}
+  .col-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px}
+  .col-title.in{color:var(--green)}.col-title.out{color:var(--amber)}
+  .col-total{font-size:20px;font-weight:700;margin-bottom:8px;color:var(--ink)}
+  .item-row{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;padding:5px 0;border-top:1px solid var(--rule);gap:12px}
+  .item-row:first-of-type{border-top:none}
+  .item-row .amt{font-weight:600;color:var(--ink);white-space:nowrap}
+  .item-row .desc{color:var(--ink-soft)}
+  .subs-table{background:var(--card);border-radius:12px;padding:4px;box-shadow:0 1px 3px rgba(30,41,59,.06);overflow-x:auto}
+  .subs-table table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .subs-table th{text-align:left;font-weight:600;color:var(--ink-muted);padding:9px 10px;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--rule)}
+  .subs-table td{padding:9px 10px;border-bottom:1px solid var(--rule);color:var(--ink)}
+  .subs-table tr:last-child td{border-bottom:none}
+  .subs-table .amt{text-align:right;font-weight:600;white-space:nowrap}
+  .badge{display:inline-block;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap}
+  .badge.printed{background:#dbeafe;color:#1e40af}
+  .badge.mailed{background:#ede9fe;color:#6b21a8}
+  .badge.delivered{background:#fef3c7;color:#92400e}
+  .badge.cleared{background:#d1fae5;color:#065f46}
+  .badge.pending{background:#fee2e2;color:#991b1b}
+  .badge.partial{background:#fed7aa;color:#9a3412}
+  .badge.confirmed{background:#dcfce7;color:#166534}
+  .proj-list,.todo-list,.dayplan{background:var(--card);border-radius:12px;padding:2px 0;box-shadow:0 1px 3px rgba(30,41,59,.06);list-style:none;margin:0}
+  .proj-list li{padding:11px 14px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:10px}
+  .proj-list li:last-child{border-bottom:none}
+  .proj-total{padding:11px 14px;background:#f8fafc;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;color:var(--ink);border-radius:0 0 12px 12px}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .dot.red{background:var(--red)}.dot.amber{background:var(--amber)}.dot.green{background:var(--green)}.dot.gray{background:var(--ink-muted)}
+  .proj-name{flex:1;font-size:13.5px;color:var(--ink);font-weight:500}
+  .proj-status{font-size:11.5px;color:var(--ink-soft);text-align:right;white-space:nowrap}
+  .proj-status .key{font-weight:600;color:var(--ink)}
+  .info-note{font-size:11.5px;color:var(--ink-muted);font-style:italic;padding:8px 14px 12px;line-height:1.4}
+  .todo-list li{padding:11px 14px;border-bottom:1px solid var(--rule);font-size:13.5px;color:var(--ink);line-height:1.45}
+  .todo-list li:last-child{border-bottom:none}
+  .todo-list li::before{content:"\2610 ";margin-right:6px;color:var(--ink-muted);font-weight:600}
+  .dayplan li{padding:11px 14px;border-bottom:1px solid var(--rule);display:flex;gap:14px;font-size:13px;align-items:flex-start;line-height:1.45}
+  .dayplan li:last-child{border-bottom:none}
+  .dayplan .day{font-weight:700;color:var(--blue-deep);width:48px;flex-shrink:0;font-size:12px;letter-spacing:0.04em}
+  .dayplan .day.warn{color:var(--red)}
+  .dayplan .body{flex:1}
+  .dayplan .flow{font-weight:700;font-size:12.5px;margin-bottom:2px}
+  .dayplan .flow.out{color:var(--red)}
+  .dayplan .flow.in{color:var(--green)}
+  .dayplan .flow.mixed{color:var(--ink)}
+  .dayplan .desc{color:var(--ink-soft);font-size:12.5px}
+  .week-summary{background:#1e293b;color:#f8fafc;border-radius:12px;padding:14px 16px;margin-top:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center}
+  .week-summary .lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8;font-weight:700;margin-bottom:4px}
+  .week-summary .val{font-size:18px;font-weight:700;letter-spacing:-0.02em}
+  .week-summary .val.out{color:#fca5a5}
+  .week-summary .val.in{color:#86efac}
+  .week-summary .val.net{color:#fcd34d}
+  .week-summary .sub{font-size:10.5px;color:#94a3b8;margin-top:2px}
+  .footer{text-align:center;margin-top:30px;font-size:11px;color:var(--ink-muted);padding:12px}
+  @media(min-width:560px){
+    body{padding:28px 14px;font-size:15px}
+    .cards{grid-template-columns:repeat(4,1fr)}
+    .twocol{grid-template-columns:1fr 1fr}
+    .header h1{font-size:30px}
+  }
+
+  /* collapsible category groups */
+  details.catg{background:var(--card);border-radius:10px;margin-bottom:6px;box-shadow:0 1px 3px rgba(30,41,59,.05);overflow:hidden}
+  details.catg summary{cursor:pointer;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;list-style:none;font-size:13.5px;font-weight:600;color:var(--ink);outline:none}
+  details.catg summary::-webkit-details-marker{display:none}
+  details.catg summary::after{content:"+";color:var(--ink-muted);font-weight:400;font-size:20px;line-height:1;margin-left:8px;transition:transform .15s}
+  details.catg[open] summary::after{content:"\2212"}
+  details.catg .catg-icon{font-size:14px;margin-right:8px;display:inline-block}
+  details.catg .catg-amt{font-weight:700;color:var(--ink);margin-left:auto;padding-right:4px;letter-spacing:-0.01em}
+  details.catg .catg-body{padding:4px 14px 12px;border-top:1px solid var(--rule);background:#fafbfc}
+  details.catg .catg-body .item-row{font-size:12.5px;padding:5px 0;border-top:1px solid #eef2f7}
+  details.catg .catg-body .item-row:first-of-type{border-top:none;padding-top:8px}
+  details.catg .catg-body .subnote{font-size:11.5px;color:var(--ink-muted);font-style:italic;padding:4px 0 2px;line-height:1.4}
+  .flow-totals{background:#1e293b;color:#f8fafc;border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .flow-totals .flow-lbl{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8;font-weight:700}
+  .flow-totals .flow-amt{font-size:22px;font-weight:700;letter-spacing:-0.02em}
+  .flow-totals.in .flow-amt{color:#86efac}
+  .flow-totals.out .flow-amt{color:#fca5a5}
+
+  /* compact collapsible for headsup items + daily flow */
+  details.catg.compact{margin-bottom:4px}
+  details.catg.compact summary{padding:10px 14px;font-size:13px;font-weight:500;color:var(--ink)}
+  details.catg.compact summary::after{font-size:18px}
+  details.catg.compact .catg-body{padding:0 14px 10px}
+  details.catg.compact .catg-body p{margin:6px 0 0;font-size:12.5px;color:var(--ink-soft);line-height:1.5}
+  details.catg.compact .tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:2px 7px;border-radius:99px;margin-right:8px;vertical-align:middle}
+  details.catg.compact .tag.q{background:#fef3c7;color:#92400e}
+  details.catg.compact .tag.warn{background:#fee2e2;color:#991b1b}
+  details.catg.compact .tag.go{background:#d1fae5;color:#065f46}
+  details.catg.compact .tag.info{background:#dbeafe;color:#1e40af}
+  details.catg.dayrow summary{padding:11px 14px}
+  details.catg.dayrow .day-prefix{font-weight:700;color:var(--blue-deep);width:48px;flex-shrink:0;font-size:12px;letter-spacing:0.04em;display:inline-block}
+  details.catg.dayrow .day-prefix.warn{color:var(--red)}
+  details.catg.dayrow .day-flow{font-weight:700;font-size:12.5px;margin-left:4px}
+  details.catg.dayrow .day-flow.out{color:var(--red)}
+  details.catg.dayrow .day-flow.in{color:var(--green)}
+  details.catg.dayrow .day-flow.mixed{color:var(--ink)}
+  details.catg.dayrow .catg-amt{display:none}
+  details.catg.dayrow .catg-body{padding:6px 14px 12px 62px}
+  details.catg.dayrow .catg-body .desc{font-size:12.5px;color:var(--ink-soft);line-height:1.5}
+
+  /* mobile: allow long status to wrap inside its flex column; table cells wrap text naturally */
+  @media(max-width:559px){
+    .proj-status{white-space:normal !important}
+    .subs-table table{font-size:12px}
+    .subs-table th,.subs-table td{padding:7px 6px}
+    .subs-table td:first-child{white-space:nowrap}
+  }
+
+  .status-banner{border-radius:14px;padding:16px 18px;margin:18px 0 6px;display:flex;
+    gap:13px;align-items:flex-start;box-shadow:0 1px 3px rgba(30,41,59,.08)}
+  .status-banner.ok{background:#e8f5ee;border-left:5px solid var(--green)}
+  .status-banner.watch{background:#fdf3e3;border-left:5px solid var(--amber)}
+  .status-banner .sb-icon{font-size:26px;line-height:1}
+  .status-banner .sb-title{font-size:16px;font-weight:800;letter-spacing:-0.01em}
+  .status-banner.ok .sb-title{color:#1c5c43}
+  .status-banner.watch .sb-title{color:#8a5a12}
+  .status-banner .sb-text{font-size:13.5px;color:var(--ink-soft);margin-top:3px;line-height:1.5}
+  .status-banner .sb-text strong{color:inherit}
+  .card-delta{font-size:11px;font-weight:700;margin-top:3px}
+  .card-delta.up{color:var(--green)} .card-delta.down{color:var(--red)} .card-delta.flat{color:var(--ink-muted)}
+  .split-head{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;
+    color:var(--ink-muted);margin:14px 2px 6px}
+  .group-head{font-size:12px;font-weight:800;color:var(--blue-deep);margin:14px 2px 6px;
+    display:flex;align-items:center;gap:6px}
+  .actions{background:var(--card);border-radius:12px;padding:4px 0;box-shadow:0 1px 3px rgba(30,41,59,.06);
+    list-style:none;margin:0}
+  .actions li{padding:13px 16px;border-bottom:1px solid var(--rule);display:flex;gap:11px;
+    align-items:flex-start;font-size:13.5px;line-height:1.45}
+  .actions li:last-child{border-bottom:none}
+  .actions .num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--blue);
+    color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .actions .a-body{flex:1;color:var(--ink)} .actions .a-body .why{color:var(--ink-soft);font-size:12px;margin-top:2px}
+  .keybox{background:#f8fafc;border:1px solid var(--rule);border-radius:10px;padding:12px 14px;
+    margin-top:14px;font-size:11.5px;color:var(--ink-soft);line-height:1.7}
+  .keybox b{color:var(--ink)}
+  .dayrow.trough summary{background:#fff7ed} .dayrow.trough .day-prefix{color:var(--amber)}
+
+  /* inline cash-path chart */
+  .cashchart{width:100%;height:auto;display:block;border-radius:8px;background:#fff}
+  .cashchart .grid{stroke:var(--rule);stroke-width:1}
+  .cashchart .axislbl{fill:var(--ink-muted);font-size:10px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .cashchart .floorlbl{fill:var(--amber);font-size:9.5px;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .cashchart .ptlbl{fill:var(--ink);font-size:10.5px;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+
+  .proj-name a{color:var(--blue);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(59,110,165,.38)}
+  .proj-name a:hover{border-bottom-color:var(--blue)}
+  .proj-name a{color:var(--blue);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(59,110,165,.38)}
+  .proj-name a:hover{border-bottom-color:var(--blue)}
+  .proj-name a{color:var(--blue);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(59,110,165,.38)}
+  .proj-name a:hover{border-bottom-color:var(--blue)}</style>
+<div class="wrap">
+  <h1>Weekly Recap <span class="sub">Aug 22 – Aug 28, 2026</span></h1>
+
+  <div class="cards">
+    <div class="card"><div class="card-label">Checking (Fri 8/28)</div>
+      <div class="card-value">$82.3K</div><div class="card-sub">$82,299.33, reconciled</div></div>
+    <div class="card"><div class="card-label">Money in (week)</div>
+      <div class="card-value">$38.2K</div><div class="card-sub">$38,170.10 · 2 deposits</div></div>
+    <div class="card"><div class="card-label">Money out (week)</div>
+      <div class="card-value">$34.9K</div><div class="card-sub">$34,898.33 · net <span class="delta-up">+$3,271.77</span></div></div>
+    <div class="card"><div class="card-label">Cap One posted</div>
+      <div class="card-value">$57.4K</div><div class="card-sub">$57,427.35</div></div>
+  </div>
+
+  <div class="section-title"><span class="icon">💵</span>Where the money moved · this week</div>
+
+  <div class="flow-totals in"><span class="flow-lbl">▼ Money In</span><span class="flow-amt">$38.2K</span></div>
+  <details class="catg"><summary><span class="catg-icon">🏗️</span>Andersen / RBA weekly deposit<span class="catg-amt">+$26,643.03</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Fri 8/28 · Andersen Corpor</span><span class="amt">+$26,643.03</span></div></div></details><details class="catg"><summary><span class="catg-icon">🏠</span>Client payments via BuilderTrend<span class="catg-amt">+$11,527.07</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Wed 8/26 · Buildertrend Sol PAYOUT</span><span class="amt">+$11,527.07</span></div></div></details>
+
+  <div class="flow-totals out"><span class="flow-lbl">▲ Money Out</span><span class="flow-amt">$34.9K</span></div>
+  <details class="catg"><summary><span class="catg-icon">👷</span>Crew payroll checks cleared<span class="catg-amt">−$19,105.67</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Wed 8/26 · check #3909 · Gustavo de Souza (crew)</span><span class="amt">−$2,067.80</span></div><div class="item-row"><span class="desc">Thu 8/27 · check #3900 · Guilherme Souza (crew)</span><span class="amt">−$2,000.00</span></div><div class="item-row"><span class="desc">Thu 8/27 · check #3910 · Teixeira's Carpentry Corp (crew)</span><span class="amt">−$1,961.93</span></div><div class="item-row"><span class="desc">Mon 8/24 · check #3884 · Gerson da Silva Junior (crew)</span><span class="amt">−$1,647.10</span></div><div class="item-row"><span class="desc">Thu 8/27 · check #3902 · Ederson Oliveira (crew)</span><span class="amt">−$1,472.75</span></div><div class="item-row"><span class="desc">Mon 8/24 · check #3876 · Wilson Da Silva (crew)</span><span class="amt">−$1,446.17</span></div><div class="item-row"><span class="desc">Mon 8/24 · check #3882 · Antonio Augusto Tuler (crew)</span><span class="amt">−$1,364.74</span></div><div class="item-row"><span class="desc">Mon 8/24 · check #3891 · Wilson Da Silva (crew)</span><span class="amt">−$1,321.05</span></div><div class="item-row"><span class="desc">Wed 8/26 · check #3899 · Hadassa Lima (crew)</span><span class="amt">−$1,250.00</span></div><div class="item-row"><span class="desc">Wed 8/26 · check #3898 · Alice da Silveira (crew)</span><span class="amt">−$1,210.24</span></div><div class="item-row"><span class="desc">Thu 8/27 · check #3904 · Leandro De Oliveira (crew)</span><span class="amt">−$1,155.68</span></div><div class="item-row"><span class="desc">Thu 8/27 · check #3906 · Marcelo Pereira dos Santos (crew)</span><span class="amt">−$1,107.50</span></div><div class="item-row"><span class="desc">Mon 8/24 · check #3862 · Wilson Da Silva (crew)</span><span class="amt">−$1,100.71</span></div></div></details><details class="catg"><summary><span class="catg-icon">🔨</span>Sub payments by check<span class="catg-amt">−$2,600.00</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Thu 8/27 · check #3894 · MGP Services (sub)</span><span class="amt">−$1,600.00</span></div><div class="item-row"><span class="desc">Thu 8/27 · check #3911 · MGP Services (sub)</span><span class="amt">−$1,000.00</span></div></div></details><details class="catg"><summary><span class="catg-icon">🧱</span>Materials · LA Tiles & Marble<span class="catg-amt">−$7,486.72</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Tue 8/25 · LA TILES MARBLE SALE</span><span class="amt">−$7,486.72</span></div></div></details><details class="catg"><summary><span class="catg-icon">🛡️</span>Insurance · Travelers + New York Life<span class="catg-amt">−$3,343.09</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Mon 8/24 · TRAVELERS BUS INSUR</span><span class="amt">−$1,343.09</span></div><div class="item-row"><span class="desc">Tue 8/25 · NEW YORK LIFE INS. PREM.</span><span class="amt">−$1,000.00</span></div><div class="item-row"><span class="desc">Tue 8/25 · NEW YORK LIFE INS. PREM.</span><span class="amt">−$1,000.00</span></div></div></details><details class="catg"><summary><span class="catg-icon">🏛️</span>Property tax · Tewksbury (quarterly)<span class="catg-amt">−$1,140.38</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Wed 8/26 · TEWKSBURY MA COL TEWKSBURY</span><span class="amt">−$1,140.38</span></div></div></details><details class="catg"><summary><span class="catg-icon">✈️</span>Rafael's drive home from Destin<span class="catg-amt">−$429.06</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Wed 8/26 · CAMPING WORLD HOPE MILLS NC 0126</span><span class="amt">−$303.23</span></div><div class="item-row"><span class="desc">Thu 8/27 · OLIVE GARDEN 0 COLUMBIA MD 0126</span><span class="amt">−$61.96</span></div><div class="item-row"><span class="desc">Wed 8/26 · CRACKER BARREL WALTERBORO SC 0126</span><span class="amt">−$42.68</span></div><div class="item-row"><span class="desc">Wed 8/26 · LOVE'S #0317 I SKIPPERS VA 0126</span><span class="amt">−$10.93</span></div><div class="item-row"><span class="desc">Wed 8/26 · DB AND S LUMBE ROSLINDALE MA 0126</span><span class="amt">−$10.26</span></div></div></details><details class="catg"><summary><span class="catg-icon">📞</span>Phone · AT&T<span class="catg-amt">−$438.03</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Tue 8/25 · ATT PAYMENT</span><span class="amt">−$438.03</span></div></div></details><details class="catg"><summary><span class="catg-icon">🚚</span>M&T trailer loan · check #827<span class="catg-amt">−$355.38</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Thu 8/27 · check #827 · M&amp;T trailer loan</span><span class="amt">−$355.38</span></div></div></details>
+
+  <div class="info-note">A positive week: <strong>+$3,271.77</strong>. Both deposits are the whole story
+  on the way in — <strong>Andersen $26,643.03</strong> today and a
+  <strong>BuilderTrend payout of $11,527.07</strong> on Wednesday. On the way out, the two biggest
+  single items were not payroll: <strong>LA Tiles &amp; Marble $7,486.72</strong> in materials and the
+  <strong>Tewksbury quarterly property tax $1,140.38</strong>. Crew checks cleared
+  $19,105.67 and sub checks $2,600.00. Rafael's drive home from Destin added
+  $418.80 across four card stops Aug 26–27, which closes the trip.</div>
+
+  <div class="section-title"><span class="icon">📉</span>Cash path · today through Sep 4</div>
+  <div class="catg-body">
+    <svg class="cashchart" viewBox="0 0 680 285" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Cash path August 28 through September 4: starts at 82,299 dollars, low point 44,676 dollars on September 3, which is 29,676 dollars above the 15,000 dollar floor, closing at 62,676 dollars"><rect x="44" y="16" width="624" height="193.3" fill="#3b8268" opacity="0.06"/><rect x="44" y="209.3" width="624" height="38.7" fill="#b8443c" opacity="0.09"/><line class="grid" x1="44" y1="248.0" x2="668" y2="248.0"/><text class="axislbl" x="38" y="251.3" text-anchor="end">$0K</text><line class="grid" x1="44" y1="196.4" x2="668" y2="196.4"/><text class="axislbl" x="38" y="199.7" text-anchor="end">$20K</text><line class="grid" x1="44" y1="144.9" x2="668" y2="144.9"/><text class="axislbl" x="38" y="148.2" text-anchor="end">$40K</text><line class="grid" x1="44" y1="93.3" x2="668" y2="93.3"/><text class="axislbl" x="38" y="96.6" text-anchor="end">$60K</text><line class="grid" x1="44" y1="41.8" x2="668" y2="41.8"/><text class="axislbl" x="38" y="45.1" text-anchor="end">$80K</text><line class="grid" x1="44" y1="209.3" x2="668" y2="209.3" stroke="#c8841d" stroke-dasharray="4 3"/><text class="floorlbl" x="48" y="204.3">$15,000 floor</text><polyline points="44.0,35.9 168.8,47.1 293.6,111.4 418.4,111.4 543.2,132.8 668.0,86.4" fill="none" stroke="#3b8268" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="44.0" cy="35.9" r="3.5" fill="#3b8268"/><text class="ptlbl" x="44.0" y="26.9" text-anchor="start">$82.3K</text><text class="axislbl" x="44.0" y="264" text-anchor="middle">8/28</text><circle cx="168.8" cy="47.1" r="2.2" fill="#3b8268"/><text class="ptlbl" x="168.8" y="38.1" text-anchor="middle">$77.9K</text><text class="axislbl" x="168.8" y="264" text-anchor="middle">8/31</text><circle cx="293.6" cy="111.4" r="2.2" fill="#3b8268"/><text class="ptlbl" x="293.6" y="102.4" text-anchor="middle">$53.0K</text><text class="axislbl" x="293.6" y="264" text-anchor="middle">9/1</text><circle cx="418.4" cy="111.4" r="2.2" fill="#3b8268"/><text class="ptlbl" x="418.4" y="102.4" text-anchor="middle">$53.0K</text><text class="axislbl" x="418.4" y="264" text-anchor="middle">9/2</text><circle cx="543.2" cy="132.8" r="3.5" fill="#b8443c"/><text class="ptlbl" x="543.2" y="123.8" text-anchor="middle">$44.7K</text><text class="axislbl" x="543.2" y="264" text-anchor="middle">9/3</text><circle cx="668.0" cy="86.4" r="3.5" fill="#3b8268"/><text class="ptlbl" x="668.0" y="77.4" text-anchor="end">$62.7K</text><text class="axislbl" x="668.0" y="264" text-anchor="middle">9/4</text></svg>
+    <div class="desc">Checking is at <strong>$82,299.33</strong> today — the high point, and much of it is
+    already committed. The path steps down through Tuesday's payroll to a low of <strong>$44,676.41</strong>
+    on Thursday Sep 3, then Andersen lands on Friday and the week closes near <strong>$62,676.41</strong>.
+    <strong>No day goes below the $15,000.00 floor</strong>, with <strong>$29,676.41</strong> of room at
+    the bottom — the most comfortable week in a while.</div>
+    <div class="subnote">Built from today's reconciled cash less every obligation not yet paid. Today's
+    balance <strong>already contains the $26,643.03 Andersen deposit</strong>, so it is not added
+    again. Next Friday's Andersen is modelled at your <strong>$18,000.00 floor</strong>, not at today's
+    actual. Payroll is an estimate at $18,692.74, the average of the last four runs
+    ($15,703.24 / $19,251.44 / $20,625.85 / $19,190.42); at the
+    highest of those four the week would close at $60,743.30 instead. The <strong>$1,500.00 Friday
+    transfer is not in this path</strong> — you stopped it on Aug 24; it goes back in the moment you say
+    it resumes. No Capital One paydown is modelled either, because you pay a variable amount by hand.</div>
+  </div>
+
+  <div class="week-summary">
+    <div><div class="lbl">Checking today</div><div class="val in">$82.3K</div><div class="sub">reconciled Friday</div></div>
+    <div><div class="lbl">Net this week</div><div class="val in">+$3.3K</div><div class="sub">in minus out</div></div>
+    <div><div class="lbl">Low point (Sep 3)</div><div class="val net">$44.7K</div><div class="sub">$29,676.41 over floor</div></div>
+  </div>
+
+  <div class="section-title"><span class="icon">📋</span>Receivables — what's coming next week</div>
+
+  <div class="group-head">🟢 Collected this week — every dollar of the BuilderTrend payout</div>
+  <ul class="proj-list">
+    <li><span class="dot green"></span><span class="proj-name"><strong>Progress Invoice</strong> — 70 Robin, invoice 0004</span><span class="proj-status"><span class="key">$9,257.74</span> · <span class="badge cleared" style="margin-left:6px">paid Aug 24</span></span></li><li><span class="dot green"></span><span class="proj-name"><strong>Sunroom Ceiling Repair</strong> — 70 Robin, invoice 0005</span><span class="proj-status"><span class="key">$1,722.06</span> · <span class="badge cleared" style="margin-left:6px">paid Aug 24</span></span></li><li><span class="dot green"></span><span class="proj-name"><strong>Reinforcement Floor Joists</strong> — 70 Robin, invoice 0006</span><span class="proj-status"><span class="key">$547.27</span> · <span class="badge cleared" style="margin-left:6px">paid Aug 24</span></span></li>
+    <li class="proj-total"><span>BuilderTrend payout, landed Wed Aug 26</span><span>$11,527.07</span></li>
+  </ul>
+  <div class="info-note"><strong>The whole $11,527.07 is 70 Robin, and it is three invoices, not
+  one.</strong> Bob created and paid all three on <strong>Aug 24</strong> — the <strong>Progress
+  Invoice</strong> 0004 at $9,257.74, plus two change orders: <strong>Sunroom Ceiling Repair</strong>
+  0005 at $1,722.06 and <strong>Reinforcement Floor Joists</strong> 0006 at $547.27. BuilderTrend
+  passed it through as a single deposit two days later, which is why the bank shows one round number.
+  <br><br>Two things worth knowing, because <strong>last Friday's report said otherwise</strong>. Invoice
+  0004 is the one revised down to $9,257.74 on Aug 20 and reported to you as sent-but-unpaid —
+  <strong>it is now collected</strong>. And Reinforcement Floor Joists was reported as
+  <strong>"recalled and excluded"</strong> — it was not: it came back as invoice 0006 and Bob paid it.
+  No other client paid through BuilderTrend this week.</div>
+
+  <ul class="proj-list">
+    <li><span class="dot green"></span><span class="proj-name">Andersen — RBA weekly deposit</span><span class="proj-status"><span class="key">$26,643.03</span> · <span class="badge cleared" style="margin-left:6px">landed today</span></span></li>
+    <li class="proj-total"><span>Total money in this week</span><span>$38,170.10</span></li>
+  </ul>
+
+  <div class="group-head">🟢 In next week's path — client has already paid</div>
+  <ul class="proj-list">
+    <li><span class="dot green"></span><span class="proj-name">104 Child — Teresa Spillane, inv 0026 <em>(Doors &amp; Windows)</em></span><span class="proj-status"><span class="key">$3,483.83</span> · <span class="badge pending" style="margin-left:6px">modelled Mon Aug 31</span></span></li>
+  </ul>
+  <div class="info-note">Tess has already paid this one and BuilderTrend is processing it. The only open
+  question is which day it lands: BuilderTrend stated <strong>Aug 29</strong>, which is a Saturday, so it
+  is modelled on <strong>Monday Aug 31</strong>. It is the only receivable in next week's path — nothing
+  else is counted until it is invoiced and paid.</div>
+
+  <div class="section-title"><span class="icon">🧾</span>Payables &amp; the check schedule</div>
+
+  <div class="group-head">Written but not yet cashed</div>
+  <div class="subs-table"><table>
+    <tr><th>#</th><th>Payee</th><th class="amt">Amount</th><th>Where it is</th></tr>
+    <tr><td>3905</td><td>Luiz Henrique de Assis</td><td class="amt">$1,948.80</td><td><span class="badge pending">with the crew</span></td></tr><tr><td>3901</td><td>Antonio Augusto Tuler</td><td class="amt">$1,330.18</td><td><span class="badge pending">with the crew</span></td></tr><tr><td>3903</td><td>Gerson da Silva Junior</td><td class="amt">$1,318.20</td><td><span class="badge pending">with the crew</span></td></tr><tr><td>3908</td><td>Wilson Da Silva</td><td class="amt">$1,229.97</td><td><span class="badge pending">with the crew</span></td></tr><tr><td>3907</td><td>Samuel Valadares</td><td class="amt">$1,136.82</td><td><span class="badge pending">with the crew</span></td></tr><tr><td>3893</td><td>Saba HVAC</td><td class="amt">$888.00</td><td><span class="badge pending">printed, with the sub</span></td></tr><tr><td>3775</td><td>Jaar Realty Trust</td><td class="amt">$745.00</td><td><span class="badge mailed">in the mail since Jul 2</span></td></tr><tr><td>3780</td><td>Jaar Realty Trust</td><td class="amt">$745.00</td><td><span class="badge mailed">in the mail since Jul 2</span></td></tr><tr><td>3897</td><td>Jaar Realty</td><td class="amt">$745.00</td><td><span class="badge pending">printed, September rent</span></td></tr>
+  </table></div>
+  <ul class="proj-list">
+    <li class="proj-total"><span>Total written, not yet out of the account</span><span>$10,086.97</span></li>
+  </ul>
+  <div class="info-note">All nine are landed inside next week's path, which is the cautious way round —
+  two of them, the <strong>June and July Jaar Realty rent checks</strong>, have been in the mail since
+  Jul 2 and may sit longer still. <strong>September's rent, check #3897, is in this list too</strong>, so
+  the rent that shows on Tuesday is that check clearing, not a second payment.</div>
+
+  <div class="group-head">Checks to write next week</div>
+  <ul class="proj-list">
+    <li><span class="dot amber"></span><span class="proj-name">Payroll, week of Aug 29 — about 13 checks</span><span class="proj-status"><span class="key">$18,692.74</span> · <span class="badge partial" style="margin-left:6px">estimate</span></span></li>
+  </ul>
+  <div class="info-note">Next week's hours are not in yet, so this is the <strong>average of the last four
+  runs</strong>, not a commitment. Those four came in at $15,703.24, $19,251.44,
+  $20,625.85 and $19,190.42. If next week matches the highest of them, the close is
+  $60,743.30 rather than $62,676.41 — a $1,933.11 swing, and still far clear of the floor.</div>
+
+  <div class="section-title"><span class="icon">📅</span>Next week — daily flow</div>
+  <div class="catg-body">
+    <details class="catg dayrow" open><summary><span class="day-prefix">MON 8/31</span><span class="day-flow out">−$4,368.14 · EOD $77,931.19</span></summary><div class="catg-body"><div class="desc"><strong>104 Child</strong> +$3,483.83 — Tess's invoice 0026, already paid; BuilderTrend said Aug 29, which is a Saturday, so it lands Monday. Out: the <strong>five crew checks</strong> from the Aug 26 run, $6,963.97, plus <strong>Saba HVAC #3893</strong> −$888.00 for 51 Cedar.</div></div></details><details class="catg dayrow" open><summary><span class="day-prefix">TUE 9/1</span><span class="day-flow out">−$24,940.78 · EOD $52,990.41</span></summary><div class="catg-body"><div class="desc">The heavy day. <strong>Payroll</strong> −$18,692.74 for the week of Aug 29 · <strong>Chase mortgage</strong> −$5,503.04 · <strong>September office rent</strong> −$745.00, which is check <strong>#3897</strong> already printed — not a second rent payment on top of it.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix">WED 9/2</span><span class="day-flow out">−$0.00 · EOD $52,990.41</span></summary><div class="catg-body"><div class="desc">Nothing scheduled.</div></div></details><details class="catg dayrow trough" open><summary><span class="day-prefix">THU 9/3</span><span class="day-flow out">−$8,314.00 · EOD $44,676.41</span></summary><div class="catg-body"><div class="desc"><strong>The low point, $44,676.41</strong> — $29,676.41 clear of the $15,000.00 floor. <strong>BofA mortgage</strong> −$4,288.68 · <strong>BILO payroll taxes</strong> −$2,535.32 (bi-weekly, and Aug 6 + Aug 20 make Sep 3 the next one) · the two <strong>Jaar Realty rent checks</strong> −$1,490.00 from July, still uncashed.</div></div></details><details class="catg dayrow" open><summary><span class="day-prefix">FRI 9/4</span><span class="day-flow in">+$18,000.00 · EOD $62,676.41</span></summary><div class="catg-body"><div class="desc"><strong>Andersen</strong> +$18,000.00, modelled at your floor rather than at today's actual $26,643.03. Week closes near $62,676.41.</div></div></details>
+  </div>
+  <div class="week-summary">
+    <div><div class="lbl">Start (Fri 8/28)</div><div class="val in">$82.3K</div><div class="sub">reconciled today</div></div>
+    <div><div class="lbl">Low (Thu 9/3)</div><div class="val net">$44.7K</div><div class="sub">$29,676.41 over floor</div></div>
+    <div><div class="lbl">End (Fri 9/4)</div><div class="val in">$62.7K</div><div class="sub">net −$19.6K</div></div>
+  </div>
+  <div class="info-note">Next week starts at <strong>$82,299.33</strong> and ends near
+  <strong>$62,676.41</strong>. The squeeze is <strong>Tuesday Sep 1</strong>, when payroll, the Chase
+  mortgage and September rent all go out together — $24,940.78 in one day. The bottom is
+  <strong>Thursday Sep 3</strong> at $44,676.41, the day before Andersen lands, and it is
+  <strong>$29,676.41 clear of the $15,000.00 floor</strong> — the most comfortable week in a while,
+  and that is before anything new is invoiced.</div>
+
+  <div class="section-title"><span class="icon">🚚</span>One small thing</div>
+  <div class="info-note">Check <strong>#827 for $355.38</strong> cleared Thursday — that is the
+  <strong>M&amp;T trailer loan</strong>. It is paid from a different check book, which is why it does not
+  sit in the payroll register with the 3900-series checks, and it varies month to month rather than
+  landing on a fixed amount. Every other check that cleared this week resolves to a crew member or a
+  sub.</div>
+
+  <div class="footer">Built Aug 28, 2026 at 3:01 PM from the
+  reconciled Citizens export of Aug 28 and the committed derivation in
+  <code>scripts/weekly_path_2026-08-28.py</code>. Every figure re-derived, none carried.</div>
+</div>
