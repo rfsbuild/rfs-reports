@@ -1,3 +1,12 @@
 # Working backups of published reports — drafts only, never publish.
 # These hold pre-revision content that was deliberately removed.
 *.bak*
+
+# 🔴 HER PRIVATE DECISION PAGES — never publish. Added 2026-09-21.
+# This repo is PUBLIC (github.com/rfsbuild/rfs-reports, served over GitHub Pages),
+# so anything committed here is world-readable. `2026-09-21_decisions.html` is a
+# page written FOR HER: it carries the cash trough, bank figures, client names and
+# the full 212-card PM audit summary. It sat untracked-but-not-ignored, one
+# `git add -A` from publication — the same shape as the 2026-09-17 finding on
+# rfs_pm's `*.bak-*` server snapshots. Untracked is not a control; ignored is.
+*_decisions.html
