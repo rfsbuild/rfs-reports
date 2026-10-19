@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rafael — Trip Spending, October</title>
+<style>
+:root{--brand:#7b68ee;--brand-deep:#5a48d0;--brand-soft:#efecfe;--paper:#f5f6fb;
+--card:#fff;--rule:#e9ebf2;--ink:#1c2130;--body:#495061;--muted:#6b7385;--faint:#98a0b3;
+--ok:#2fa36b;--ok-bg:#e6f5ee;--warn:#c07d10;--warn-bg:#fbf1dc;--c1:#0fa3a3;--c2:#dd8a1c}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);overflow-x:hidden;
+font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+-webkit-font-smoothing:antialiased;padding:0 0 56px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+[data-lang="en"] .pt{display:none}
+[data-lang="pt"] .en{display:none}
+
+header.rpt{padding:20px 0 12px;border-bottom:1px solid var(--rule);margin-bottom:4px;
+display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+header.rpt h1{margin:0;font-size:24px;line-height:1.2;letter-spacing:-.02em}
+header.rpt .sub{color:var(--muted);font-size:14px;margin-top:5px}
+.phase{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;
+letter-spacing:.06em;background:var(--brand-soft);color:var(--brand-deep);white-space:nowrap}
+.langbtn{flex:none;border:1px solid var(--rule);background:var(--card);border-radius:20px;
+padding:6px 4px;display:flex;gap:2px;font:inherit}
+.langbtn button{border:0;background:transparent;font:600 12px/1 inherit;letter-spacing:.06em;
+padding:0 14px;min-height:40px;min-width:48px;display:flex;align-items:center;justify-content:center;
+border-radius:16px;cursor:pointer;color:var(--muted);-webkit-tap-highlight-color:transparent}
+[data-lang="en"] .langbtn button[data-l="en"],
+[data-lang="pt"] .langbtn button[data-l="pt"]{background:var(--brand-soft);color:var(--brand-deep)}
+
+h2{margin:30px 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--brand-deep)}
+h2 .h2sub{display:block;text-transform:none;letter-spacing:0;font-size:13.5px;
+color:var(--muted);font-weight:400;margin-top:5px;line-height:1.5}
+.rule{height:2px;background:var(--brand);opacity:.22;margin:8px 0 14px}
+
+.two{display:grid;grid-template-columns:1fr;gap:12px;margin:16px 0}
+.meter{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:15px 16px}
+.meter .k{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700}
+.meter .v{font-size:30px;font-weight:750;letter-spacing:-.025em;font-variant-numeric:tabular-nums;
+margin-top:3px;line-height:1.15}
+.meter .s{font-size:13px;color:var(--muted);margin-top:6px}
+.meter .basis{font-size:12.5px;color:var(--body);margin-top:8px;padding-top:8px;
+border-top:1px dashed var(--rule);line-height:1.55}
+.bar{height:14px;border-radius:7px;background:#eef0f6;margin:12px 0 7px;position:relative;overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.bar .lim{position:absolute;top:0;bottom:0;width:2px;background:var(--ink);opacity:.65}
+.barkey{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.barkey span{display:flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block;flex:none}
+
+details.cat{background:var(--card);border:1px solid var(--rule);border-radius:12px;margin-bottom:10px;overflow:hidden}
+details.cat>summary{display:flex;gap:10px;align-items:center;cursor:pointer;padding:14px;min-height:56px;
+list-style:none;font-size:15px;flex-wrap:wrap}
+details.cat>summary::-webkit-details-marker{display:none}
+details.cat>summary:focus-visible{outline:2px solid var(--brand);outline-offset:-3px}
+details.cat .nm{font-weight:650;flex:1 1 auto;min-width:120px}
+details.cat .amt{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+details.cat .open{flex:1 0 100%;font-size:12.5px;color:var(--brand-deep);font-weight:650}
+details.cat .open .hide{display:none}
+details.cat[open] .open .show{display:none}
+details.cat[open] .open .hide{display:inline}
+.tblwrap{border-top:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);white-space:nowrap;font-weight:700}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+td.d{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--muted);font-size:13px;width:1%}
+td .card{display:block;font-size:12px;color:var(--faint);margin-top:2px}
+td .note{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.03em;color:var(--brand-deep);
+background:var(--brand-soft);border-radius:20px;padding:1px 7px;margin-left:4px;white-space:nowrap;vertical-align:1px}
+.pend{display:inline-block;font-size:11px;font-weight:700;color:var(--warn);background:var(--warn-bg);
+border-radius:20px;padding:1px 8px}
+tfoot td{border-top:2px solid var(--rule);border-bottom:none;font-weight:700;color:var(--ink);background:#fafbfe}
+
+.grand{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;margin:14px 0;
+display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.grand .l{font-weight:650}
+.grand .l small{display:block;font-weight:400;font-size:12.5px;color:var(--muted)}
+.grand .v{font-size:22px;font-weight:750;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.callout{border-radius:10px;padding:12px 14px;font-size:14px;margin:14px 0;color:var(--body);line-height:1.55}
+.callout.ok{background:var(--ok-bg)}
+.callout b{color:var(--ink)}
+ul.notes{margin:8px 0 0;padding-left:18px;color:var(--body);font-size:13.5px;line-height:1.6}
+ul.notes li{margin-bottom:4px}
+footer{margin-top:30px;padding-top:14px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--faint);line-height:1.6}
+
+@media (min-width:640px){
+  .two{grid-template-columns:1fr 1fr}
+  header.rpt h1{font-size:28px}
+  .wrap{padding:0 22px}
+  details.cat .open{flex:0 0 auto}
+}
+@media print{
+  body{background:#fff;padding-bottom:0}
+  .langbtn{display:none}
+  details.cat,.meter{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="rpt">
+  <div>
+    <h1><span class="en">Your trip spending</span><span class="pt">Seus gastos na viagem</span></h1>
+    <div class="sub"><span class="en">Oct 10 &ndash; Oct 18, 2026</span><span class="pt">10 a 18 de outubro de 2026</span> &middot; <span class="en">9 days</span><span class="pt">9 dias</span> &nbsp;
+      <span class="phase"><span class="en">TRIP COMPLETE</span><span class="pt">VIAGEM ENCERRADA</span></span></div>
+    <div class="sub"><span class="en">Every charge from the trip, line by line, so you can check them.</span><span class="pt">Todas as compras da viagem, linha por linha, para você conferir.</span></div>
+  </div>
+  <div class="langbtn">
+    <button data-l="en" onclick="setLang('en')">EN</button>
+    <button data-l="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</header>
+
+<div class="two">
+  <div class="meter">
+    <div class="k"><span class="en">Spent on the trip</span><span class="pt">Gasto na viagem</span></div>
+    <div class="v">$2,182.03</div>
+    <div class="s"><span class="en">26 charges on 2 accounts</span><span class="pt">26 compras em 2 contas</span></div>
+    <div class="bar"><i style="width:70.8%;background:var(--c1)"></i><i style="width:29.2%;background:var(--c2)"></i></div>
+    <div class="barkey">
+      <span><i class="dot" style="background:var(--c1)"></i><span class="en">Citizens debit</span><span class="pt">Citizens débito</span> $1,545.57</span>
+      <span><i class="dot" style="background:var(--c2)"></i>Capital One 5805 $636.46</span>
+    </div>
+    <div class="basis"><span class="en">Debit-card charges on the Citizens checking account plus everything on your Capital One card ending 5805, Oct 10&ndash;18. Natalia&rsquo;s cards had no charges in these dates.</span><span class="pt">Compras no cartão de débito da conta Citizens, mais tudo no seu cartão Capital One final 5805, de 10 a 18/10. Os cartões da Natalia não tiveram compras nessas datas.</span></div>
+  </div>
+
+  <div class="meter">
+    <div class="k"><span class="en">Against your estimate</span><span class="pt">Comparado à sua estimativa</span></div>
+    <div class="v">$182.03 <span style="font-size:15px;font-weight:600;color:var(--muted);letter-spacing:0"><span class="en">over</span><span class="pt">acima</span></span></div>
+    <div class="s"><span class="en">$2,182.03 spent &middot; you estimated $2,000.00</span><span class="pt">$2,182.03 gastos &middot; sua estimativa era $2,000.00</span></div>
+    <div class="bar"><i style="width:100%;background:var(--brand)"></i><span class="lim" style="left:91.7%"></span></div>
+    <div class="barkey">
+      <span><i class="dot" style="background:var(--brand)"></i><span class="en">spent</span><span class="pt">gasto</span> $2,182.03</span>
+      <span><i class="dot" style="background:var(--ink);width:2px"></i><span class="en">estimate</span><span class="pt">estimativa</span> $2,000.00</span>
+    </div>
+  </div>
+</div>
+
+<h2><span class="en">Every charge</span><span class="pt">Todas as compras</span>
+  <span class="h2sub"><span class="en">Tap an account to hide or show its charges.</span><span class="pt">Toque numa conta para esconder ou mostrar as compras.</span></span></h2>
+<div class="rule"></div>
+
+<details class="cat" open><summary><span class="dot" style="background:var(--c1)"></span><span class="nm"><span class="en">Citizens checking &middot; debit card</span><span class="pt">Conta Citizens &middot; cartão de débito</span></span><span class="amt">$1,545.57</span><span class="open"><span class="show"><span class="en">Show the 21 charges</span><span class="pt">Mostrar as 21 compras</span></span><span class="hide"><span class="en">Hide</span><span class="pt">Esconder</span></span></span></summary>
+<div class="tblwrap"><table>
+<thead><tr><th><span class="en">Date</span><span class="pt">Data</span></th><th><span class="en">Merchant</span><span class="pt">Estabelecimento</span></th><th class="n"><span class="en">Amount</span><span class="pt">Valor</span></th></tr></thead>
+<tbody><tr><td class="d"><span class="en">Oct 13</span><span class="pt">13 out</span></td><td>Valvoline Instant Oil Change · Lowell, MA<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$165.08</td></tr><tr><td class="d"><span class="en">Oct 13</span><span class="pt">13 out</span></td><td>Wawa · Stafford, VA<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$118.62</td></tr><tr><td class="d"><span class="en">Oct 13</span><span class="pt">13 out</span></td><td>Cumberland Farms · Tewksbury, MA<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$91.43</td></tr><tr><td class="d"><span class="en">Oct 13</span><span class="pt">13 out</span></td><td>Buc-ee&#x27;s · Florence, SC<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$78.20</td></tr><tr><td class="d"><span class="en">Oct 13</span><span class="pt">13 out</span></td><td>Walmart Supercenter · Tewksbury, MA<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$78.05</td></tr><tr><td class="d"><span class="en">Oct 13</span><span class="pt">13 out</span></td><td>Bluewater #9 · Hardeeville, SC<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$40.86</td></tr><tr><td class="d"><span class="en">Oct 13</span><span class="pt">13 out</span></td><td>The Home Depot · Tewksbury, MA<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$3.43</td></tr><tr><td class="d"><span class="en">Oct 14</span><span class="pt">14 out</span></td><td>Walmart #0817 · Kissimmee, FL<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$122.54</td></tr><tr><td class="d"><span class="en">Oct 14</span><span class="pt">14 out</span></td><td>The Home Depot · Poinciana, FL<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$14.28</td></tr><tr><td class="d"><span class="en">Oct 16</span><span class="pt">16 out</span></td><td>Wawa #5299 · Davenport, FL<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$14.30</td></tr><tr><td class="d"><span class="en">Oct 19</span><span class="pt">19 out</span></td><td><span class="en">Debit card purchase</span><span class="pt">Compra no débito</span><span class="note"><span class="en">the bank shows no store name</span><span class="pt">o banco não mostra o nome da loja</span></span><span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$125.00</td></tr><tr><td class="d"><span class="en">Oct 19</span><span class="pt">19 out</span></td><td><span class="en">Debit card purchase</span><span class="pt">Compra no débito</span><span class="note"><span class="en">the bank shows no store name</span><span class="pt">o banco não mostra o nome da loja</span></span><span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$93.11</td></tr><tr><td class="d"><span class="en">Oct 19</span><span class="pt">19 out</span></td><td><span class="en">Debit card purchase</span><span class="pt">Compra no débito</span><span class="note"><span class="en">the bank shows no store name</span><span class="pt">o banco não mostra o nome da loja</span></span><span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$45.78</td></tr><tr><td class="d"><span class="en">Oct 19</span><span class="pt">19 out</span></td><td><span class="en">Debit card purchase</span><span class="pt">Compra no débito</span><span class="note"><span class="en">the bank shows no store name</span><span class="pt">o banco não mostra o nome da loja</span></span><span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$33.98</td></tr><tr><td class="d"><span class="en">Oct 19</span><span class="pt">19 out</span></td><td><span class="en">Debit card purchase</span><span class="pt">Compra no débito</span><span class="note"><span class="en">the bank shows no store name</span><span class="pt">o banco não mostra o nome da loja</span></span><span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$1.46</td></tr><tr><td class="d"><span class="pend"><span class="en">Pending</span><span class="pt">Pendente</span></span></td><td>LongHorn Steak<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$190.63</td></tr><tr><td class="d"><span class="pend"><span class="en">Pending</span><span class="pt">Pendente</span></span></td><td>Buc-ee&#x27;s #0053<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$126.40</td></tr><tr><td class="d"><span class="pend"><span class="en">Pending</span><span class="pt">Pendente</span></span></td><td>Sleep Inn<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$100.16</td></tr><tr><td class="d"><span class="pend"><span class="en">Pending</span><span class="pt">Pendente</span></span></td><td>Sunoco<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$76.26</td></tr><tr><td class="d"><span class="pend"><span class="en">Pending</span><span class="pt">Pendente</span></span></td><td>Starbucks<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$25.00</td></tr><tr><td class="d"><span class="pend"><span class="en">Pending</span><span class="pt">Pendente</span></span></td><td>Sleep Inn<span class="card"><span class="en">Citizens debit</span><span class="pt">Citizens débito</span></span></td><td class="n">$1.00</td></tr></tbody>
+<tfoot><tr><td colspan="2"><span class="en">Total &middot; 21 charges</span><span class="pt">Total &middot; 21 compras</span></td><td class="n">$1,545.57</td></tr></tfoot>
+</table></div></details>
+<details class="cat" open><summary><span class="dot" style="background:var(--c2)"></span><span class="nm"><span class="en">Capital One card ending 5805</span><span class="pt">Cartão Capital One final 5805</span></span><span class="amt">$636.46</span><span class="open"><span class="show"><span class="en">Show the 5 charges</span><span class="pt">Mostrar as 5 compras</span></span><span class="hide"><span class="en">Hide</span><span class="pt">Esconder</span></span></span></summary>
+<div class="tblwrap"><table>
+<thead><tr><th><span class="en">Date</span><span class="pt">Data</span></th><th><span class="en">Merchant</span><span class="pt">Estabelecimento</span></th><th class="n"><span class="en">Amount</span><span class="pt">Valor</span></th></tr></thead>
+<tbody><tr><td class="d"><span class="en">Oct 10</span><span class="pt">10 out</span></td><td>Cumberland Farms #6759<span class="card"><span class="en">Capital One 5805</span><span class="pt">Capital One 5805</span></span></td><td class="n">$115.81</td></tr><tr><td class="d"><span class="en">Oct 15</span><span class="pt">15 out</span></td><td>Wawa #5299 · Davenport, FL<span class="card"><span class="en">Capital One 5805</span><span class="pt">Capital One 5805</span></span></td><td class="n">$96.97</td></tr><tr><td class="d"><span class="en">Oct 16</span><span class="pt">16 out</span></td><td>HOB Club · Orlando<span class="card"><span class="en">Capital One 5805</span><span class="pt">Capital One 5805</span></span></td><td class="n">$240.68</td></tr><tr><td class="d"><span class="en">Oct 17</span><span class="pt">17 out</span></td><td>CSC ServiceWorks<span class="card"><span class="en">Capital One 5805</span><span class="pt">Capital One 5805</span></span></td><td class="n">$3.00</td></tr><tr><td class="d"><span class="en">Oct 18</span><span class="pt">18 out</span></td><td>E-ZPass MA<span class="card"><span class="en">Capital One 5805</span><span class="pt">Capital One 5805</span></span></td><td class="n">$180.00</td></tr></tbody>
+<tfoot><tr><td colspan="2"><span class="en">Total &middot; 5 charges</span><span class="pt">Total &middot; 5 compras</span></td><td class="n">$636.46</td></tr></tfoot>
+</table></div></details>
+
+<div class="grand">
+  <div class="l"><span class="en">Trip total</span><span class="pt">Total da viagem</span><small><span class="en">$1,545.57 Citizens + $636.46 Capital One</span><span class="pt">$1,545.57 Citizens + $636.46 Capital One</span></small></div>
+  <div class="v">$2,182.03</div>
+</div>
+
+<h2><span class="en">How to read this</span><span class="pt">Como ler</span></h2>
+<div class="rule"></div>
+<ul class="notes">
+  <li><span class="en">Debit-card dates are the day the charge posted at Citizens, which is often a day or two after the purchase. Card dates are the purchase date.</span><span class="pt">No débito, a data é o dia em que a compra entrou no Citizens, que costuma ser 1 ou 2 dias depois da compra. No cartão, é a data da compra.</span></li>
+  <li><span class="en"><b>Pending</b> means the charge was still on hold at Citizens on Oct 19 (6 charges, $519.45). They are counted at the amount on hold.</span><span class="pt"><b>Pendente</b> quer dizer que a compra ainda estava em espera no Citizens em 19/10 (6 compras, $519.45). Entram pelo valor em espera.</span></li>
+  <li><span class="en">Five debit purchases that posted on Oct 19 show no store name at the bank ($299.33), so they are listed by date and amount.</span><span class="pt">Cinco compras no débito que entraram em 19/10 aparecem no banco sem o nome da loja ($299.33), por isso estão listadas por data e valor.</span></li>
+  <li><span class="en">Business charges and monthly subscriptions (Apple, ChatGPT, Amazon) in the same dates were left out.</span><span class="pt">Gastos da empresa e assinaturas mensais (Apple, ChatGPT, Amazon) nas mesmas datas ficaram de fora.</span></li>
+</ul>
+
+<footer><span class="en">RFS Builders &middot; prepared Oct 19, 2026</span><span class="pt">RFS Builders &middot; preparado em 19/10/2026</span></footer>
+</div>
+<script>
+function setLang(l){
+  document.documentElement.dataset.lang=l;
+  document.documentElement.lang=(l==='pt')?'pt-BR':'en';
+  try{localStorage.setItem('rfsLang',l)}catch(e){}
+}
+try{var s=localStorage.getItem('rfsLang'); if(s==='pt'||s==='en') setLang(s);}catch(e){}
+</script>
+</body>
+</html>
