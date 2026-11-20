@@ -1,0 +1,302 @@
+<style>
+  :root{--blue:#3b6ea5;--blue-deep:#2c5683;--blue-soft:#e8eef6;--paper:#f0f4f8;--card:#fff;--ink:#1e293b;--ink-soft:#475569;--ink-muted:#94a3b8;--rule:#e2e8f0;--green:#3b8268;--amber:#c8841d;--red:#b8443c;}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--paper);color:var(--ink);padding:20px 12px;line-height:1.5;font-feature-settings:"tnum";font-variant-numeric:tabular-nums;font-size:15px;-webkit-text-size-adjust:100%}
+  .wrap{max-width:680px;margin:0 auto}
+  .header .brand{font-size:11px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.18em;font-weight:700}
+  .header h1{font-size:26px;font-weight:700;margin:4px 0 0;color:var(--blue-deep);letter-spacing:-0.02em}
+  .header .week{font-size:14px;color:var(--ink-soft);margin-top:2px}
+  .narrative{background:var(--blue-soft);border-left:4px solid var(--blue);padding:14px 16px;border-radius:10px;font-size:15px;font-weight:500;margin:22px 0 24px;line-height:1.55}
+  .narrative strong{color:var(--blue-deep)}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
+  .card{background:var(--card);border-radius:12px;padding:14px 14px;box-shadow:0 1px 3px rgba(30,41,59,.06)}
+  .card-label{font-size:10px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.1em;font-weight:700}
+  .card-value{font-size:24px;font-weight:700;color:var(--ink);margin-top:4px;letter-spacing:-0.02em;line-height:1.1}
+  .card-sub{font-size:11px;color:var(--ink-soft);margin-top:3px;font-weight:500;line-height:1.35}
+  .delta-up{color:var(--green);font-weight:700}.delta-down{color:var(--red);font-weight:700}
+  .section-title{font-size:14px;color:var(--ink);font-weight:700;margin:28px 0 10px;padding:0 2px}
+  .section-title .icon{margin-right:6px}
+  .chart-wrap{background:var(--card);border-radius:12px;padding:10px;box-shadow:0 1px 3px rgba(30,41,59,.06)}
+  .chart-wrap img{width:100%;height:auto;display:block;border-radius:8px}
+  .chart-legend{font-size:10.5px;color:var(--ink-muted);margin-top:8px;padding:0 4px;line-height:1.7}
+  .chart-legend span{display:inline-block;margin-right:12px}
+  .legend-dot{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:4px}
+  .twocol{display:grid;grid-template-columns:1fr;gap:10px}
+  .col{background:var(--card);border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(30,41,59,.06)}
+  .col-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px}
+  .col-title.in{color:var(--green)}.col-title.out{color:var(--amber)}
+  .col-total{font-size:20px;font-weight:700;margin-bottom:8px;color:var(--ink)}
+  .item-row{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;padding:5px 0;border-top:1px solid var(--rule);gap:12px}
+  .item-row:first-of-type{border-top:none}
+  .item-row .amt{font-weight:600;color:var(--ink);white-space:nowrap}
+  .item-row .desc{color:var(--ink-soft)}
+  .subs-table{background:var(--card);border-radius:12px;padding:4px;box-shadow:0 1px 3px rgba(30,41,59,.06);overflow-x:auto}
+  .subs-table table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .subs-table th{text-align:left;font-weight:600;color:var(--ink-muted);padding:9px 10px;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--rule)}
+  .subs-table td{padding:9px 10px;border-bottom:1px solid var(--rule);color:var(--ink)}
+  .subs-table tr:last-child td{border-bottom:none}
+  .subs-table .amt{text-align:right;font-weight:600;white-space:nowrap}
+  .badge{display:inline-block;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap}
+  .badge.printed{background:#dbeafe;color:#1e40af}
+  .badge.mailed{background:#ede9fe;color:#6b21a8}
+  .badge.delivered{background:#fef3c7;color:#92400e}
+  .badge.cleared{background:#d1fae5;color:#065f46}
+  .badge.pending{background:#fee2e2;color:#991b1b}
+  .badge.partial{background:#fed7aa;color:#9a3412}
+  .badge.confirmed{background:#dcfce7;color:#166534}
+  .proj-list,.todo-list,.dayplan{background:var(--card);border-radius:12px;padding:2px 0;box-shadow:0 1px 3px rgba(30,41,59,.06);list-style:none;margin:0}
+  .proj-list li{padding:11px 14px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:10px}
+  .proj-list li:last-child{border-bottom:none}
+  .proj-total{padding:11px 14px;background:#f8fafc;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;color:var(--ink);border-radius:0 0 12px 12px}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .dot.red{background:var(--red)}.dot.amber{background:var(--amber)}.dot.green{background:var(--green)}.dot.gray{background:var(--ink-muted)}
+  .proj-name{flex:1;font-size:13.5px;color:var(--ink);font-weight:500}
+  .proj-status{font-size:11.5px;color:var(--ink-soft);text-align:right;white-space:nowrap}
+  .proj-status .key{font-weight:600;color:var(--ink)}
+  .info-note{font-size:11.5px;color:var(--ink-muted);font-style:italic;padding:8px 14px 12px;line-height:1.4}
+  .todo-list li{padding:11px 14px;border-bottom:1px solid var(--rule);font-size:13.5px;color:var(--ink);line-height:1.45}
+  .todo-list li:last-child{border-bottom:none}
+  .todo-list li::before{content:"\2610 ";margin-right:6px;color:var(--ink-muted);font-weight:600}
+  .dayplan li{padding:11px 14px;border-bottom:1px solid var(--rule);display:flex;gap:14px;font-size:13px;align-items:flex-start;line-height:1.45}
+  .dayplan li:last-child{border-bottom:none}
+  .dayplan .day{font-weight:700;color:var(--blue-deep);width:48px;flex-shrink:0;font-size:12px;letter-spacing:0.04em}
+  .dayplan .day.warn{color:var(--red)}
+  .dayplan .body{flex:1}
+  .dayplan .flow{font-weight:700;font-size:12.5px;margin-bottom:2px}
+  .dayplan .flow.out{color:var(--red)}
+  .dayplan .flow.in{color:var(--green)}
+  .dayplan .flow.mixed{color:var(--ink)}
+  .dayplan .desc{color:var(--ink-soft);font-size:12.5px}
+  .week-summary{background:#1e293b;color:#f8fafc;border-radius:12px;padding:14px 16px;margin-top:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center}
+  .week-summary .lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8;font-weight:700;margin-bottom:4px}
+  .week-summary .val{font-size:18px;font-weight:700;letter-spacing:-0.02em}
+  .week-summary .val.out{color:#fca5a5}
+  .week-summary .val.in{color:#86efac}
+  .week-summary .val.net{color:#fcd34d}
+  .week-summary .sub{font-size:10.5px;color:#94a3b8;margin-top:2px}
+  .footer{text-align:center;margin-top:30px;font-size:11px;color:var(--ink-muted);padding:12px}
+  @media(min-width:560px){
+    body{padding:28px 14px;font-size:15px}
+    .cards{grid-template-columns:repeat(4,1fr)}
+    .twocol{grid-template-columns:1fr 1fr}
+    .header h1{font-size:30px}
+  }
+
+  /* collapsible category groups */
+  details.catg{background:var(--card);border-radius:10px;margin-bottom:6px;box-shadow:0 1px 3px rgba(30,41,59,.05);overflow:hidden}
+  details.catg summary{cursor:pointer;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;list-style:none;font-size:13.5px;font-weight:600;color:var(--ink);outline:none}
+  details.catg summary::-webkit-details-marker{display:none}
+  details.catg summary::after{content:"+";color:var(--ink-muted);font-weight:400;font-size:20px;line-height:1;margin-left:8px;transition:transform .15s}
+  details.catg[open] summary::after{content:"\2212"}
+  details.catg .catg-icon{font-size:14px;margin-right:8px;display:inline-block}
+  details.catg .catg-amt{font-weight:700;color:var(--ink);margin-left:auto;padding-right:4px;letter-spacing:-0.01em}
+  details.catg .catg-body{padding:4px 14px 12px;border-top:1px solid var(--rule);background:#fafbfc}
+  details.catg .catg-body .item-row{font-size:12.5px;padding:5px 0;border-top:1px solid #eef2f7}
+  details.catg .catg-body .item-row:first-of-type{border-top:none;padding-top:8px}
+  details.catg .catg-body .subnote{font-size:11.5px;color:var(--ink-muted);font-style:italic;padding:4px 0 2px;line-height:1.4}
+  .flow-totals{background:#1e293b;color:#f8fafc;border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .flow-totals .flow-lbl{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8;font-weight:700}
+  .flow-totals .flow-amt{font-size:22px;font-weight:700;letter-spacing:-0.02em}
+  .flow-totals.in .flow-amt{color:#86efac}
+  .flow-totals.out .flow-amt{color:#fca5a5}
+
+  /* compact collapsible for headsup items + daily flow */
+  details.catg.compact{margin-bottom:4px}
+  details.catg.compact summary{padding:10px 14px;font-size:13px;font-weight:500;color:var(--ink)}
+  details.catg.compact summary::after{font-size:18px}
+  details.catg.compact .catg-body{padding:0 14px 10px}
+  details.catg.compact .catg-body p{margin:6px 0 0;font-size:12.5px;color:var(--ink-soft);line-height:1.5}
+  details.catg.compact .tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:2px 7px;border-radius:99px;margin-right:8px;vertical-align:middle}
+  details.catg.compact .tag.q{background:#fef3c7;color:#92400e}
+  details.catg.compact .tag.warn{background:#fee2e2;color:#991b1b}
+  details.catg.compact .tag.go{background:#d1fae5;color:#065f46}
+  details.catg.compact .tag.info{background:#dbeafe;color:#1e40af}
+  details.catg.dayrow summary{padding:11px 14px}
+  details.catg.dayrow .day-prefix{font-weight:700;color:var(--blue-deep);width:48px;flex-shrink:0;font-size:12px;letter-spacing:0.04em;display:inline-block}
+  details.catg.dayrow .day-prefix.warn{color:var(--red)}
+  details.catg.dayrow .day-flow{font-weight:700;font-size:12.5px;margin-left:4px}
+  details.catg.dayrow .day-flow.out{color:var(--red)}
+  details.catg.dayrow .day-flow.in{color:var(--green)}
+  details.catg.dayrow .day-flow.mixed{color:var(--ink)}
+  details.catg.dayrow .catg-amt{display:none}
+  details.catg.dayrow .catg-body{padding:6px 14px 12px 62px}
+  details.catg.dayrow .catg-body .desc{font-size:12.5px;color:var(--ink-soft);line-height:1.5}
+
+  /* mobile: allow long status to wrap inside its flex column; table cells wrap text naturally */
+  @media(max-width:559px){
+    .proj-status{white-space:normal !important}
+    .subs-table table{font-size:12px}
+    .subs-table th,.subs-table td{padding:7px 6px}
+    .subs-table td:first-child{white-space:nowrap}
+  }
+
+  .status-banner{border-radius:14px;padding:16px 18px;margin:18px 0 6px;display:flex;
+    gap:13px;align-items:flex-start;box-shadow:0 1px 3px rgba(30,41,59,.08)}
+  .status-banner.ok{background:#e8f5ee;border-left:5px solid var(--green)}
+  .status-banner.watch{background:#fdf3e3;border-left:5px solid var(--amber)}
+  .status-banner .sb-icon{font-size:26px;line-height:1}
+  .status-banner .sb-title{font-size:16px;font-weight:800;letter-spacing:-0.01em}
+  .status-banner.ok .sb-title{color:#1c5c43}
+  .status-banner.watch .sb-title{color:#8a5a12}
+  .status-banner .sb-text{font-size:13.5px;color:var(--ink-soft);margin-top:3px;line-height:1.5}
+  .status-banner .sb-text strong{color:inherit}
+  .card-delta{font-size:11px;font-weight:700;margin-top:3px}
+  .card-delta.up{color:var(--green)} .card-delta.down{color:var(--red)} .card-delta.flat{color:var(--ink-muted)}
+  .split-head{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;
+    color:var(--ink-muted);margin:14px 2px 6px}
+  .group-head{font-size:12px;font-weight:800;color:var(--blue-deep);margin:14px 2px 6px;
+    display:flex;align-items:center;gap:6px}
+  .actions{background:var(--card);border-radius:12px;padding:4px 0;box-shadow:0 1px 3px rgba(30,41,59,.06);
+    list-style:none;margin:0}
+  .actions li{padding:13px 16px;border-bottom:1px solid var(--rule);display:flex;gap:11px;
+    align-items:flex-start;font-size:13.5px;line-height:1.45}
+  .actions li:last-child{border-bottom:none}
+  .actions .num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--blue);
+    color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .actions .a-body{flex:1;color:var(--ink)} .actions .a-body .why{color:var(--ink-soft);font-size:12px;margin-top:2px}
+  .keybox{background:#f8fafc;border:1px solid var(--rule);border-radius:10px;padding:12px 14px;
+    margin-top:14px;font-size:11.5px;color:var(--ink-soft);line-height:1.7}
+  .keybox b{color:var(--ink)}
+  .dayrow.trough summary{background:#fff7ed} .dayrow.trough .day-prefix{color:var(--amber)}
+
+  /* inline cash-path chart */
+  .cashchart{width:100%;height:auto;display:block;border-radius:8px;background:#fff}
+  .cashchart .grid{stroke:var(--rule);stroke-width:1}
+  .cashchart .axislbl{fill:var(--ink-muted);font-size:10px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .cashchart .floorlbl{fill:var(--amber);font-size:9.5px;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .cashchart .ptlbl{fill:var(--ink);font-size:10.5px;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+
+  .proj-name a{color:var(--blue);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(59,110,165,.38)}
+  .proj-name a:hover{border-bottom-color:var(--blue)}
+  .proj-name a{color:var(--blue);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(59,110,165,.38)}
+  .proj-name a:hover{border-bottom-color:var(--blue)}
+  .proj-name a{color:var(--blue);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(59,110,165,.38)}
+  .proj-name a:hover{border-bottom-color:var(--blue)}</style>
+<!-- FIDELITY: changed=low-card-low-through-window-end reason=carried from the 11-06 page (her 11/06/2026 ruling 1: every low is stated WITH its window) -->
+<!-- FIDELITY: changed=daily-flow-through-the-low reason=carried from the 11-06 page: tomorrow through the first Andersen Friday after the window low; the chart shows the whole window and labels every other day -->
+<!-- FIDELITY: changed=floor-data-derived-with-warning-line reason=her 11/13/2026 D1 ruling (decision page reports/2026-11-13_estrategia_caixa_15k.html, "D1: sim"; "My feelings don't matter, numbers do"): the floor and a warning line come from state (buffer_floor, warning_line); the chart draws the warning line in the floor line's style, lighter; the low card says above/under the floor from the sign -->
+<!-- FIDELITY: added=receivables-job-balances-by-12-31 reason=her 11/13/2026 D4 ruling ("every money still to be paid, to come in by" the end of December): a Receivables group in the approved group-head / proj-list / dot.amber classes, read from the forecast builder's GC_BALANCES -->
+<!-- FIDELITY: added=cash-part-past-the-window reason=the 12/31/2026 balances sit past the window, and the plan's own rules dip under the floor before them: the 8-week view is stated with its condition (feedback_a_conditional_figure_must_state_its_condition) -->
+<!-- FIDELITY: dropped=bridge-after-friday-line reason=an on-time Friday build: no rows after Friday -->
+<!-- FIDELITY: changed=bridge-between-editions-line reason=six checks and last page's Portland hold posted dated 11/13/2026 after its export: the bridge names them (the 11-13 page named its not-repeated rows in the same note) -->
+<!-- FIDELITY: dropped=paid-on-its-way-group reason=one paid-not-landed invoice (70 Robin inv 0017): said in the receivables note and the cash part instead of a one-line group -->
+<!-- FIDELITY: changed=capital-one-minimum-out-of-plan reason=her Capital One screen 11/20/2026: Minimum Payment Due $0.00; the forecast rebuild of 11/20/2026 no longer draws it -->
+<!-- FIDELITY: dropped=mk-open-finals-line reason=MK Plumbing's open check cleared 11/16/2026 and no outcome of her 11/16/2026 MK follow-up is on record; not re-printed from the 11/13 figure -->
+<!-- FIDELITY: dropped=delta-up reason=net is negative this week (data-driven; both classes are in the approved stylesheet) -->
+<!-- FIDELITY: added=delta-down reason=net is negative this week (data-driven; both classes are in the approved stylesheet) -->
+<!-- FIDELITY: dropped=section-last-weeks-call-graded reason=her v3 review, verbatim: "what do you mean missed? if it's in the forecast then you can drop this entire thing." -->
+<!-- FIDELITY: dropped=checking-card-hold-names reason=her v3 review, verbatim: "drop this" -->
+<!-- FIDELITY: dropped=uncashed-checks-explainer reason=her v3 review, verbatim: "drop this section." -->
+<!-- FIDELITY: dropped=unpaid-line-leveroni reason=her v3 review, verbatim: "drop the 2k from leveroni from the expected amounts to receive - put it together with waived ones." -->
+<!-- FIDELITY: dropped=rba-sheet-reach-line reason=her v4 review, verbatim: "You can drop this line for now." -->
+<!-- FIDELITY: dropped=section-rafaels-trip-so-far reason=the trip is over (her 10/19/2026: "he got back yesterday"); its final tally was its own page (rfs-reports 2026-10-rafael-trip.html) -->
+<!-- FIDELITY: added=dates-mm-dd-yyyy reason=her 10/22/2026 rule, verbatim: "use MM/DD/YYY format always" (newer than the template). The chart axis ticks stay MM/DD (the section title carries the year) -->
+<!-- FIDELITY: added=cash-path-four-paragraphs reason=her v3 review, verbatim: "put spaces between paragraphs so it's better to read." (desc + subnote, the approved classes; spacing by inline margin) -->
+<!-- FIDELITY: added=prose-over-approved-length reason=bounded in the generator (banner, cash part, page total), as the 10-30 v2 page; for her call -->
+<div class="wrap">
+  <h1>Weekly Recap <span class="sub">11/16/2026 – 11/20/2026</span></h1>
+
+  <div class="status-banner watch">
+    <span class="sb-icon">⚠️</span>
+    <div>
+      <div class="sb-title">More out than in; cash dips under the floor on 11 days by 12/21/2026</div>
+      <div class="sb-text">Checking <strong>$61,109.77</strong> (Fri 11/20/2026). Under the $34,984.62 floor on 11 days by 12/21/2026. Low through 12/21/2026: <strong>$25,523.67 on 12/10/2026</strong>; $19,443.34 if Andersen's 11/27/2026 deposit brings only the sheet's work. <strong>$6,476.96 sent and unpaid</strong>; $75,879.32 of job balances expected by 12/31/2026.</div>
+    </div>
+  </div>
+
+  <div class="info-note"><strong>Since last week's page</strong>: six checks ($8,605.86) and the Portland Group card hold ($2,388.27) posted dated 11/13/2026, after its export. Bridge: $104,130.43 + $2,588.27 pending then − $10,994.13 late − $33,356.44 this week − $1,258.36 pending now = $61,109.77.</div>
+
+  <div class="cards">
+    <div class="card"><div class="card-label">Checking (Fri 11/20/2026)</div>
+      <div class="card-value">$61.1K</div><div class="card-sub">$61,109.77, reconciled · $1,258.36 pending</div></div>
+    <div class="card"><div class="card-label">Money in (week)</div>
+      <div class="card-value">$23.1K</div><div class="card-sub">$23,074.96 · 2 deposits</div></div>
+    <div class="card"><div class="card-label">Money out (week)</div>
+      <div class="card-value">$56.4K</div><div class="card-sub">$56,431.40 · net <span class="delta-down"><span style="white-space:nowrap">−$33,356.44</span></span></div></div>
+    <div class="card"><div class="card-label">Cap One available</div>
+      <div class="card-value">$15.0K</div><div class="card-sub">after $308.26 pending · from the 11/10/2026 statement</div></div>
+  </div>
+
+  <div class="section-title"><span class="icon">💵</span>Where the money moved · this week</div>
+
+  <div class="flow-totals in"><span class="flow-lbl">▼ Money In</span><span class="flow-amt">$23.1K</span></div>
+  <details class="catg"><summary><span class="catg-icon">🏠</span>Andersen (RBA)<span class="catg-amt">+$18,640.03</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Fri 11/20/2026 · Andersen Corpor · net of the Vogt backcharge, 4 of 4 ($400.00)</span><span class="amt">+$18,640.03</span></div></div></details><details class="catg"><summary><span class="catg-icon">💳</span>Client payments<span class="catg-amt">+$4,434.93</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Thu 11/19/2026 · BuilderTrend · 51 Cedar St · inv 0015 + 0016 (paid online by Eric Henson)</span><span class="amt">+$4,434.93</span></div></div></details>
+
+  <div class="flow-totals out"><span class="flow-lbl">▲ Money Out</span><span class="flow-amt">$56.4K</span></div>
+  <details class="catg"><summary><span class="catg-icon">✍️</span>Checks (payroll & subs)<span class="catg-amt">−$47,917.40</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Mon 11/16/2026 · check #4099 · Petersen Services Inc</span><span class="amt">−$9,900.00</span></div><div class="item-row"><span class="desc">Tue 11/17/2026 · check #4096 · Saba HVAC</span><span class="amt">−$7,570.00</span></div><div class="item-row"><span class="desc">Tue 11/17/2026 · check #4100 · Skytech</span><span class="amt">−$7,520.00</span></div><div class="item-row"><span class="desc">Thu 11/19/2026 · check #4111 · Hybrid</span><span class="amt">−$5,500.00</span></div><div class="item-row"><span class="desc">Mon 11/16/2026 · check #4054 · MK Plumbing</span><span class="amt">−$3,010.00</span></div><div class="item-row"><span class="desc">Tue 11/17/2026 · check #4089 · Luiz Henrique de Assis</span><span class="amt">−$2,334.92</span></div><div class="item-row"><span class="desc">Thu 11/19/2026 · check #4101 · Guilherme Souza</span><span class="amt">−$2,000.00</span></div><div class="item-row"><span class="desc">Mon 11/16/2026 · check #4085 · Antonio Augusto Tuler</span><span class="amt">−$1,846.42</span></div><div class="item-row"><span class="desc">Mon 11/16/2026 · check #4088 · Gustavo de Souza</span><span class="amt">−$1,790.40</span></div><div class="item-row"><span class="desc">Tue 11/17/2026 · check #4102 · Hadassa Lima</span><span class="amt">−$1,600.00</span></div><div class="item-row"><span class="desc">Thu 11/19/2026 · check #4105 · Gerson da Silva Junior</span><span class="amt">−$1,586.78</span></div><div class="item-row"><span class="desc">Thu 11/19/2026 · check #4104 · Ederson Oliveira</span><span class="amt">−$1,296.20</span></div><div class="item-row"><span class="desc">Mon 11/16/2026 · check #4090 · Samuel Valadares (11/10/2026 run)</span><span class="amt">−$1,152.23</span></div><div class="item-row"><span class="desc">Thu 11/19/2026 · check #4108 · Samuel Valadares (11/17/2026 run)</span><span class="amt">−$810.45</span></div></div></details><details class="catg"><summary><span class="catg-icon">🚚</span>Suppliers & other<span class="catg-amt">−$7,514.00</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Wed 11/18/2026 · AMERICAN CARRI BOISE ID 0126</span><span class="amt">−$1,215.00</span></div><div class="item-row"><span class="desc">Fri 11/20/2026 · NEW YORK LIFE</span><span class="amt">−$1,000.00</span></div><div class="item-row"><span class="desc">Fri 11/20/2026 · NEW YORK LIFE</span><span class="amt">−$1,000.00</span></div><div class="item-row"><span class="desc">Thu 11/19/2026 · AMERICAN CARRI BOISE ID 0126</span><span class="amt">−$968.00</span></div><div class="item-row"><span class="desc">Mon 11/16/2026 · ASSOCIATED BANK</span><span class="amt">−$885.59</span></div><div class="item-row"><span class="desc">Mon 11/16/2026 · CITIZENS ONE AU</span><span class="amt">−$870.84</span></div><div class="item-row"><span class="desc">Thu 11/19/2026 · Walmart.com Bentonville AR 0126</span><span class="amt">−$610.10</span></div><div class="item-row"><span class="desc">Thu 11/19/2026 · ALLY</span><span class="amt">−$400.00</span></div><div class="item-row"><span class="desc">Thu 11/19/2026 · WRIGHT EXPRESS</span><span class="amt">−$187.80</span></div><div class="item-row"><span class="desc">Mon 11/16/2026 · WWW.MENSHEALTH CHESTNUT HILLMA 0126 (personal)</span><span class="amt">−$175.00</span></div><div class="item-row"><span class="desc">Tue 11/17/2026 · SHELL 57544910 TEWKSBURY MA 0126</span><span class="amt">−$86.07</span></div><div class="item-row"><span class="desc">Tue 11/17/2026 · ATT</span><span class="amt">−$50.43</span></div><div class="item-row"><span class="desc">Tue 11/17/2026 · MAHONEY OIL CO LOWELL MA 0126</span><span class="amt">−$30.17</span></div><div class="item-row"><span class="desc">Mon 11/16/2026 · STARBUCKS 8007 SEATTLE WA 0126</span><span class="amt">−$25.00</span></div><div class="item-row"><span class="desc">Tue 11/17/2026 · PLANET FITNESS</span><span class="amt">−$10.00</span></div></div></details><details class="catg"><summary><span class="catg-icon">💳</span>Credit cards<span class="catg-amt">−$1,000.00</span></summary><div class="catg-body"><div class="item-row"><span class="desc">Tue 11/17/2026 · CAPITAL ONE ONLINE PMT</span><span class="amt">−$1,000.00</span></div></div></details>
+
+  <div class="info-note"><strong>In:</strong> Andersen $18,640.03 (Fri 11/20/2026, advice MPG99258630), including the $700.00 Andersen promised 11/12/2026 and net of Vogt 4 of 4 ($400.00); clients $4,434.93 (below). <strong>Out:</strong> $47,917.40 of checks, Capital One $1,000.00 (11/17/2026) and $7,514.00 of other items.</div>
+
+
+  <div class="section-title"><span class="icon">📉</span>Cash path · today through 12/21/2026</div>
+  <div class="catg-body">
+    <svg class="cashchart" viewBox="0 0 680 285" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Cash path 11/20/2026 through 12/21/2026: starts at 48,595 dollars and reaches its lowest in this window, 25,523 dollars, on Thursday 12/10/2026, 9,460 dollars below the 34,984 dollar floor"><rect x="52" y="22" width="608" height="87.6" fill="#3b8268" opacity="0.06"/><rect x="52" y="109.6" width="608" height="122.4" fill="#b8443c" opacity="0.09"/><line class="grid" x1="52" y1="232.0" x2="660" y2="232.0"/><text class="axislbl" x="46" y="235.3" text-anchor="end">$0K</text><line class="grid" x1="52" y1="162.0" x2="660" y2="162.0"/><text class="axislbl" x="46" y="165.3" text-anchor="end">$20K</text><line class="grid" x1="52" y1="92.0" x2="660" y2="92.0"/><text class="axislbl" x="46" y="95.3" text-anchor="end">$40K</text><line class="grid" x1="52" y1="22.0" x2="660" y2="22.0"/><text class="axislbl" x="46" y="25.3" text-anchor="end">$60K</text><line class="grid" x1="52" y1="109.6" x2="660" y2="109.6" stroke="#c8841d" stroke-dasharray="4 3"/><text class="floorlbl" x="56" y="104.6">$34,984 floor</text><line class="grid" x1="52" y1="40.5" x2="660" y2="40.5" stroke="#c8841d" stroke-dasharray="2 4" opacity="0.6"/><text class="floorlbl" x="656" y="35.5" text-anchor="end">$54,706 warning line</text><polyline points="52.0,61.9 71.6,66.6 91.2,66.6 110.8,66.6 130.5,86.2 150.1,128.6 169.7,128.6 189.3,90.1 208.9,90.1 228.5,90.1 248.1,90.1 267.7,106.9 287.4,106.9 307.0,130.9 326.6,92.0 346.2,92.5 365.8,93.4 385.4,93.4 405.0,108.4 424.6,109.6 444.3,142.7 463.9,103.7 483.5,103.8 503.1,106.2 522.7,112.3 542.3,115.2 561.9,115.2 581.5,139.5 601.2,100.6 620.8,100.6 640.4,111.4 660.0,116.1" fill="none" stroke="#3b8268" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="52.0" cy="61.9" r="3.5" fill="#3b8268"/><text class="ptlbl" x="52.0" y="52.9" text-anchor="start">$48.6K</text><text class="axislbl" x="52.0" y="248" text-anchor="middle">11/20</text><circle cx="71.6" cy="66.6" r="2.2" fill="#3b8268"/><circle cx="91.2" cy="66.6" r="2.2" fill="#3b8268"/><text class="axislbl" x="91.2" y="248" text-anchor="middle">11/22</text><circle cx="110.8" cy="66.6" r="2.2" fill="#3b8268"/><circle cx="130.5" cy="86.2" r="2.2" fill="#3b8268"/><text class="axislbl" x="130.5" y="248" text-anchor="middle">11/24</text><circle cx="150.1" cy="128.6" r="2.2" fill="#c8841d"/><text class="ptlbl" x="150.1" y="119.6" text-anchor="middle">$29.5K</text><circle cx="169.7" cy="128.6" r="2.2" fill="#c8841d"/><text class="ptlbl" x="169.7" y="143.6" text-anchor="middle">$29.5K</text><text class="axislbl" x="169.7" y="248" text-anchor="middle">11/26</text><circle cx="189.3" cy="90.1" r="2.2" fill="#3b8268"/><circle cx="208.9" cy="90.1" r="2.2" fill="#3b8268"/><text class="axislbl" x="208.9" y="248" text-anchor="middle">11/28</text><circle cx="228.5" cy="90.1" r="2.2" fill="#3b8268"/><circle cx="248.1" cy="90.1" r="2.2" fill="#3b8268"/><text class="axislbl" x="248.1" y="248" text-anchor="middle">11/30</text><circle cx="267.7" cy="106.9" r="2.2" fill="#c8841d"/><text class="ptlbl" x="267.7" y="97.9" text-anchor="middle">$35.7K</text><circle cx="287.4" cy="106.9" r="2.2" fill="#c8841d"/><text class="ptlbl" x="287.4" y="121.9" text-anchor="middle">$35.7K</text><text class="axislbl" x="287.4" y="248" text-anchor="middle">12/02</text><circle cx="307.0" cy="130.9" r="2.2" fill="#c8841d"/><text class="ptlbl" x="307.0" y="145.9" text-anchor="middle">$28.9K</text><circle cx="326.6" cy="92.0" r="2.2" fill="#3b8268"/><text class="axislbl" x="326.6" y="248" text-anchor="middle">12/04</text><circle cx="346.2" cy="92.5" r="2.2" fill="#3b8268"/><circle cx="365.8" cy="93.4" r="2.2" fill="#3b8268"/><text class="axislbl" x="365.8" y="248" text-anchor="middle">12/06</text><circle cx="385.4" cy="93.4" r="2.2" fill="#3b8268"/><circle cx="405.0" cy="108.4" r="2.2" fill="#c8841d"/><text class="ptlbl" x="405.0" y="99.4" text-anchor="middle">$35.3K</text><text class="axislbl" x="405.0" y="248" text-anchor="middle">12/08</text><circle cx="424.6" cy="109.6" r="2.2" fill="#c8841d"/><text class="ptlbl" x="424.6" y="124.6" text-anchor="middle">$35.0K</text><circle cx="444.3" cy="142.7" r="3.5" fill="#c8841d"/><text class="ptlbl" x="444.3" y="157.7" text-anchor="middle">$25.5K</text><text class="axislbl" x="444.3" y="248" text-anchor="middle">12/10</text><circle cx="463.9" cy="103.7" r="2.2" fill="#c8841d"/><text class="ptlbl" x="463.9" y="94.7" text-anchor="middle">$36.7K</text><circle cx="483.5" cy="103.8" r="2.2" fill="#c8841d"/><text class="ptlbl" x="483.5" y="118.8" text-anchor="middle">$36.6K</text><text class="axislbl" x="483.5" y="248" text-anchor="middle">12/12</text><circle cx="503.1" cy="106.2" r="2.2" fill="#c8841d"/><text class="ptlbl" x="503.1" y="97.2" text-anchor="middle">$35.9K</text><circle cx="522.7" cy="112.3" r="2.2" fill="#c8841d"/><text class="ptlbl" x="522.7" y="127.3" text-anchor="middle">$34.2K</text><text class="axislbl" x="522.7" y="248" text-anchor="middle">12/14</text><circle cx="542.3" cy="115.2" r="2.2" fill="#c8841d"/><text class="ptlbl" x="542.3" y="106.2" text-anchor="middle">$33.4K</text><circle cx="561.9" cy="115.2" r="2.2" fill="#c8841d"/><text class="ptlbl" x="561.9" y="130.2" text-anchor="middle">$33.4K</text><text class="axislbl" x="561.9" y="248" text-anchor="middle">12/16</text><circle cx="581.5" cy="139.5" r="2.2" fill="#c8841d"/><text class="ptlbl" x="581.5" y="154.5" text-anchor="middle">$26.4K</text><circle cx="601.2" cy="100.6" r="2.2" fill="#c8841d"/><text class="ptlbl" x="601.2" y="91.6" text-anchor="middle">$37.6K</text><text class="axislbl" x="601.2" y="248" text-anchor="middle">12/18</text><circle cx="620.8" cy="100.6" r="2.2" fill="#c8841d"/><text class="ptlbl" x="620.8" y="115.6" text-anchor="middle">$37.6K</text><circle cx="640.4" cy="111.4" r="2.2" fill="#c8841d"/><text class="ptlbl" x="640.4" y="102.4" text-anchor="middle">$34.5K</text><text class="axislbl" x="640.4" y="248" text-anchor="middle">12/20</text><circle cx="660.0" cy="116.1" r="3.5" fill="#c8841d"/><text class="ptlbl" x="660.0" y="131.1" text-anchor="end">$33.1K</text><text class="axislbl" x="660.0" y="248" text-anchor="middle">12/21</text></svg>
+    <div class="desc">Today: $11,473.83 of written checks, $691.00 Home Depot card minimum and $2,738.10 of estimates; 70 Robin inv 0017 +$2,388.27 if it lands. Check #4103 · Antonio Augusto Tuler is at $0.00 (likely on hold).</div>
+    <div class="desc" style="margin-top:10px">Low through 12/21/2026: <strong>$25,523.67 on Thu 12/10/2026</strong>, $9,460.95 under the $34,984.62 floor (under it on 11 days, first 11/25/2026); under the $54,706.75 warning line 32 days. Andersen at the average of its last 4 ($22,770.33); if 11/27/2026 brings only the RBA sheet's work ($16,690.00, sheet of 11/13/2026): $19,443.34.</div>
+    <div class="subnote" style="margin-top:10px"><strong>Past 12/21/2026</strong> (same rules): $9,361.18 on 12/25/2026, under the floor on 12/22/2026–12/30/2026, before $75,879.32 of job balances expected 12/31/2026.</div>
+    <div class="subnote" style="margin-top:6px">Capital One's minimum due 12/05/2026 is $0.00 ($14,352.00 moved to the US Bank card 11/18/2026); that card's first minimum (due the 5th, amount not known yet) is not in the plan; $1,080.00 RBA overpayment may be deducted.</div>
+  </div>
+
+  <div class="week-summary">
+    <div><div class="lbl">Checking today</div><div class="val in">$61.1K</div><div class="sub">reconciled Friday</div></div>
+    <div><div class="lbl">Net this week</div><div class="val out">−$33.4K</div><div class="sub">in minus out</div></div>
+    <div><div class="lbl">Low through 12/21/2026 (Thu 12/10/2026)</div><div class="val net">$25.5K</div><div class="sub">$9,460.95 under floor</div></div>
+  </div>
+
+  <div class="section-title"><span class="icon">📋</span>Receivables — what's outstanding</div>
+
+  <div class="group-head">Sent and still unpaid</div>
+  <ul class="proj-list">
+    <li><span class="dot amber"></span><span class="proj-name">Chris Heaton · 14 Guernsey St · Progress invoice (inv Heaton-0012)</span><span class="proj-status"><span class="key">$6,476.96</span> · <span class="badge pending" style="margin-left:6px">balance past due (BuilderTrend reminder 11/15/2026)</span></span></li>
+    <li class="proj-total"><span>Sent, awaiting payment</span><span>$6,476.96</span></li>
+  </ul>
+  <div class="group-head">Job balances expected by 12/31/2026</div>
+  <ul class="proj-list">
+    <li><span class="dot amber"></span><span class="proj-name">Bob Rochford · 70 Robin St</span><span class="proj-status"><span class="key">$43,621.21</span> · <span class="badge pending" style="margin-left:6px">still to bill, by progress</span></span></li><li><span class="dot amber"></span><span class="proj-name">Chris Heaton · 14 Guernsey St</span><span class="proj-status"><span class="key">$21,403.92</span> · <span class="badge pending" style="margin-left:6px">includes inv Heaton-0012 above</span></span></li><li><span class="dot amber"></span><span class="proj-name">Gillian Haney · 26 Lee St</span><span class="proj-status"><span class="key">$5,973.73</span> · <span class="badge pending" style="margin-left:6px">after the credits sent to the client 11/16/2026</span></span></li><li><span class="dot amber"></span><span class="proj-name">Paula Smith · 51 Cedar St Unit C</span><span class="proj-status"><span class="key">$4,880.46</span> · <span class="badge pending" style="margin-left:6px">still to bill, by progress</span></span></li>
+    <li class="proj-total"><span>Expected by 12/31/2026</span><span>$75,879.32</span></li>
+  </ul>
+  <div class="group-head">Waived — not chased</div>
+  <ul class="proj-list">
+    <li><span class="dot gray"></span><span class="proj-name">Charles Leveroni · 299 Ocean Ave · Final Invoice</span><span class="proj-status"><span class="key">$2,000.00</span> · waived 10/16/2026, not paid</span></li>
+    <li class="proj-total"><span>Waived, not chased</span><span>$2,000.00</span></li>
+  </ul>
+  <div class="info-note">Last week's 26 Lee inv 0008 ($1,840.00) is covered by the credits sent to the client 11/16/2026. Paid this week: 51 Cedar inv 0015 + 0016 ($4,434.93, 11/19/2026). 70 Robin inv 0017 ($2,388.27) is paid in BuilderTrend, not in the bank yet. 12/31/2026 assumes every ongoing job finishes in December.</div>
+
+  <div class="section-title"><span class="icon">🧾</span>Payables &amp; the check schedule</div>
+
+  <div class="group-head">Written but not yet cashed</div>
+  <div class="subs-table"><table>
+    <tr><th>#</th><th>Payee</th><th class="amt">Amount</th><th>Where it is</th></tr>
+    <tr><td>4107</td><td>Luiz Henrique de Assis</td><td class="amt">$1,739.72</td><td><span class="badge pending">11/17/2026 payroll run</span></td></tr><tr><td>4106</td><td>Gustavo de Souza</td><td class="amt">$1,636.40</td><td><span class="badge pending">11/17/2026 payroll run</span></td></tr><tr><td>4109</td><td>Teixeira's Carpentry Corp</td><td class="amt">$1,567.90</td><td><span class="badge pending">11/17/2026 payroll run</span></td></tr><tr><td>4092</td><td>Wilson Da Silva</td><td class="amt">$1,399.71</td><td><span class="badge pending">11/10/2026 payroll run</span></td></tr><tr><td>4103</td><td>Antonio Augusto Tuler</td><td class="amt">$1,258.36</td><td><span class="badge pending">11/17/2026 payroll run · likely the $1,258.36 hold at the bank (same amount; no number shown)</span></td></tr><tr><td>4080</td><td>Wilson Da Silva</td><td class="amt">$1,130.61</td><td><span class="badge pending">11/03/2026 payroll run</span></td></tr><tr><td>4110</td><td>Wilson Da Silva</td><td class="amt">$1,058.85</td><td><span class="badge pending">11/17/2026 payroll run</span></td></tr><tr><td>4024</td><td>Wilson Da Silva</td><td class="amt">$956.04</td><td><span class="badge pending">10/14/2026 payroll run</span></td></tr><tr><td>4097</td><td>South Shore Spray Foam</td><td class="amt">$903.30</td><td><span class="badge pending">printed 11/12/2026, 70 Robin, not in our register yet</span></td></tr><tr><td>4063</td><td>Wilson Da Silva</td><td class="amt">$901.30</td><td><span class="badge pending">10/27/2026 payroll run</span></td></tr><tr><td>4051</td><td>AJ Cleaning Services (AJ Thorne)</td><td class="amt">$180.00</td><td><span class="badge printed">written 10/21/2026, 70 Robin porta-potty</span></td></tr>
+  </table></div>
+  <ul class="proj-list">
+    <li class="proj-total"><span>Still to leave the account</span><span>$11,473.83</span></li>
+    <li><span>Plus already held at the bank (pending today, likely #4103 Antonio Augusto Tuler) — already out of today's $61,109.77</span><span>$1,258.36</span></li>
+  </ul>
+
+  <div class="group-head">Checks to write next</div>
+  <ul class="proj-list">
+    <li><span class="dot amber"></span><span class="proj-name">Payroll, week ending 11/21/2026</span><span class="proj-status"><span class="key">$16,076.94</span> · <span class="badge partial" style="margin-left:6px">estimate · 11/25/2026 + 11/27/2026</span></span></li><li><span class="dot amber"></span><span class="proj-name">Payroll, week ending 11/28/2026</span><span class="proj-status"><span class="key">$15,951.94</span> · <span class="badge partial" style="margin-left:6px">estimate · 12/03/2026 + 12/04/2026</span></span></li><li><span class="dot amber"></span><span class="proj-name">Payroll, week ending 12/05/2026</span><span class="proj-status"><span class="key">$15,951.94</span> · <span class="badge partial" style="margin-left:6px">estimate · 12/10/2026 + 12/11/2026</span></span></li><li><span class="dot amber"></span><span class="proj-name">Payroll, week ending 12/12/2026</span><span class="proj-status"><span class="key">$15,951.94</span> · <span class="badge partial" style="margin-left:6px">estimate · 12/17/2026 + 12/18/2026</span></span></li><li><span class="dot amber"></span><span class="proj-name">Oxbow Electrical · 70 Robin</span><span class="proj-status"><span class="key">$5,600.00</span> · <span class="badge pending" style="margin-left:6px">check promised 11/24/2026 · no number yet</span></span></li><li><span class="dot amber"></span><span class="proj-name">December office rent · Jaar Realty</span><span class="proj-status"><span class="key">$745.00</span> · <span class="badge pending" style="margin-left:6px">check about 12/01/2026</span></span></li><li><span class="dot amber"></span><span class="proj-name">Owner item, scheduled</span><span class="proj-status"><span class="key">$4,046.38</span> · <span class="badge pending" style="margin-left:6px">check mailed 11/23/2026 · modelled to clear 12/01/2026</span></span></li>
+  </ul>
+  <div class="info-note">All four payroll runs are estimates (median of the last 3 runs; the newest was $14,554.66, so they may run high). Not in the plan: Saba HVAC's last $1,780.00, held until 70 Robin is done. South Shore's $903.30 retainage is check #4097 · South Shore Spray Foam.</div>
+
+  <div class="section-title"><span class="icon">📅</span>Next weeks — daily flow through 12/11/2026</div>
+  <div class="catg-body">
+    <details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">SAT 11/21/2026</span><span class="day-flow out">−$1,343.09 · EOD $47,252.02</span></summary><div class="catg-body"><div class="desc">Travelers insurance $1,343.09.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">SUN 11/22/2026</span><span class="day-flow out">$0.00 · EOD $47,252.02</span></summary><div class="catg-body"><div class="desc">Nothing modelled.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">MON 11/23/2026</span><span class="day-flow out">$0.00 · EOD $47,252.02</span></summary><div class="catg-body"><div class="desc">Nothing modelled.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">TUE 11/24/2026</span><span class="day-flow out">−$5,600.00 · EOD $41,652.02</span></summary><div class="catg-body"><div class="desc">Oxbow Electrical $5,600.00 (70 Robin; check promised for today, no number yet).</div></div></details><details class="catg dayrow" open><summary><span class="day-prefix warn" style="width:auto;margin-right:6px">WED 11/25/2026</span><span class="day-flow out">−$12,119.09 · EOD $29,532.93</span></summary><div class="catg-body"><div class="desc"><strong>Payroll Thursday share</strong> $6,859.33 (est.) (moved up from Thanksgiving, a bank holiday); payroll taxes (BILO) $2,535.32; New York Life 2 × $1,000.00; AT&amp;T $724.44. <strong>Under the floor from here.</strong></div></div></details><details class="catg dayrow"><summary><span class="day-prefix warn" style="width:auto;margin-right:6px">THU 11/26/2026</span><span class="day-flow out">$0.00 · EOD $29,532.93</span></summary><div class="catg-body"><div class="desc">Nothing modelled.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">FRI 11/27/2026</span><span class="day-flow in">+$11,003.22 · EOD $40,536.15</span></summary><div class="catg-body"><div class="desc"><strong>Andersen</strong> $22,770.33 (average); <strong>payroll Friday rest</strong> $9,217.61 (est.); routine debit spend $2,549.50 (estimate). Back over the floor.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">SAT 11/28/2026</span><span class="day-flow out">$0.00 · EOD $40,536.15</span></summary><div class="catg-body"><div class="desc">Nothing modelled.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">SUN 11/29/2026</span><span class="day-flow out">$0.00 · EOD $40,536.15</span></summary><div class="catg-body"><div class="desc">Nothing modelled.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">MON 11/30/2026</span><span class="day-flow out">$0.00 · EOD $40,536.15</span></summary><div class="catg-body"><div class="desc">Nothing modelled.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">TUE 12/01/2026</span><span class="day-flow out">−$4,791.38 · EOD $35,744.77</span></summary><div class="catg-body"><div class="desc">Owner item, scheduled $4,046.38; December office rent check to Jaar Realty, $745.00.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">WED 12/02/2026</span><span class="day-flow out">$0.00 · EOD $35,744.77</span></summary><div class="catg-body"><div class="desc">Nothing modelled.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix warn" style="width:auto;margin-right:6px">THU 12/03/2026</span><span class="day-flow out">−$6,859.33 · EOD $28,885.44</span></summary><div class="catg-body"><div class="desc"><strong>Payroll Thursday share</strong> $6,859.33 (est.). <strong>Back under the floor.</strong></div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">FRI 12/04/2026</span><span class="day-flow in">+$11,128.22 · EOD $40,013.66</span></summary><div class="catg-body"><div class="desc"><strong>Andersen</strong> $22,770.33 (average); <strong>payroll Friday rest</strong> $9,092.61 (est.); routine debit spend $2,549.50 (estimate). Back over the floor.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">SAT 12/05/2026</span><span class="day-flow out">−$167.50 · EOD $39,846.16</span></summary><div class="catg-body"><div class="desc">Providence Mutual $167.50.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">SUN 12/06/2026</span><span class="day-flow out">−$233.02 · EOD $39,613.14</span></summary><div class="catg-body"><div class="desc">Sunrun $233.02.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">MON 12/07/2026</span><span class="day-flow out">$0.00 · EOD $39,613.14</span></summary><div class="catg-body"><div class="desc">Nothing modelled.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">TUE 12/08/2026</span><span class="day-flow out">−$4,312.86 · EOD $35,300.28</span></summary><div class="catg-body"><div class="desc">CrossCountry mortgage $4,312.86.</div></div></details><details class="catg dayrow"><summary><span class="day-prefix warn" style="width:auto;margin-right:6px">WED 12/09/2026</span><span class="day-flow out">−$323.08 · EOD $34,977.20</span></summary><div class="catg-body"><div class="desc">M&amp;T trailer loan $323.08. <strong>Back under the floor.</strong></div></div></details><details class="catg dayrow trough" open><summary><span class="day-prefix warn" style="width:auto;margin-right:6px">THU 12/10/2026</span><span class="day-flow out">−$9,453.53 · EOD $25,523.67</span></summary><div class="catg-body"><div class="desc"><strong>Payroll Thursday share</strong> $6,859.33 (est.); payroll taxes (BILO) $2,535.32; Progressive insurance $58.88. <strong>Lowest day through 12/21/2026: $25,523.67.</strong></div></div></details><details class="catg dayrow"><summary><span class="day-prefix" style="width:auto;margin-right:6px">FRI 12/11/2026</span><span class="day-flow in">+$11,128.22 · EOD $36,651.89</span></summary><div class="catg-body"><div class="desc"><strong>Andersen</strong> $22,770.33 (average); <strong>payroll Friday rest</strong> $9,092.61 (est.); routine debit spend $2,549.50 (estimate). Back over the floor.</div></div></details>
+  </div>
+  <div class="week-summary">
+    <div><div class="lbl">Start (Sat 11/21/2026)</div><div class="val in">$48.6K</div><div class="sub">after everything due today is drawn</div></div>
+    <div><div class="lbl">Plan's last day (Mon 12/21/2026)</div><div class="val in">$33.1K</div><div class="sub">the window ends on a Monday</div></div>
+    <div><div class="lbl">Payroll drawn</div><div class="val out">$63.9K</div><div class="sub">four runs, estimates</div></div>
+  </div>
+
+  <div class="footer">Built 11/20/2026 at 10:16 AM from the
+  reconciled Citizens export of 11/20/2026 and the derivation in
+  <code>scripts/weekly_path_2026-11-20.py</code>. Every figure re-derived, none carried. Receivables are
+  BuilderTrend's own e-mails and the reconcile's attributions; the 12/31/2026 balances are the forecast's own list
+  (the 8-week view runs its rules on a copy, never on the live plan); drafts are not counted. The RBA figures
+  are the sheet as pulled 11/13/2026
+  3:17 PM. The Capital One figure is computed from
+  the card's 11/10/2026 statement and the charges and payments since (the typed card balance matches it).</div>
+</div>
